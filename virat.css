@@ -35,14 +35,19 @@
   }
 
   .navbar {
-      margin: 0 !important;
-      padding: 0 !important;
-      font-size: 20px;
+    margin: 0 !important;
+    padding: 0 !important;
+    font-size: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
   }
 
   .nav-gradient {
-      background: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important;
-      box-shadow: 0 4px 20px rgba(99, 60, 180, 0.5);
+     background: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important;
+    box-shadow: 0 4px 20px rgba(99, 60, 180, 0.5);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
   }
 
   .navbar-nav .nav-link {
