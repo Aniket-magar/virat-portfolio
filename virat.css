@@ -37,12 +37,12 @@
   .navbar {
       margin: 0 !important;
       padding: 0 !important;
+      font-size: 20px;
   }
 
   .nav-gradient {
       background: linear-gradient(135deg, #0f0c29, #302b63, #24243e) !important;
       box-shadow: 0 4px 20px rgba(99, 60, 180, 0.5);
-      font-size: 20px;
   }
 
   .navbar-nav .nav-link {
@@ -59,7 +59,7 @@
   }
 
   .navbar-toggler {
-      border-color: rgba(167, 139, 250, 0.6) !important;
+      border-color: rgba(216, 209, 236, 0.6) !important;
   }
 
   .navbar-toggler-icon {
@@ -248,6 +248,10 @@
       background: linear-gradient(180deg, #0f0c29, #1a1040, #0f0c29);
   }
 
+  #career a{
+    text-decoration: none;
+    color: inherit;
+  }
   .career-card {
       background: rgba(48, 43, 99, 0.3);
       border: 1px solid rgba(167, 139, 250, 0.15);

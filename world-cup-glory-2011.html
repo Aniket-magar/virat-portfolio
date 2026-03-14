@@ -1,0 +1,2089 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virat Kohli — World Cup Glory 2011</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --indigo-deep: #0f0c29;
+      --indigo-mid: #302b63;
+      --violet: #7c3aed;
+      --lavender: #a78bfa;
+      --gold: #f59e0b;
+      --gold-light: #fcd34d;
+      --trophy: #FFD700;
+      --trophy-dim: rgba(255,215,0,0.12);
+      --white: #ffffff;
+      --text-muted: #c4b5fd;
+      --card-bg: rgba(48,43,99,0.28);
+      --border: rgba(167,139,250,0.18);
+      --green: #10b981;
+      --green-dim: rgba(16,185,129,0.15);
+    }
+
+    body {
+      background: var(--indigo-deep);
+      color: var(--white);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ══════════ HERO ══════════ */
+    .wc-hero {
+      position: relative;
+      min-height: 65vh;
+      display: flex;
+      align-items: flex-end;
+      overflow: hidden;
+      background: linear-gradient(160deg, #08051a 0%, #1c1035 55%, #0f0c29 100%);
+    }
+
+    /* Confetti-like diagonal lines for celebration */
+    .wc-hero::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        repeating-linear-gradient(
+          -45deg,
+          transparent,
+          transparent 60px,
+          rgba(255,215,0,0.025) 60px,
+          rgba(255,215,0,0.025) 61px
+        ),
+        repeating-linear-gradient(
+          45deg,
+          transparent,
+          transparent 80px,
+          rgba(124,58,237,0.025) 80px,
+          rgba(124,58,237,0.025) 81px
+        );
+      pointer-events: none;
+    }
+
+    /* Trophy glow radial */
+    .wc-hero::after {
+      content: '';
+      position: absolute;
+      top: -10%;
+      right: 5%;
+      width: 600px; height: 600px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(255,215,0,0.10) 0%, rgba(124,58,237,0.08) 40%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Floating trophy watermark */
+    .hero-trophy-bg {
+      position: absolute;
+      right: 6%;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: clamp(10rem, 22vw, 20rem);
+      opacity: 0.055;
+      pointer-events: none;
+      user-select: none;
+      filter: blur(2px);
+      animation: floatTrophy 6s ease-in-out infinite;
+      z-index: 1;
+    }
+
+    @keyframes floatTrophy {
+      0%, 100% { transform: translateY(-50%) scale(1); }
+      50%       { transform: translateY(-54%) scale(1.02); }
+    }
+
+    .hero-inner {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding: 80px 60px 60px;
+    }
+
+    .hero-eyebrow {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 20px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .eyebrow-line {
+      width: 50px; height: 2px;
+      background: linear-gradient(90deg, var(--trophy), transparent);
+    }
+
+    .eyebrow-text {
+      font-size: 0.72rem;
+      letter-spacing: 5px;
+      color: var(--trophy);
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .hero-date-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: rgba(255,215,0,0.08);
+      border: 1px solid rgba(255,215,0,0.28);
+      border-radius: 4px;
+      padding: 8px 20px;
+      margin-bottom: 24px;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+
+    .hero-date-badge .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--trophy);
+      animation: pulse 2s infinite;
+    }
+
+    .hero-date-badge span {
+      font-size: 0.8rem;
+      letter-spacing: 3px;
+      color: var(--gold-light);
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+
+    .hero-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(3.2rem, 8vw, 7rem);
+      line-height: 0.88;
+      letter-spacing: 5px;
+      color: var(--white);
+      margin-bottom: 18px;
+      animation: fadeUp 0.9s 0.15s ease both;
+    }
+
+    .hero-title .accent {
+      background: linear-gradient(90deg, var(--trophy), var(--gold-light));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    /* Championship ribbon under title */
+    .championship-ribbon {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: linear-gradient(90deg, rgba(255,215,0,0.15), rgba(255,215,0,0.05));
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 3px;
+      padding: 8px 20px;
+      margin-bottom: 20px;
+      animation: fadeUp 0.9s 0.18s ease both;
+    }
+
+    .championship-ribbon span {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1rem;
+      letter-spacing: 5px;
+      color: var(--trophy);
+    }
+
+    .ribbon-divider { color: rgba(255,215,0,0.3); font-size: 0.8rem; }
+
+    .hero-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-muted);
+      letter-spacing: 2px;
+      font-weight: 500;
+      margin-bottom: 40px;
+      max-width: 640px;
+      line-height: 1.75;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    /* Quick-facts strip */
+    .hero-facts {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      max-width: 920px;
+      backdrop-filter: blur(10px);
+      background: rgba(15,12,41,0.5);
+      animation: fadeUp 0.9s 0.3s ease both;
+    }
+
+    .fact-item {
+      flex: 1;
+      min-width: 130px;
+      padding: 20px 22px;
+      border-right: 1px solid var(--border);
+      position: relative;
+      transition: background 0.3s;
+    }
+
+    .fact-item:last-child { border-right: none; }
+    .fact-item:hover { background: rgba(255,215,0,0.06); }
+
+    .fact-item::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0;
+      width: 100%; height: 2px;
+      background: linear-gradient(90deg, var(--trophy), transparent);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .fact-item:hover::before { opacity: 1; }
+
+    .fact-label {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .fact-value {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.3rem;
+      letter-spacing: 2px;
+      color: var(--white);
+      line-height: 1.1;
+    }
+
+    .fact-value.gold  { color: var(--trophy); }
+    .fact-value.green { color: #6ee7b7; }
+
+    /* ══════════ TOURNAMENT TIMELINE STRIP ══════════ */
+    .tournament-strip {
+      background: linear-gradient(90deg, rgba(48,43,99,0.5), rgba(15,12,41,0.8));
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 0 60px;
+      overflow-x: auto;
+    }
+
+    .strip-inner {
+      display: flex;
+      align-items: stretch;
+      min-width: max-content;
+      gap: 0;
+    }
+
+    .strip-match {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 18px 28px;
+      border-right: 1px solid rgba(167,139,250,0.1);
+      min-width: 150px;
+      position: relative;
+      transition: background 0.25s;
+      cursor: default;
+    }
+
+    .strip-match:hover { background: rgba(124,58,237,0.1); }
+
+    .strip-match.final {
+      background: rgba(255,215,0,0.06);
+      border-right-color: rgba(255,215,0,0.2);
+    }
+
+    .strip-match.final:hover { background: rgba(255,215,0,0.12); }
+
+    .strip-round {
+      font-size: 0.6rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-bottom: 5px;
+      font-weight: 700;
+    }
+
+    .strip-round.gold { color: var(--trophy); }
+
+    .strip-vs {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: 1px;
+    }
+
+    .strip-result {
+      font-size: 0.75rem;
+      color: #6ee7b7;
+      font-weight: 600;
+      margin-top: 3px;
+    }
+
+    .strip-result.kohli {
+      color: var(--trophy);
+    }
+
+    .strip-kohli-badge {
+      position: absolute;
+      top: 8px; right: 8px;
+      font-size: 0.55rem;
+      letter-spacing: 1.5px;
+      color: var(--trophy);
+      background: rgba(255,215,0,0.1);
+      border: 1px solid rgba(255,215,0,0.25);
+      border-radius: 3px;
+      padding: 2px 7px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* ══════════ TABBED CONTENT ══════════ */
+    .wc-content {
+      padding: 70px 60px;
+      max-width: 1400px;
+      margin: 0 auto;
+    }
+
+    .tab-nav {
+      display: flex;
+      gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 60px;
+      overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.1rem;
+      letter-spacing: 3px;
+      padding: 16px 32px;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: color 0.3s;
+      border-bottom: 3px solid transparent;
+      margin-bottom: -1px;
+    }
+
+    .tab-btn:hover { color: var(--lavender); }
+    .tab-btn.active { color: var(--trophy); border-bottom-color: var(--trophy); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ══════════ SHARED COMPONENTS ══════════ */
+    .section-eyebrow {
+      font-size: 0.68rem;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      color: var(--trophy);
+      font-weight: 700;
+      margin-bottom: 4px;
+    }
+
+    .section-heading {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2rem, 4vw, 3rem);
+      letter-spacing: 4px;
+      line-height: 1.05;
+      background: linear-gradient(90deg, var(--white), var(--lavender));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 16px;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+
+    .card-header {
+      padding: 18px 24px;
+      background: linear-gradient(90deg, rgba(124,58,237,0.3), rgba(48,43,99,0.3));
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-header h4 {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      color: var(--gold-light);
+    }
+
+    .card-header.trophy-header {
+      background: linear-gradient(90deg, rgba(255,215,0,0.12), rgba(48,43,99,0.3));
+    }
+
+    .card-header.trophy-header h4 { color: var(--trophy); }
+
+    .badge {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      padding: 4px 12px;
+      border-radius: 20px;
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    .badge-wc   { background: rgba(255,215,0,0.15); color: var(--trophy); border: 1px solid rgba(255,215,0,0.3); }
+    .badge-final{ background: rgba(16,185,129,0.15); color: #6ee7b7; border: 1px solid rgba(16,185,129,0.3); }
+    .badge-odi  { background: rgba(124,58,237,0.2); color: var(--lavender); border: 1px solid rgba(124,58,237,0.3); }
+
+    .info-rows { padding: 8px 0; }
+
+    .info-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 13px 24px;
+      border-bottom: 1px solid rgba(167,139,250,0.07);
+      transition: background 0.2s;
+    }
+
+    .info-row:last-child { border-bottom: none; }
+    .info-row:hover { background: rgba(124,58,237,0.08); }
+    .info-row .lbl { font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); font-weight: 600; }
+    .info-row .val { font-size: 0.95rem; color: var(--white); font-weight: 600; text-align: right; max-width: 58%; }
+    .info-row .val.gold    { color: var(--trophy); }
+    .info-row .val.green   { color: #6ee7b7; }
+    .info-row .val.lavender{ color: var(--lavender); }
+
+    /* Image placeholder */
+    .img-box {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      position: relative;
+    }
+
+    .img-placeholder {
+      width: 100%; height: 100%;
+      min-height: 220px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+    }
+
+    .img-placeholder .ph-icon  { font-size: 3rem; opacity: 0.35; }
+    .img-placeholder .ph-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); opacity: 0.55; text-align: center; padding: 0 20px; }
+    .img-placeholder .ph-hint  { font-size: 0.65rem; letter-spacing: 1px; color: var(--trophy); opacity: 0.6; text-align: center; padding: 0 24px; }
+
+    .img-caption-bar {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: linear-gradient(0deg, rgba(15,12,41,0.95), transparent);
+      padding: 28px 18px 14px;
+    }
+
+    .img-caption-bar p { font-size: 0.78rem; letter-spacing: 1.5px; color: var(--gold-light); text-transform: uppercase; }
+
+    .corner-badge {
+      position: absolute;
+      top: 14px; right: 14px;
+      background: rgba(255,215,0,0.12);
+      border: 1px solid rgba(255,215,0,0.32);
+      border-radius: 4px;
+      padding: 5px 12px;
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      color: var(--trophy);
+      text-transform: uppercase;
+      font-weight: 700;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      background: rgba(255,215,0,0.06);
+      border-left: 3px solid var(--trophy);
+      border-radius: 0 8px 8px 0;
+      padding: 20px 24px;
+      position: relative;
+    }
+
+    .pull-quote::before {
+      content: '"';
+      position: absolute;
+      top: -8px; left: 16px;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 4.5rem;
+      color: rgba(255,215,0,0.1);
+      line-height: 1;
+    }
+
+    .pull-quote p { font-size: 1.05rem; font-style: italic; color: var(--white); line-height: 1.75; margin-bottom: 8px; }
+    .pull-quote .attr { font-size: 0.72rem; letter-spacing: 2px; color: var(--trophy); text-transform: uppercase; font-weight: 700; }
+
+    .story-body p { color: var(--text-muted); font-size: 1rem; line-height: 1.85; margin-bottom: 14px; }
+    .story-body p:last-child { margin-bottom: 0; }
+    .story-body strong { color: var(--white); font-weight: 700; }
+
+    /* ══════════ TAB 1 — STORY ══════════ */
+    .story-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 50px;
+      align-items: start;
+    }
+
+    .story-text-wrap { display: flex; flex-direction: column; gap: 24px; }
+
+    /* ══════════ TAB 2 — FINAL MATCH ══════════ */
+    .final-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    /* Trophy celebration banner */
+    .trophy-banner {
+      grid-column: 1 / -1;
+      background: linear-gradient(135deg, rgba(255,215,0,0.08), rgba(124,58,237,0.12), rgba(255,215,0,0.05));
+      border: 1px solid rgba(255,215,0,0.22);
+      border-radius: 14px;
+      padding: 32px 36px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .trophy-banner::before {
+      content: '🏆';
+      position: absolute;
+      right: 28px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 7rem;
+      opacity: 0.07;
+      pointer-events: none;
+    }
+
+    .tb-team {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .tb-flag {
+      width: 58px; height: 58px;
+      border-radius: 50%;
+      background: rgba(48,43,99,0.6);
+      border: 2px solid var(--border);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.9rem;
+    }
+
+    .tb-name {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.7rem;
+      letter-spacing: 4px;
+    }
+
+    .tb-score {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.1rem;
+      letter-spacing: 2px;
+    }
+
+    .tb-score.india { color: var(--trophy); }
+    .tb-score.sl    { color: var(--text-muted); }
+
+    .tb-vs {
+      text-align: center;
+      flex-shrink: 0;
+    }
+
+    .tb-vs .vs-txt {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.5rem;
+      letter-spacing: 4px;
+      color: var(--lavender);
+      display: block;
+    }
+
+    .tb-vs .match-label {
+      font-size: 0.65rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .won-tag {
+      display: inline-block;
+      background: rgba(16,185,129,0.15);
+      border: 1px solid rgba(16,185,129,0.3);
+      color: #6ee7b7;
+      font-size: 0.72rem;
+      letter-spacing: 2px;
+      padding: 4px 14px;
+      border-radius: 20px;
+      font-weight: 700;
+      text-transform: uppercase;
+      margin-top: 5px;
+    }
+
+    .champion-tag {
+      background: rgba(255,215,0,0.15);
+      border-color: rgba(255,215,0,0.3);
+      color: var(--trophy);
+    }
+
+    /* Scorecard table */
+    .scorecard {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .scorecard thead th {
+      background: rgba(124,58,237,0.2);
+      color: var(--gold-light);
+      font-family: 'Bebas Neue', cursive;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      padding: 12px 16px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .scorecard tbody td {
+      padding: 12px 16px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(167,139,250,0.06);
+    }
+
+    .scorecard tbody tr:last-child td { border-bottom: none; }
+    .scorecard tbody tr:hover td { background: rgba(124,58,237,0.08); color: var(--white); }
+    .scorecard tbody td:first-child { color: var(--white); font-weight: 600; }
+    .scorecard .highlight-kohli td { color: var(--trophy) !important; font-weight: 700; background: rgba(255,215,0,0.04); }
+    .scorecard .highlight-dhoni td { color: #6ee7b7 !important; font-weight: 700; }
+    .scorecard .extras-row td { color: rgba(167,139,250,0.5) !important; font-style: italic; }
+    .scorecard .total-row td { color: var(--white) !important; font-weight: 700; background: rgba(124,58,237,0.15); border-top: 1px solid var(--border); }
+
+    /* ══════════ TAB 3 — KOHLI'S KNOCK ══════════ */
+    .knock-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 28px;
+    }
+
+    .big-stat-display {
+      padding: 28px 24px;
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      border-bottom: 1px solid var(--border);
+      flex-wrap: wrap;
+    }
+
+    .big-stat { text-align: center; }
+
+    .big-stat .num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3.8rem;
+      line-height: 1;
+      color: var(--trophy);
+      letter-spacing: 2px;
+    }
+
+    .big-stat .lbl {
+      font-size: 0.65rem;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 4px;
+    }
+
+    .stat-divider { width: 1px; height: 60px; background: var(--border); }
+
+    .innings-detail-rows { padding: 8px 0; }
+
+    .innings-detail-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 11px 24px;
+      border-bottom: 1px solid rgba(167,139,250,0.06);
+    }
+
+    .innings-detail-row:last-child { border-bottom: none; }
+    .innings-detail-row .lbl { font-size: 0.78rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+    .innings-detail-row .val { font-size: 0.9rem; color: var(--white); font-weight: 600; }
+    .innings-detail-row .val.gold  { color: var(--trophy); }
+    .innings-detail-row .val.green { color: #6ee7b7; }
+
+    /* Timeline / ball-by-ball */
+    .timeline-card {
+      grid-column: 1 / -1;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 32px;
+    }
+
+    .timeline-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem;
+      letter-spacing: 3px;
+      color: var(--gold-light);
+      margin-bottom: 24px;
+    }
+
+    .timeline-track {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .ball-dot {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      border: 1px solid;
+      transition: transform 0.2s;
+      cursor: default;
+      position: relative;
+    }
+
+    .ball-dot:hover { transform: scale(1.15); }
+    .ball-0 { background: rgba(48,43,99,0.4);   border-color: rgba(167,139,250,0.2); color: var(--text-muted); }
+    .ball-1, .ball-2, .ball-3 { background: rgba(124,58,237,0.15); border-color: rgba(124,58,237,0.35); color: var(--lavender); }
+    .ball-4 { background: rgba(245,158,11,0.15); border-color: rgba(245,158,11,0.4); color: var(--gold); }
+    .ball-6 { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: #6ee7b7; }
+    .ball-W { background: rgba(239,68,68,0.15);  border-color: rgba(239,68,68,0.4);  color: #fca5a5; }
+    .ball-add { background: rgba(48,43,99,0.2);  border-color: var(--border);         color: var(--text-muted); font-size: 0.55rem; letter-spacing: 0.5px; }
+
+    .ball-legend {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 16px;
+      margin-top: 20px;
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+    }
+
+    .legend-item { display: flex; align-items: center; gap: 7px; font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); }
+    .legend-dot  { width: 12px; height: 12px; border-radius: 50%; border: 1px solid; }
+
+    /* ══════════ TAB 4 — JOURNEY (Tournament Stats) ══════════ */
+    .journey-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 30px;
+    }
+
+    .journey-stat-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 26px 24px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .journey-stat-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 35px rgba(255,215,0,0.12);
+    }
+
+    .journey-stat-card::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, var(--trophy), var(--violet));
+    }
+
+    .jscard-icon  { font-size: 2rem; margin-bottom: 12px; }
+
+    .jscard-num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 3rem;
+      letter-spacing: 3px;
+      color: var(--trophy);
+      line-height: 1;
+    }
+
+    .jscard-label {
+      font-size: 0.7rem;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+      margin-top: 6px;
+    }
+
+    /* Match-by-match table */
+    .matches-table-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 28px;
+    }
+
+    .matches-table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .matches-table thead th {
+      background: linear-gradient(90deg, rgba(255,215,0,0.12), rgba(48,43,99,0.3));
+      color: var(--trophy);
+      font-family: 'Bebas Neue', cursive;
+      letter-spacing: 2px;
+      font-size: 0.9rem;
+      padding: 14px 18px;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .matches-table tbody td {
+      padding: 13px 18px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      border-bottom: 1px solid rgba(167,139,250,0.06);
+    }
+
+    .matches-table tbody tr:last-child td { border-bottom: none; }
+    .matches-table tbody tr:hover td { background: rgba(255,215,0,0.04); color: var(--white); }
+    .matches-table tbody td:first-child { color: var(--white); font-weight: 600; }
+    .matches-table .highlight-row td { color: var(--trophy) !important; font-weight: 700; }
+    .matches-table .final-row td { color: #6ee7b7 !important; font-weight: 700; background: rgba(16,185,129,0.05); }
+
+    .result-won  { color: #6ee7b7 !important; font-weight: 700 !important; }
+    .result-lost { color: #fca5a5 !important; font-weight: 700 !important; }
+    .result-nr   { color: var(--text-muted) !important; }
+
+    /* ══════════ TAB 5 — VIDEOS ══════════ */
+    .video-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr;
+      gap: 24px;
+    }
+
+    .video-main {
+      border-radius: 12px;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+    }
+
+    .video-embed {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: #08061a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      overflow: hidden;
+    }
+
+    .video-thumb-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 14px;
+      background: linear-gradient(135deg, #0d0b1e, #1a1040);
+    }
+
+    .video-thumb-placeholder .ph-icon  { font-size: 3rem; opacity: 0.35; }
+    .video-thumb-placeholder .ph-text  { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--text-muted); opacity: 0.6; text-align: center; padding: 0 20px; }
+    .video-thumb-placeholder .ph-hint  { font-size: 0.65rem; color: var(--trophy); opacity: 0.55; letter-spacing: 1.5px; text-align: center; padding: 0 24px; }
+
+    .play-btn-overlay {
+      position: absolute; inset: 0;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(15,12,41,0.3);
+      transition: background 0.3s;
+    }
+
+    .video-embed:hover .play-btn-overlay { background: rgba(15,12,41,0.1); }
+
+    .play-btn {
+      width: 76px; height: 76px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--trophy), var(--gold-light));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 0 50px rgba(255,215,0,0.45);
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .video-embed:hover .play-btn { transform: scale(1.1); box-shadow: 0 0 70px rgba(255,215,0,0.65); }
+    .play-btn svg { margin-left: 5px; }
+
+    .video-info { padding: 20px 22px; border-top: 1px solid var(--border); }
+    .video-tag  { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--trophy); font-weight: 700; margin-bottom: 8px; }
+    .video-title{ font-size: 1.05rem; font-weight: 700; color: var(--white); line-height: 1.4; margin-bottom: 8px; }
+    .video-meta { font-size: 0.78rem; color: rgba(167,139,250,0.5); letter-spacing: 1px; }
+
+    .video-list { display: flex; flex-direction: column; gap: 14px; }
+
+    .video-list-item {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+      display: flex;
+      cursor: pointer;
+      transition: border-color 0.3s, transform 0.2s;
+    }
+
+    .video-list-item:hover { border-color: rgba(255,215,0,0.35); transform: translateX(3px); }
+
+    .vli-thumb {
+      width: 110px; min-width: 110px;
+      background: #08061a;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+      position: relative;
+    }
+
+    .vli-thumb .vli-ph      { font-size: 1.4rem; opacity: 0.35; }
+    .vli-thumb .vli-ph-text { font-size: 0.55rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--text-muted); opacity: 0.5; text-align: center; padding: 0 6px; }
+    .vli-thumb .mini-play   { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .vli-thumb .mini-play-btn { width: 32px; height: 32px; border-radius: 50%; background: rgba(255,215,0,0.85); display: flex; align-items: center; justify-content: center; }
+
+    .vli-body { padding: 12px 14px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .vli-tag  { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--trophy); font-weight: 700; }
+    .vli-title{ font-size: 0.85rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+    .vli-meta { font-size: 0.72rem; color: rgba(167,139,250,0.45); }
+
+    /* ══════════ TAB 6 — GALLERY ══════════ */
+    .photo-masonry {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-auto-rows: 190px;
+      gap: 14px;
+    }
+
+    .photo-item {
+      border-radius: 10px;
+      overflow: hidden;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      position: relative;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .photo-item:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(255,215,0,0.15); }
+    .photo-item.tall  { grid-row: span 2; }
+    .photo-item.wide  { grid-column: span 2; }
+
+    .photo-inner { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .photo-inner .ph-icon  { font-size: 2.2rem; opacity: 0.35; }
+    .photo-inner .ph-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--text-muted); opacity: 0.55; text-align: center; padding: 0 14px; }
+    .photo-inner .ph-hint  { font-size: 0.6rem; letter-spacing: 1px; color: var(--trophy); opacity: 0.5; text-align: center; padding: 0 10px; }
+
+    .photo-overlay {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, transparent 40%, rgba(15,12,41,0.9));
+      display: flex; align-items: flex-end;
+      padding: 14px;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+
+    .photo-item:hover .photo-overlay { opacity: 1; }
+    .photo-caption { font-size: 0.72rem; letter-spacing: 2px; color: var(--gold-light); text-transform: uppercase; font-weight: 600; }
+
+    .upload-cta {
+      grid-column: 1 / -1;
+      background: linear-gradient(90deg, rgba(255,215,0,0.05), rgba(48,43,99,0.2));
+      border: 1px dashed rgba(255,215,0,0.25);
+      border-radius: 10px;
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .upload-cta p { font-size: 0.82rem; color: var(--text-muted); letter-spacing: 1px; }
+    .upload-cta p strong { color: var(--trophy); }
+    .upload-cta .upload-badge { background: rgba(255,215,0,0.1); border: 1px solid rgba(255,215,0,0.25); border-radius: 4px; padding: 6px 16px; font-size: 0.7rem; letter-spacing: 2px; color: var(--trophy); text-transform: uppercase; font-weight: 700; }
+
+    /* ══════════ ANIMATIONS ══════════ */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(22px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes pulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50%       { opacity: 0.5; transform: scale(0.85); }
+    }
+
+    /* ══════════ RESPONSIVE ══════════ */
+    @media (max-width: 960px) {
+      .story-grid, .final-grid, .knock-grid, .video-grid { grid-template-columns: 1fr; }
+      .journey-grid { grid-template-columns: 1fr 1fr; }
+      .photo-masonry { grid-template-columns: repeat(2, 1fr); }
+      .hero-inner, .wc-content { padding-left: 24px; padding-right: 24px; }
+      .tournament-strip { padding: 0 24px; }
+      .trophy-banner { flex-direction: column; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════
+     HERO
+════════════════════════════════════════════ -->
+<section class="wc-hero">
+  <div class="hero-trophy-bg">🏆</div>
+  <div class="hero-inner">
+
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Chapter 02 · The Greatest Night</span>
+    </div>
+
+    <div class="hero-date-badge">
+      <div class="dot"></div>
+      <span>2 April 2011 · Wankhede Stadium, Mumbai</span>
+    </div>
+
+    <h1 class="hero-title">
+      WORLD CUP<br>
+      <span class="accent">GLORY 2011</span>
+    </h1>
+
+    <div class="championship-ribbon">
+      <span>🏆</span>
+      <span>ICC Cricket World Cup 2011</span>
+      <span class="ribbon-divider">·</span>
+      <span>India — Champions</span>
+      <span class="ribbon-divider">·</span>
+      <span>28 Years Later</span>
+    </div>
+
+    <p class="hero-subtitle">
+      On the night of 2 April 2011, India ended a 28-year wait and brought the
+      World Cup home. Virat Kohli scored the crucial opening runs of the
+      final chase and dedicated the victory to Sachin Tendulkar — a moment
+      etched in cricket history forever.
+    </p>
+
+    <div class="hero-facts">
+      <div class="fact-item">
+        <div class="fact-label">Tournament</div>
+        <div class="fact-value gold">WC 2011</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Final Venue</div>
+        <div class="fact-value">Wankhede</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Opponent (Final)</div>
+        <div class="fact-value">Sri Lanka</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Kohli's Score</div>
+        <div class="fact-value gold">35</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Tournament Runs</div>
+        <div class="fact-value gold">282</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Result</div>
+        <div class="fact-value green">Champions 🏆</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════════
+     TOURNAMENT STRIP
+════════════════════════════════════════════ -->
+<div class="tournament-strip">
+  <div class="strip-inner">
+
+    <div class="strip-match">
+      <div class="strip-round">Group Stage</div>
+      <div class="strip-vs">IND vs BAN</div>
+      <div class="strip-result">Won · 87 runs</div>
+    </div>
+
+    <div class="strip-match">
+      <div class="strip-round">Group Stage</div>
+      <div class="strip-vs">IND vs ENG</div>
+      <div class="strip-result" style="color:var(--text-muted);">Tied</div>
+    </div>
+
+    <div class="strip-match">
+      <div class="strip-round">Group Stage</div>
+      <div class="strip-vs">IND vs IRE</div>
+      <div class="strip-result">Won · 5 wkts</div>
+    </div>
+
+    <div class="strip-match">
+      <div class="strip-round">Group Stage</div>
+      <div class="strip-vs">IND vs NED</div>
+      <div class="strip-result">Won · 5 wkts</div>
+    </div>
+
+    <div class="strip-match">
+      <div class="strip-round">Group Stage</div>
+      <div class="strip-vs">IND vs SA</div>
+      <div class="strip-result">Won · 3 wkts</div>
+      <div class="strip-kohli-badge">Kohli 35</div>
+    </div>
+
+    <div class="strip-match">
+      <div class="strip-round">Group Stage</div>
+      <div class="strip-vs">IND vs WI</div>
+      <div class="strip-result">Won · 80 runs</div>
+      <div class="strip-kohli-badge">Kohli 59</div>
+    </div>
+
+    <div class="strip-match">
+      <div class="strip-round">Quarter Final</div>
+      <div class="strip-vs">IND vs AUS</div>
+      <div class="strip-result">Won · 5 wkts</div>
+    </div>
+
+    <div class="strip-match">
+      <div class="strip-round">Semi Final</div>
+      <div class="strip-vs">IND vs PAK</div>
+      <div class="strip-result">Won · 29 runs</div>
+      <div class="strip-kohli-badge">Kohli 9</div>
+    </div>
+
+    <div class="strip-match final">
+      <div class="strip-round gold">🏆 Final</div>
+      <div class="strip-vs">IND vs SL</div>
+      <div class="strip-result kohli">Won · 6 wkts</div>
+      <div class="strip-kohli-badge">Kohli 35</div>
+    </div>
+
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════════════
+     TABBED CONTENT
+════════════════════════════════════════════ -->
+<div class="wc-content">
+
+  <nav class="tab-nav" role="tablist">
+    <button class="tab-btn active" onclick="switchTab('story', this)">The Story</button>
+    <button class="tab-btn" onclick="switchTab('final', this)">Final Match</button>
+    <button class="tab-btn" onclick="switchTab('knock', this)">Kohli's Knock</button>
+    <button class="tab-btn" onclick="switchTab('journey', this)">Tournament Journey</button>
+    <button class="tab-btn" onclick="switchTab('video', this)">Videos</button>
+    <button class="tab-btn" onclick="switchTab('gallery', this)">Gallery</button>
+  </nav>
+
+
+  <!-- ──────────────────────────────────
+       TAB 1 · THE STORY
+  ────────────────────────────────── -->
+  <div class="tab-panel active" id="tab-story">
+    <div class="story-grid">
+
+      <!-- Left: Main image -->
+      <div class="img-box" style="aspect-ratio: 3/4;">
+        <!--
+          ╔═══════════════════════════════════════════╗
+          ║  REPLACE WITH KOHLI FINAL CELEBRATION     ║
+          ║                                           ║
+          ║  <img src="assets/wc2011-kohli-main.jpg"  ║
+          ║       alt="Kohli WC 2011 Final"           ║
+          ║       style="width:100%;height:100%;      ║
+          ║       object-fit:cover;">                 ║
+          ╚═══════════════════════════════════════════╝
+        -->
+        <div class="img-placeholder" style="min-height: 100%;">
+          <span class="ph-icon">🏆</span>
+          <span class="ph-label">Kohli — World Cup Final Celebration</span>
+          <span class="ph-hint">Replace with: assets/wc2011-kohli-main.jpg</span>
+        </div>
+        <div class="corner-badge">WC Final · 2011</div>
+        <div class="img-caption-bar">
+          <p>Wankhede Stadium · Mumbai · 2 April 2011</p>
+        </div>
+      </div>
+
+      <!-- Right: Story text -->
+      <div class="story-text-wrap">
+
+        <div>
+          <div class="section-eyebrow">The Story Behind The Glory</div>
+          <h2 class="section-heading">The Night India<br>Reclaimed The World</h2>
+        </div>
+
+        <div class="story-body">
+          <p>
+            It had been <strong>28 long years</strong> since India last lifted the Cricket World Cup.
+            The 2011 ICC Cricket World Cup final at the <strong>Wankhede Stadium, Mumbai</strong>
+            was one of the most emotionally charged occasions in Indian sporting history —
+            and a 22-year-old Virat Kohli was right at the heart of it.
+          </p>
+
+          <div class="pull-quote">
+            <p>I told myself — just give Sachin paaji a gift tonight. Get India off to a start and let the senior men finish the job.</p>
+            <span class="attr">— Virat Kohli, on batting in the 2011 WC Final</span>
+          </div>
+
+          <p>
+            Batting at No. 3, Kohli walked in with India needing a steady foundation after
+            the early dismissal of Virender Sehwag. He scored a composed <strong>35 runs</strong>,
+            providing the platform that MS Dhoni and Gautam Gambhir would use to seal one
+            of the greatest victories in Indian cricket history.
+          </p>
+
+          <p>
+            After his dismissal, Kohli famously told the dressing room:
+            <em>"This one is for Sachin paaji."</em> Those words captured the emotion of
+            a generation of Indian cricketers who had grown up watching Tendulkar chase
+            this dream. The six that Dhoni hit to seal the title sparked celebrations
+            across <strong>1.3 billion people</strong>.
+          </p>
+        </div>
+
+        <!-- Secondary image: Trophy lift / team -->
+        <div class="img-box" style="aspect-ratio: 16/7;">
+          <!--
+            ╔═════════════════════════════════════════════╗
+            ║  REPLACE WITH TROPHY LIFT / TEAM CELEBRATION║
+            ║                                             ║
+            ║  <img src="assets/wc2011-team-trophy.jpg"   ║
+            ║       alt="India WC 2011 Trophy Lift"       ║
+            ║       style="width:100%;height:100%;        ║
+            ║       object-fit:cover;">                   ║
+            ╚═════════════════════════════════════════════╝
+          -->
+          <div class="img-placeholder">
+            <span class="ph-icon">🎉</span>
+            <span class="ph-label">Team India — Trophy Lift</span>
+            <span class="ph-hint">Replace with: assets/wc2011-team-trophy.jpg</span>
+          </div>
+          <div class="corner-badge">Champions</div>
+          <div class="img-caption-bar">
+            <p>Team India lifts the ICC World Cup · Wankhede · 2011</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ──────────────────────────────────
+       TAB 2 · FINAL MATCH
+  ────────────────────────────────── -->
+  <div class="tab-panel" id="tab-final">
+    <div class="final-grid">
+
+      <!-- Teams / Result Banner -->
+      <div class="trophy-banner">
+        <div class="tb-team">
+          <div class="tb-flag">🇱🇰</div>
+          <div>
+            <div class="tb-name">Sri Lanka</div>
+            <div class="tb-score sl">274 / 6 (50 Ov)</div>
+          </div>
+        </div>
+
+        <div class="tb-vs">
+          <span class="vs-txt">VS</span>
+          <div class="match-label">ICC WC 2011 · Final</div>
+        </div>
+
+        <div class="tb-team" style="flex-direction:row-reverse; text-align:right;">
+          <div class="tb-flag">🇮🇳</div>
+          <div>
+            <div class="tb-name">India</div>
+            <div class="tb-score india">277 / 4 (48.2 Ov)</div>
+            <div><span class="won-tag champion-tag">🏆 World Champions</span></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Match Info Card -->
+      <div class="card">
+        <div class="card-header trophy-header">
+          <h4>Match Information</h4>
+          <span class="badge badge-wc">🏆 WC Final</span>
+        </div>
+        <div class="info-rows">
+          <div class="info-row"><span class="lbl">Tournament</span><span class="val">ICC Cricket World Cup 2011</span></div>
+          <div class="info-row"><span class="lbl">Match</span><span class="val lavender">Final — 49th Match</span></div>
+          <div class="info-row"><span class="lbl">Date</span><span class="val">2 April 2011</span></div>
+          <div class="info-row"><span class="lbl">Venue</span><span class="val">Wankhede Stadium, Mumbai</span></div>
+          <div class="info-row"><span class="lbl">Toss</span><span class="val"><!-- Add toss winner --> —</span></div>
+          <div class="info-row"><span class="lbl">Toss Decision</span><span class="val"><!-- Bat / Field --> —</span></div>
+          <div class="info-row"><span class="lbl">Umpires</span><span class="val"><!-- Add umpire names --> —</span></div>
+          <div class="info-row"><span class="lbl">TV Umpire</span><span class="val"><!-- Add TV umpire --> —</span></div>
+          <div class="info-row"><span class="lbl">Referee</span><span class="val"><!-- Add match referee --> —</span></div>
+          <div class="info-row"><span class="lbl">Result</span><span class="val gold">India won by 6 wickets</span></div>
+          <div class="info-row"><span class="lbl">Player of Match</span><span class="val gold">MS Dhoni (91*)</span></div>
+        </div>
+      </div>
+
+      <!-- Key Performers -->
+      <div class="card">
+        <div class="card-header">
+          <h4>Key Performers</h4>
+          <span class="badge badge-final">Final</span>
+        </div>
+        <div class="info-rows">
+          <div class="info-row"><span class="lbl">Top Scorer (India)</span><span class="val gold">MS Dhoni — 91*</span></div>
+          <div class="info-row"><span class="lbl">2nd Top Scorer</span><span class="val">Gautam Gambhir — 97</span></div>
+          <div class="info-row"><span class="lbl">Kohli's Contribution</span><span class="val gold">35 Runs · No. 3</span></div>
+          <div class="info-row"><span class="lbl">Top Scorer (SL)</span><span class="val">Mahela Jayawardene — 103*</span></div>
+          <div class="info-row"><span class="lbl">Best Bowler (India)</span><span class="val"><!-- Add bowler + figures --> —</span></div>
+          <div class="info-row"><span class="lbl">Best Bowler (SL)</span><span class="val"><!-- Add bowler + figures --> —</span></div>
+          <div class="info-row"><span class="lbl">Winning Shot</span><span class="val green">MS Dhoni — Six over long-on</span></div>
+          <div class="info-row"><span class="lbl">Winning Over</span><span class="val">48.2 Overs</span></div>
+        </div>
+      </div>
+
+      <!-- India Batting Scorecard -->
+      <div class="card" style="grid-column: 1 / -1;">
+        <div class="card-header trophy-header">
+          <h4>India Batting Scorecard — Final Chase</h4>
+          <span class="badge badge-odi">2nd Innings</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="scorecard">
+            <thead>
+              <tr>
+                <th>Batsman</th>
+                <th>Dismissal</th>
+                <th>R</th>
+                <th>B</th>
+                <th>4s</th>
+                <th>6s</th>
+                <th>SR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>V Sehwag</td>
+                <td>b Malinga</td>
+                <td>0</td><td>2</td><td>0</td><td>0</td><td>0.00</td>
+              </tr>
+              <tr>
+                <td>S Tendulkar</td>
+                <td><!-- Dismissal --> —</td>
+                <td>18</td><td><!-- B -->—</td><td>—</td><td>—</td><td>—</td>
+              </tr>
+              <tr class="highlight-kohli">
+                <td>V Kohli <span style="font-size:0.65rem; color:var(--lavender);">(No. 3)</span></td>
+                <td><!-- How out --> —</td>
+                <td>35</td>
+                <td><!-- Balls --> —</td>
+                <td><!-- 4s --> —</td>
+                <td><!-- 6s --> —</td>
+                <td><!-- SR --> —</td>
+              </tr>
+              <tr>
+                <td>G Gambhir</td>
+                <td><!-- Dismissal --> —</td>
+                <td>97</td><td><!-- B -->—</td><td>—</td><td>—</td><td>—</td>
+              </tr>
+              <tr class="highlight-dhoni">
+                <td>MS Dhoni (c) ★ POTM</td>
+                <td>not out</td>
+                <td>91*</td>
+                <td><!-- Balls --> —</td>
+                <td><!-- 4s --> —</td>
+                <td><!-- 6s --> —</td>
+                <td><!-- SR --> —</td>
+              </tr>
+              <tr>
+                <td>Yuvraj Singh</td>
+                <td>not out</td>
+                <td><!-- Runs --> —</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              </tr>
+              <tr class="extras-row">
+                <td colspan="2">Extras (b, lb, w, nb)</td>
+                <td colspan="5"><!-- Add extras --> —</td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="2">Total</td>
+                <td>277</td>
+                <td colspan="2">4 Wkts</td>
+                <td colspan="2">48.2 Overs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Sri Lanka Batting -->
+      <div class="card" style="grid-column: 1 / -1;">
+        <div class="card-header">
+          <h4>Sri Lanka Batting Scorecard</h4>
+          <span class="badge badge-odi">1st Innings</span>
+        </div>
+        <div style="overflow-x:auto;">
+          <table class="scorecard">
+            <thead>
+              <tr>
+                <th>Batsman</th>
+                <th>Dismissal</th>
+                <th>R</th>
+                <th>B</th>
+                <th>4s</th>
+                <th>6s</th>
+                <th>SR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>TM Dilshan</td>
+                <td><!-- Dismissal --> —</td>
+                <td><!-- Runs --> —</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              </tr>
+              <tr>
+                <td>UP Tharanga</td>
+                <td><!-- Dismissal --> —</td>
+                <td><!-- Runs --> —</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              </tr>
+              <tr class="highlight-kohli">
+                <td>KC Sangakkara</td>
+                <td><!-- Dismissal --> —</td>
+                <td><!-- Runs --> —</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              </tr>
+              <tr>
+                <td>DPMD Jayawardene ★</td>
+                <td>not out</td>
+                <td>103*</td><td><!-- B -->—</td><td>—</td><td>—</td><td>—</td>
+              </tr>
+              <tr>
+                <td colspan="7" style="text-align:center; color:var(--text-muted); font-size:0.8rem; letter-spacing:2px; padding:18px;">
+                  Add remaining Sri Lanka batting data here
+                </td>
+              </tr>
+              <tr class="extras-row">
+                <td colspan="2">Extras</td>
+                <td colspan="5"><!-- Add extras --> —</td>
+              </tr>
+              <tr class="total-row">
+                <td colspan="2">Total</td>
+                <td>274</td>
+                <td colspan="2">6 Wkts</td>
+                <td colspan="2">50 Overs</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ──────────────────────────────────
+       TAB 3 · KOHLI'S KNOCK
+  ────────────────────────────────── -->
+  <div class="tab-panel" id="tab-knock">
+    <div class="knock-grid">
+
+      <!-- Stats card -->
+      <div class="card">
+        <div class="card-header trophy-header">
+          <h4>Kohli's Final Innings</h4>
+          <span class="inning-num" style="font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--text-muted);">2 Apr 2011</span>
+        </div>
+
+        <div class="big-stat-display">
+          <div class="big-stat">
+            <div class="num">35</div>
+            <div class="lbl">Runs Scored</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="big-stat">
+            <div class="num" style="color:var(--lavender);"><!-- Balls -->—</div>
+            <div class="lbl">Balls Faced</div>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="big-stat">
+            <div class="num" style="font-size:2.2rem; color:#6ee7b7;">3</div>
+            <div class="lbl">Batting Position</div>
+          </div>
+        </div>
+
+        <div class="innings-detail-rows">
+          <div class="innings-detail-row">
+            <span class="lbl">Fours (4s)</span>
+            <span class="val"><!-- Add 4s --> —</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Sixes (6s)</span>
+            <span class="val"><!-- Add 6s --> —</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Strike Rate</span>
+            <span class="val"><!-- Add SR --> —</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Dismissed By</span>
+            <span class="val gold"><!-- Bowler name --> —</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Mode of Dismissal</span>
+            <span class="val"><!-- e.g. Caught Behind --> —</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Fielder</span>
+            <span class="val"><!-- Add if caught --> —</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Came In At (Over)</span>
+            <span class="val"><!-- e.g. Over 1.2 --> —</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Dismissed At (Over)</span>
+            <span class="val"><!-- e.g. Over 12.4 --> —</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Match context card -->
+      <div class="card">
+        <div class="card-header">
+          <h4>Chase Context</h4>
+          <span style="font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--text-muted);">275 Target</span>
+        </div>
+
+        <div class="big-stat-display" style="flex-direction:column; align-items:flex-start; gap:18px;">
+          <div>
+            <div style="font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">Score When Kohli Walked In</div>
+            <div style="font-family:'Bebas Neue',cursive; font-size:2.2rem; color:var(--trophy); letter-spacing:3px;">0 / 1 <span style="font-size:1rem; color:var(--text-muted);">(1.2 Ov)</span></div>
+          </div>
+          <div>
+            <div style="font-size:0.65rem; letter-spacing:3px; text-transform:uppercase; color:var(--text-muted); margin-bottom:6px;">Score When Kohli Got Out</div>
+            <div style="font-family:'Bebas Neue',cursive; font-size:2.2rem; color:var(--lavender); letter-spacing:3px;"><!-- e.g. 114 / 3 --> — / —</div>
+          </div>
+        </div>
+
+        <div class="innings-detail-rows">
+          <div class="innings-detail-row">
+            <span class="lbl">Target</span>
+            <span class="val gold">275 Runs</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Required RR (Start)</span>
+            <span class="val">5.48 per over</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Pressure Level</span>
+            <span class="val green">World Cup Final</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Key Partnership</span>
+            <span class="val"><!-- With whom + runs --> —</span>
+          </div>
+          <div class="innings-detail-row">
+            <span class="lbl">Partnership Runs</span>
+            <span class="val gold"><!-- Add runs --> —</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Image: Kohli batting in final -->
+      <div class="img-box" style="aspect-ratio:16/7;">
+        <!--
+          <img src="assets/wc2011-kohli-batting.jpg"
+               alt="Kohli batting in WC 2011 Final"
+               style="width:100%;height:100%;object-fit:cover;">
+        -->
+        <div class="img-placeholder">
+          <span class="ph-icon">🏏</span>
+          <span class="ph-label">Kohli Batting — WC 2011 Final</span>
+          <span class="ph-hint">Replace with: assets/wc2011-kohli-batting.jpg</span>
+        </div>
+        <div class="corner-badge">Final Innings</div>
+        <div class="img-caption-bar">
+          <p>Virat Kohli batting in the 2011 WC Final · Wankhede</p>
+        </div>
+      </div>
+
+      <!-- Image: Trophy / Dhoni six moment -->
+      <div class="img-box" style="aspect-ratio:16/7;">
+        <!--
+          <img src="assets/wc2011-dhoni-six.jpg"
+               alt="Dhoni's winning six"
+               style="width:100%;height:100%;object-fit:cover;">
+        -->
+        <div class="img-placeholder">
+          <span class="ph-icon">🌟</span>
+          <span class="ph-label">Dhoni's Winning Six · The Moment</span>
+          <span class="ph-hint">Replace with: assets/wc2011-dhoni-six.jpg</span>
+        </div>
+        <div class="corner-badge">Winning Moment</div>
+        <div class="img-caption-bar">
+          <p>MS Dhoni's iconic winning six · 2 April 2011</p>
+        </div>
+      </div>
+
+      <!-- Ball-by-ball -->
+      <div class="timeline-card">
+        <div class="timeline-title">Ball-by-Ball · Kohli's 35 Runs in the Final</div>
+
+        <div class="timeline-track">
+          <!--
+            Replace with actual ball-by-ball data.
+            Classes: ball-0 (dot) · ball-1/2/3 · ball-4 (four) · ball-6 (six) · ball-W (wicket)
+
+            Example:
+            <div class="ball-dot ball-4">4</div>
+            <div class="ball-dot ball-0">·</div>
+          -->
+          <!-- PLACEHOLDER — replace with real delivery data -->
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-1">1</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-4">4</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-2">2</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-1">1</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-4">4</div>
+          <div class="ball-dot ball-1">1</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-2">2</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-1">1</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-3">3</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-1">1</div>
+          <div class="ball-dot ball-4">4</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-W">W</div>
+          <div class="ball-dot ball-add" style="font-size:0.5rem; letter-spacing:0.5px; text-align:center;">Add<br>Balls</div>
+        </div>
+
+        <div class="ball-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(48,43,99,0.4); border-color:rgba(167,139,250,0.2);"></div>Dot</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(124,58,237,0.15); border-color:rgba(124,58,237,0.35);"></div>1–3 Runs</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(245,158,11,0.15); border-color:rgba(245,158,11,0.4);"></div>Four</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(16,185,129,0.15); border-color:rgba(16,185,129,0.4);"></div>Six</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.4);"></div>Wicket</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ──────────────────────────────────
+       TAB 4 · TOURNAMENT JOURNEY
+  ────────────────────────────────── -->
+  <div class="tab-panel" id="tab-journey">
+
+    <!-- Summary stat cards -->
+    <div class="journey-grid">
+      <div class="journey-stat-card">
+        <div class="jscard-icon">🏏</div>
+        <div class="jscard-num">282</div>
+        <div class="jscard-label">Tournament Runs</div>
+      </div>
+      <div class="journey-stat-card">
+        <div class="jscard-icon">📊</div>
+        <div class="jscard-num"><!-- Avg -->—</div>
+        <div class="jscard-label">Tournament Average</div>
+      </div>
+      <div class="journey-stat-card">
+        <div class="jscard-icon">🎯</div>
+        <div class="jscard-num"><!-- Matches -->9</div>
+        <div class="jscard-label">Matches Played</div>
+      </div>
+      <div class="journey-stat-card">
+        <div class="jscard-icon">💯</div>
+        <div class="jscard-num"><!-- 100s -->—</div>
+        <div class="jscard-label">Centuries</div>
+      </div>
+      <div class="journey-stat-card">
+        <div class="jscard-icon">⚡</div>
+        <div class="jscard-num"><!-- 50s -->—</div>
+        <div class="jscard-label">Half-Centuries</div>
+      </div>
+      <div class="journey-stat-card">
+        <div class="jscard-icon">🔝</div>
+        <div class="jscard-num"><!-- HS -->—</div>
+        <div class="jscard-label">Highest Score</div>
+      </div>
+    </div>
+
+    <!-- Match-by-match table -->
+    <div class="matches-table-wrap">
+      <div class="card-header trophy-header" style="border-radius:0;">
+        <h4>Kohli's Match-by-Match · WC 2011</h4>
+        <span class="badge badge-wc">Full Tournament</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="matches-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Stage</th>
+              <th>Opponent</th>
+              <th>Venue</th>
+              <th>R</th>
+              <th>B</th>
+              <th>4s</th>
+              <th>6s</th>
+              <th>SR</th>
+              <th>Result</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Group</td>
+              <td>Bangladesh</td>
+              <td>Mirpur</td>
+              <td><!-- R -->—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td class="result-won">Won</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Group</td>
+              <td>England</td>
+              <td>Bengaluru</td>
+              <td><!-- R -->—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td class="result-nr">Tied</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Group</td>
+              <td>Ireland</td>
+              <td>Bengaluru</td>
+              <td><!-- R -->—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td class="result-won">Won</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Group</td>
+              <td>Netherlands</td>
+              <td>Delhi</td>
+              <td><!-- R -->—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td class="result-won">Won</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>5</td>
+              <td>Group</td>
+              <td>South Africa</td>
+              <td>Nagpur</td>
+              <td>35</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td class="result-won">Won</td>
+            </tr>
+            <tr class="highlight-row">
+              <td>6</td>
+              <td>Group</td>
+              <td>West Indies</td>
+              <td>Chennai</td>
+              <td>59</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td class="result-won">Won</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>QF</td>
+              <td>Australia</td>
+              <td>Ahmedabad</td>
+              <td><!-- R -->—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td class="result-won">Won</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td>SF</td>
+              <td>Pakistan</td>
+              <td>Mohali</td>
+              <td>9</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td class="result-won">Won</td>
+            </tr>
+            <tr class="final-row">
+              <td>9</td>
+              <td>🏆 FINAL</td>
+              <td>Sri Lanka</td>
+              <td>Mumbai</td>
+              <td>35</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td class="result-won">🏆 WON</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Tournament image -->
+    <div class="img-box" style="aspect-ratio: 21/7; margin-top: 4px;">
+      <!--
+        <img src="assets/wc2011-kohli-tournament.jpg"
+             alt="Kohli tournament montage"
+             style="width:100%;height:100%;object-fit:cover;">
+      -->
+      <div class="img-placeholder">
+        <span class="ph-icon">📸</span>
+        <span class="ph-label">Kohli's WC 2011 Tournament Montage / Best Moments</span>
+        <span class="ph-hint">Replace with: assets/wc2011-kohli-tournament.jpg</span>
+      </div>
+      <div class="corner-badge">9 Matches · 282 Runs</div>
+      <div class="img-caption-bar">
+        <p>Virat Kohli · ICC Cricket World Cup 2011 · India</p>
+      </div>
+    </div>
+
+  </div>
+
+
+  <!-- ──────────────────────────────────
+       TAB 5 · VIDEOS
+  ────────────────────────────────── -->
+  <div class="tab-panel" id="tab-video">
+    <div class="video-grid">
+
+      <!-- Main featured video -->
+      <div class="video-main">
+        <div class="video-embed">
+          <!--
+            ╔═══════════════════════════════════════════════════════╗
+            ║  OPTION 1 — YouTube Embed (Recommended):              ║
+            ║                                                       ║
+            ║  Replace this entire .video-embed div with:           ║
+            ║  <iframe                                              ║
+            ║    width="100%"                                       ║
+            ║    style="aspect-ratio:16/9; border:none;"            ║
+            ║    src="https://www.youtube.com/embed/VIDEO_ID"       ║
+            ║    allowfullscreen>                                   ║
+            ║  </iframe>                                            ║
+            ║                                                       ║
+            ║  OPTION 2 — Local File:                               ║
+            ║  <video width="100%" controls                         ║
+            ║    poster="assets/wc2011-final-thumb.jpg">            ║
+            ║    <source src="assets/wc2011-final-highlights.mp4"   ║
+            ║            type="video/mp4">                          ║
+            ║  </video>                                             ║
+            ╚═══════════════════════════════════════════════════════╝
+          -->
+          <div class="video-thumb-placeholder">
+            <span class="ph-icon">🎥</span>
+            <span class="ph-text">WC 2011 Final Full Highlights</span>
+            <span class="ph-hint">Add YouTube embed or local video file</span>
+          </div>
+          <div class="play-btn-overlay">
+            <div class="play-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#000">
+                <polygon points="5,3 19,12 5,21"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-tag">🏆 Full Highlights · WC 2011 Final</div>
+          <div class="video-title">India vs Sri Lanka — ICC World Cup 2011 Final Full Match</div>
+          <div class="video-meta">Wankhede Stadium, Mumbai · 2 April 2011 · 274/6 vs 277/4</div>
+        </div>
+      </div>
+
+      <!-- Video sidebar -->
+      <div class="video-list">
+
+        <div class="video-list-item">
+          <div class="vli-thumb">
+            <span class="vli-ph">🏏</span>
+            <span class="vli-ph-text">Add thumb</span>
+            <div class="mini-play"><div class="mini-play-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          </div>
+          <div class="vli-body">
+            <div class="vli-tag">🎬 Highlights</div>
+            <div class="vli-title">Kohli's 35-Run Knock — WC Final</div>
+            <div class="vli-meta">Add video link · ~4 min</div>
+          </div>
+        </div>
+
+        <div class="video-list-item">
+          <div class="vli-thumb">
+            <span class="vli-ph">🌟</span>
+            <span class="vli-ph-text">Add thumb</span>
+            <div class="mini-play"><div class="mini-play-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          </div>
+          <div class="vli-body">
+            <div class="vli-tag">💛 Dedication</div>
+            <div class="vli-title">Kohli Carries Sachin on his Shoulders</div>
+            <div class="vli-meta">Add video link · ~2 min</div>
+          </div>
+        </div>
+
+        <div class="video-list-item">
+          <div class="vli-thumb">
+            <span class="vli-ph">🏟️</span>
+            <span class="vli-ph-text">Add thumb</span>
+            <div class="mini-play"><div class="mini-play-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          </div>
+          <div class="vli-body">
+            <div class="vli-tag">🎙️ Interview</div>
+            <div class="vli-title">Kohli Post-Match Reaction — WC 2011</div>
+            <div class="vli-meta">Add video link · ~5 min</div>
+          </div>
+        </div>
+
+        <div class="video-list-item">
+          <div class="vli-thumb">
+            <span class="vli-ph">🎉</span>
+            <span class="vli-ph-text">Add thumb</span>
+            <div class="mini-play"><div class="mini-play-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div>
+          </div>
+          <div class="vli-body">
+            <div class="vli-tag">📺 Celebration</div>
+            <div class="vli-title">Dressing Room Scenes & Trophy Lift</div>
+            <div class="vli-meta">Add video link · ~7 min</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ──────────────────────────────────
+       TAB 6 · GALLERY
+  ────────────────────────────────── -->
+  <div class="tab-panel" id="tab-gallery">
+    <div class="photo-masonry">
+
+      <div class="upload-cta">
+        <p>📁 Add your WC 2011 images to <strong>assets/</strong> folder and replace placeholders · Grid layout is ready</p>
+        <span class="upload-badge">6 Slots Ready</span>
+      </div>
+
+      <!-- Photo 1 — Featured Wide (spans 2 cols, 2 rows) -->
+      <div class="photo-item wide tall">
+        <!--
+          <img src="assets/wc2011-gallery-1.jpg"
+               alt="India WC 2011 Champions"
+               style="width:100%;height:100%;object-fit:cover;">
+        -->
+        <div class="photo-inner">
+          <span class="ph-icon">🏆</span>
+          <span class="ph-label">Featured · India WC 2011 Champions</span>
+          <span class="ph-hint">assets/wc2011-gallery-1.jpg</span>
+        </div>
+        <div class="photo-overlay">
+          <span class="photo-caption">India — World Champions 2011</span>
+        </div>
+      </div>
+
+      <!-- Photo 2 -->
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">🏏</span>
+          <span class="ph-label">Kohli Batting — WC Final</span>
+          <span class="ph-hint">assets/wc2011-gallery-2.jpg</span>
+        </div>
+        <div class="photo-overlay">
+          <span class="photo-caption">Kohli at the crease · Final</span>
+        </div>
+      </div>
+
+      <!-- Photo 3 -->
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">🤝</span>
+          <span class="ph-label">Kohli & Sachin Moment</span>
+          <span class="ph-hint">assets/wc2011-gallery-3.jpg</span>
+        </div>
+        <div class="photo-overlay">
+          <span class="photo-caption">For you, Sachin paaji</span>
+        </div>
+      </div>
+
+      <!-- Photo 4 -->
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">🎊</span>
+          <span class="ph-label">Wankhede Celebrations</span>
+          <span class="ph-hint">assets/wc2011-gallery-4.jpg</span>
+        </div>
+        <div class="photo-overlay">
+          <span class="photo-caption">Wankhede erupts · Apr 2011</span>
+        </div>
+      </div>
+
+      <!-- Photo 5 -->
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">🥇</span>
+          <span class="ph-label">Medal / Trophy Ceremony</span>
+          <span class="ph-hint">assets/wc2011-gallery-5.jpg</span>
+        </div>
+        <div class="photo-overlay">
+          <span class="photo-caption">Medal ceremony · WC 2011</span>
+        </div>
+      </div>
+
+      <!-- Photo 6 -->
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">🌙</span>
+          <span class="ph-label">Victory Lap · Night</span>
+          <span class="ph-hint">assets/wc2011-gallery-6.jpg</span>
+        </div>
+        <div class="photo-overlay">
+          <span class="photo-caption">Victory lap · Wankhede night</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /wc-content -->
+
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+</script>
+
+</body>
+</html>

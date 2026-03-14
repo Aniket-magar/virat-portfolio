@@ -1,0 +1,1616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Virat Kohli — Fastest to 10,000 ODI Runs</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg:          #08070f;
+      --bg-mid:      #0f0d1c;
+      --card-bg:     rgba(25,22,48,0.7);
+      --border:      rgba(251,146,60,0.18);
+      --violet:      #7c3aed;
+      --lavender:    #a78bfa;
+      --white:       #ffffff;
+      --muted:       #c4b5fd;
+      /* Speed accent — deep amber / orange-fire */
+      --amber:       #f97316;
+      --amber-light: #fb923c;
+      --amber-pale:  #fed7aa;
+      --amber-dim:   rgba(249,115,22,0.12);
+      --amber-border:rgba(249,115,22,0.28);
+      --gold:        #f59e0b;
+      --gold-light:  #fcd34d;
+      --green:       #10b981;
+      --green-dim:   rgba(16,185,129,0.12);
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--white);
+      font-family: 'Rajdhani', sans-serif;
+      min-height: 100vh;
+    }
+
+    /* ══════════════════════════════
+       HERO
+    ══════════════════════════════ */
+    .speed-hero {
+      position: relative;
+      min-height: 70vh;
+      display: flex; align-items: flex-end;
+      overflow: hidden;
+      background: linear-gradient(150deg, #04030b 0%, #0d0b1a 55%, #08070f 100%);
+    }
+
+    /* Speed lines — horizontal motion blur effect */
+    .speed-lines {
+      position: absolute; inset: 0;
+      pointer-events: none; overflow: hidden; z-index: 1;
+    }
+
+    .sl {
+      position: absolute;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--amber), transparent);
+      opacity: 0;
+      animation: speedLine 2.4s ease-in-out infinite;
+    }
+
+    .sl:nth-child(1)  { top: 12%; width: 40%; left: -10%; animation-delay: 0s;    animation-duration: 2.2s; }
+    .sl:nth-child(2)  { top: 28%; width: 55%; left: -20%; animation-delay: 0.5s;  animation-duration: 2.8s; }
+    .sl:nth-child(3)  { top: 45%; width: 35%; left: -5%;  animation-delay: 1.1s;  animation-duration: 2.0s; }
+    .sl:nth-child(4)  { top: 60%; width: 48%; left: -15%; animation-delay: 0.8s;  animation-duration: 3.0s; }
+    .sl:nth-child(5)  { top: 75%; width: 42%; left: -8%;  animation-delay: 1.6s;  animation-duration: 2.5s; }
+    .sl:nth-child(6)  { top: 88%; width: 30%; left: -12%; animation-delay: 0.3s;  animation-duration: 2.1s; }
+
+    @keyframes speedLine {
+      0%   { opacity: 0; transform: translateX(0); }
+      30%  { opacity: 0.4; }
+      70%  { opacity: 0.2; }
+      100% { opacity: 0; transform: translateX(120vw); }
+    }
+
+    /* Big "10K" watermark */
+    .hero-10k-bg {
+      position: absolute;
+      right: 2%; top: 50%;
+      transform: translateY(-50%);
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(10rem, 22vw, 20rem);
+      line-height: 1; letter-spacing: -8px;
+      background: linear-gradient(160deg,
+        rgba(249,115,22,0.11) 0%, transparent 70%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      pointer-events: none; user-select: none;
+      z-index: 1;
+    }
+
+    /* Amber radial glow */
+    .hero-glow {
+      position: absolute; inset: 0; pointer-events: none;
+      background: radial-gradient(ellipse at 75% 50%,
+        rgba(249,115,22,0.09) 0%,
+        rgba(124,58,237,0.05) 40%,
+        transparent 70%);
+    }
+
+    .hero-inner {
+      position: relative; z-index: 2;
+      width: 100%; padding: 80px 60px 60px;
+    }
+
+    .hero-eyebrow {
+      display: flex; align-items: center; gap: 14px;
+      margin-bottom: 20px;
+      animation: fadeUp 0.8s ease both;
+    }
+
+    .eyebrow-line { width: 50px; height: 2px; background: linear-gradient(90deg, var(--amber), transparent); }
+    .eyebrow-text { font-size: 0.72rem; letter-spacing: 5px; color: var(--amber); font-weight: 700; text-transform: uppercase; }
+
+    .hero-date-badge {
+      display: inline-flex; align-items: center; gap: 10px;
+      background: var(--amber-dim); border: 1px solid var(--amber-border);
+      border-radius: 4px; padding: 8px 20px; margin-bottom: 24px;
+      animation: fadeUp 0.9s 0.1s ease both;
+    }
+
+    .hero-date-badge .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--amber); animation: pulse 2s infinite; }
+    .hero-date-badge span { font-size: 0.8rem; letter-spacing: 3px; color: var(--amber); font-weight: 600; text-transform: uppercase; }
+
+    .hero-title {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(3rem, 8vw, 7rem);
+      line-height: 0.88; letter-spacing: 5px;
+      color: var(--white); margin-bottom: 18px;
+      animation: fadeUp 0.9s 0.15s ease both;
+    }
+
+    .hero-title .accent {
+      background: linear-gradient(90deg, var(--amber), var(--amber-light), var(--gold-light));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+    }
+
+    /* Record badge */
+    .record-badge {
+      display: inline-flex; align-items: center; gap: 16px;
+      background: linear-gradient(90deg, rgba(249,115,22,0.14), rgba(249,115,22,0.04));
+      border: 1px solid var(--amber-border);
+      border-radius: 3px; padding: 12px 24px; margin-bottom: 22px;
+      animation: fadeUp 0.9s 0.18s ease both;
+    }
+
+    .rb-icon { font-size: 1.8rem; }
+    .rb-detail { display: flex; flex-direction: column; gap: 2px; }
+    .rb-title { font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 4px; color: var(--white); }
+    .rb-sub   { font-size: 0.65rem; letter-spacing: 3px; color: var(--muted); text-transform: uppercase; font-weight: 600; }
+
+    .hero-subtitle {
+      font-size: 1.05rem; color: var(--muted);
+      letter-spacing: 2px; font-weight: 500;
+      margin-bottom: 40px; max-width: 640px; line-height: 1.75;
+      animation: fadeUp 0.9s 0.2s ease both;
+    }
+
+    /* Facts strip */
+    .hero-facts {
+      display: flex; flex-wrap: wrap; gap: 0;
+      border: 1px solid var(--border); border-radius: 10px;
+      overflow: hidden; max-width: 980px;
+      backdrop-filter: blur(10px); background: rgba(8,7,15,0.6);
+      animation: fadeUp 0.9s 0.3s ease both;
+    }
+
+    .fact-item {
+      flex: 1; min-width: 120px; padding: 20px 22px;
+      border-right: 1px solid var(--border);
+      position: relative; transition: background 0.3s;
+    }
+
+    .fact-item:last-child { border-right: none; }
+    .fact-item:hover { background: var(--amber-dim); }
+    .fact-item::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 2px; background: linear-gradient(90deg, var(--amber), transparent); opacity: 0; transition: opacity 0.3s; }
+    .fact-item:hover::before { opacity: 1; }
+
+    .fact-label { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; font-weight: 600; }
+    .fact-value { font-family: 'Bebas Neue', cursive; font-size: 1.3rem; letter-spacing: 2px; color: var(--white); line-height: 1.1; }
+    .fact-value.amber { color: var(--amber); }
+    .fact-value.gold  { color: var(--gold); }
+    .fact-value.green { color: #6ee7b7; }
+
+    /* ══════════════════════════════
+       ODOMETER COUNTER STRIP
+    ══════════════════════════════ */
+    .odometer-strip {
+      background: linear-gradient(90deg, rgba(249,115,22,0.06), rgba(8,7,15,0.95), rgba(249,115,22,0.06));
+      border-top: 1px solid var(--amber-border);
+      border-bottom: 1px solid var(--amber-border);
+      padding: 24px 60px;
+      display: flex; align-items: center; justify-content: center;
+      gap: 0; flex-wrap: wrap;
+    }
+
+    .odo-block {
+      display: flex; flex-direction: column; align-items: center;
+      padding: 0 32px;
+      border-right: 1px solid rgba(249,115,22,0.15);
+    }
+
+    .odo-block:last-child { border-right: none; }
+
+    .odo-num {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+      letter-spacing: 4px; line-height: 1;
+      color: var(--amber);
+      text-shadow: 0 0 30px rgba(249,115,22,0.4);
+    }
+
+    .odo-num.white { color: var(--white); text-shadow: none; }
+
+    .odo-label {
+      font-size: 0.65rem; letter-spacing: 3px;
+      text-transform: uppercase; color: var(--muted);
+      margin-top: 6px; font-weight: 600; text-align: center;
+    }
+
+    .odo-vs {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1.2rem; letter-spacing: 3px;
+      color: rgba(249,115,22,0.3);
+      padding: 0 16px; align-self: center;
+    }
+
+    /* ══════════════════════════════
+       TABS
+    ══════════════════════════════ */
+    .speed-content { padding: 70px 60px; max-width: 1400px; margin: 0 auto; }
+
+    .tab-nav {
+      display: flex; gap: 0;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 60px; overflow-x: auto;
+    }
+
+    .tab-btn {
+      background: none; border: none; color: var(--muted);
+      font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 3px;
+      padding: 16px 32px; cursor: pointer; white-space: nowrap;
+      transition: color 0.3s; border-bottom: 3px solid transparent; margin-bottom: -1px;
+    }
+
+    .tab-btn:hover { color: var(--lavender); }
+    .tab-btn.active { color: var(--amber); border-bottom-color: var(--amber); }
+
+    .tab-panel { display: none; }
+    .tab-panel.active { display: block; }
+
+    /* ══════════════════════════════
+       SHARED COMPONENTS
+    ══════════════════════════════ */
+    .section-eyebrow { font-size: 0.68rem; letter-spacing: 4px; text-transform: uppercase; color: var(--amber); font-weight: 700; margin-bottom: 4px; }
+
+    .section-heading {
+      font-family: 'Bebas Neue', cursive;
+      font-size: clamp(2rem, 4vw, 3rem); letter-spacing: 4px; line-height: 1.05;
+      background: linear-gradient(90deg, var(--white), var(--lavender));
+      -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; margin-bottom: 16px;
+    }
+
+    .card { background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+
+    .card-header {
+      padding: 18px 24px;
+      background: linear-gradient(90deg, rgba(124,58,237,0.25), rgba(25,22,48,0.4));
+      display: flex; align-items: center; justify-content: space-between;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card-header.amber-header { background: linear-gradient(90deg, rgba(249,115,22,0.15), rgba(25,22,48,0.4)); }
+    .card-header h4 { font-family: 'Bebas Neue', cursive; font-size: 1.2rem; letter-spacing: 3px; color: var(--gold-light); }
+    .card-header.amber-header h4 { color: var(--amber); }
+
+    .badge { font-size: 0.65rem; letter-spacing: 2px; padding: 4px 12px; border-radius: 20px; text-transform: uppercase; font-weight: 700; }
+    .badge-speed { background: var(--amber-dim); color: var(--amber); border: 1px solid var(--amber-border); }
+    .badge-odi   { background: rgba(124,58,237,0.2); color: var(--lavender); border: 1px solid rgba(124,58,237,0.3); }
+    .badge-rec   { background: rgba(245,158,11,0.15); color: var(--gold); border: 1px solid rgba(245,158,11,0.3); }
+
+    .info-rows { padding: 8px 0; }
+    .info-row { display: flex; justify-content: space-between; align-items: center; padding: 13px 24px; border-bottom: 1px solid rgba(167,139,250,0.07); transition: background 0.2s; }
+    .info-row:last-child { border-bottom: none; }
+    .info-row:hover { background: var(--amber-dim); }
+    .info-row .lbl { font-size: 0.78rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); font-weight: 600; }
+    .info-row .val { font-size: 0.95rem; color: var(--white); font-weight: 600; text-align: right; max-width: 58%; }
+    .info-row .val.amber { color: var(--amber); }
+    .info-row .val.gold  { color: var(--gold); }
+    .info-row .val.green { color: #6ee7b7; }
+    .info-row .val.lav   { color: var(--lavender); }
+
+    .img-box { border-radius: 12px; overflow: hidden; background: var(--card-bg); border: 1px solid var(--border); position: relative; }
+    .img-placeholder { width: 100%; height: 100%; min-height: 220px; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; }
+    .img-placeholder .ph-icon  { font-size: 3rem; opacity: 0.35; }
+    .img-placeholder .ph-label { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); opacity: 0.55; text-align: center; padding: 0 20px; }
+    .img-placeholder .ph-hint  { font-size: 0.65rem; letter-spacing: 1px; color: var(--amber); opacity: 0.65; text-align: center; padding: 0 24px; }
+    .img-caption-bar { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(0deg, rgba(8,7,15,0.95), transparent); padding: 28px 18px 14px; }
+    .img-caption-bar p { font-size: 0.78rem; letter-spacing: 1.5px; color: var(--amber-pale); text-transform: uppercase; }
+    .corner-badge { position: absolute; top: 14px; right: 14px; background: var(--amber-dim); border: 1px solid var(--amber-border); border-radius: 4px; padding: 5px 12px; font-size: 0.65rem; letter-spacing: 3px; color: var(--amber); text-transform: uppercase; font-weight: 700; }
+
+    .pull-quote { background: var(--amber-dim); border-left: 3px solid var(--amber); border-radius: 0 8px 8px 0; padding: 20px 24px; position: relative; }
+    .pull-quote::before { content: '"'; position: absolute; top: -8px; left: 16px; font-family: 'Bebas Neue', cursive; font-size: 4.5rem; color: rgba(249,115,22,0.12); line-height: 1; }
+    .pull-quote p { font-size: 1.05rem; font-style: italic; color: var(--white); line-height: 1.75; margin-bottom: 8px; }
+    .pull-quote .attr { font-size: 0.72rem; letter-spacing: 2px; color: var(--amber); text-transform: uppercase; font-weight: 700; }
+
+    .story-body p { color: var(--muted); font-size: 1rem; line-height: 1.85; margin-bottom: 14px; }
+    .story-body p:last-child { margin-bottom: 0; }
+    .story-body strong { color: var(--white); font-weight: 700; }
+
+    /* ══════════════════════════════
+       TAB 1 — STORY
+    ══════════════════════════════ */
+    .story-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: start; }
+    .story-text-wrap { display: flex; flex-direction: column; gap: 24px; }
+
+    /* ══════════════════════════════
+       TAB 2 — RECORD COMPARISON
+    ══════════════════════════════ */
+    .comp-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+    /* Hero comparison bar — Kohli vs All-Time */
+    .versus-card {
+      grid-column: 1/-1;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 36px 40px;
+      position: relative; overflow: hidden;
+    }
+
+    .versus-card::before {
+      content: '⚡';
+      position: absolute; right: 32px; top: 50%;
+      transform: translateY(-50%);
+      font-size: 8rem; opacity: 0.04;
+      pointer-events: none;
+    }
+
+    .versus-title { font-family: 'Bebas Neue', cursive; font-size: 1.3rem; letter-spacing: 4px; color: var(--amber); margin-bottom: 6px; }
+    .versus-sub   { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 32px; }
+
+    .versus-rows { display: flex; flex-direction: column; gap: 20px; }
+
+    .versus-row { display: flex; align-items: center; gap: 16px; }
+
+    .vr-name {
+      width: 180px; min-width: 180px;
+      display: flex; flex-direction: column; gap: 2px;
+    }
+
+    .vr-player { font-size: 0.9rem; font-weight: 700; color: var(--white); letter-spacing: 1px; }
+    .vr-country { font-size: 0.68rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    .vr-bar-wrap { flex: 1; }
+
+    .vr-bar-track {
+      height: 24px; border-radius: 4px;
+      background: rgba(25,22,48,0.6);
+      overflow: hidden; position: relative;
+    }
+
+    .vr-bar-fill {
+      height: 100%; border-radius: 4px;
+      display: flex; align-items: center;
+      padding-right: 10px; justify-content: flex-end;
+      animation: barGrow 1.4s ease both;
+      position: relative;
+    }
+
+    .vr-bar-fill.kohli {
+      background: linear-gradient(90deg, var(--amber), var(--amber-light));
+      box-shadow: 0 0 20px rgba(249,115,22,0.3);
+    }
+
+    .vr-bar-fill.other { background: linear-gradient(90deg, rgba(124,58,237,0.5), rgba(124,58,237,0.3)); }
+
+    .vr-bar-fill.sachin { background: linear-gradient(90deg, rgba(245,158,11,0.55), rgba(245,158,11,0.35)); }
+
+    .vr-inn {
+      font-family: 'Bebas Neue', cursive;
+      font-size: 0.9rem; letter-spacing: 1px; color: #000;
+    }
+
+    .vr-inn.light { color: rgba(255,255,255,0.7); }
+
+    .vr-badge {
+      width: 40px; min-width: 40px;
+      font-family: 'Bebas Neue', cursive;
+      font-size: 1rem; letter-spacing: 1px;
+      text-align: right;
+    }
+
+    .vr-badge.fastest { color: var(--amber); font-size: 1.1rem; }
+    .vr-badge.other   { color: var(--muted); }
+
+    /* Innings saved highlight */
+    .innings-saved-banner {
+      grid-column: 1/-1;
+      background: linear-gradient(90deg, rgba(249,115,22,0.1), rgba(249,115,22,0.04));
+      border: 1px solid var(--amber-border);
+      border-radius: 12px; padding: 24px 32px;
+      display: flex; align-items: center; gap: 28px; flex-wrap: wrap;
+    }
+
+    .isb-icon { font-size: 3rem; }
+
+    .isb-text { flex: 1; }
+    .isb-title { font-family: 'Bebas Neue', cursive; font-size: 1.6rem; letter-spacing: 4px; color: var(--amber); margin-bottom: 4px; }
+    .isb-desc  { font-size: 0.9rem; color: var(--muted); letter-spacing: 1px; line-height: 1.6; }
+
+    .isb-nums { display: flex; gap: 24px; flex-wrap: wrap; }
+    .isb-num-block { text-align: center; }
+    .isb-num { font-family: 'Bebas Neue', cursive; font-size: 2.5rem; letter-spacing: 3px; line-height: 1; }
+    .isb-num.amber { color: var(--amber); }
+    .isb-num.grey  { color: var(--muted); text-decoration: line-through; }
+    .isb-numlabel  { font-size: 0.62rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-top: 4px; }
+
+    /* ══════════════════════════════
+       TAB 3 — MILESTONE TRACKER
+    ══════════════════════════════ */
+    .milestone-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+    /* The big progress meter */
+    .progress-card {
+      grid-column: 1/-1;
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 14px; padding: 36px 40px;
+    }
+
+    .pc-title { font-family: 'Bebas Neue', cursive; font-size: 1.3rem; letter-spacing: 4px; color: var(--amber); margin-bottom: 6px; }
+    .pc-sub   { font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 36px; }
+
+    /* Horizontal milestone track */
+    .milestone-track {
+      position: relative; margin-bottom: 20px;
+    }
+
+    .mt-line {
+      height: 4px; border-radius: 2px;
+      background: rgba(25,22,48,0.8);
+      position: relative; overflow: visible;
+      margin: 0 20px;
+    }
+
+    .mt-fill {
+      height: 100%; border-radius: 2px;
+      background: linear-gradient(90deg, var(--amber), var(--amber-light));
+      width: 100%; /* fully complete */
+      box-shadow: 0 0 12px rgba(249,115,22,0.4);
+    }
+
+    /* Milestone dots on the track */
+    .milestone-dots {
+      position: absolute; top: -10px; left: 0; right: 0;
+      display: flex; justify-content: space-between;
+      padding: 0 20px;
+    }
+
+    .ms-dot-wrap { display: flex; flex-direction: column; align-items: center; gap: 0; }
+
+    .ms-dot {
+      width: 24px; height: 24px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      border: 2px solid; font-size: 0.55rem; font-weight: 700;
+      position: relative; cursor: default;
+      transition: transform 0.2s;
+    }
+
+    .ms-dot:hover { transform: scale(1.2); }
+
+    .ms-dot.reached { background: var(--amber); border-color: var(--amber); color: #000; box-shadow: 0 0 12px rgba(249,115,22,0.5); }
+    .ms-dot.record  { background: linear-gradient(135deg, var(--amber), var(--gold-light)); border-color: var(--gold); color: #000; box-shadow: 0 0 20px rgba(249,115,22,0.7); animation: glowPulse 2s ease-in-out infinite; }
+
+    @keyframes glowPulse {
+      0%,100% { box-shadow: 0 0 20px rgba(249,115,22,0.7); }
+      50%      { box-shadow: 0 0 40px rgba(249,115,22,1); }
+    }
+
+    /* Milestone labels below track */
+    .milestone-labels {
+      display: flex; justify-content: space-between;
+      padding: 0 20px; margin-top: 28px;
+    }
+
+    .ml-item { display: flex; flex-direction: column; align-items: center; gap: 4px; width: 80px; }
+    .ml-runs  { font-family: 'Bebas Neue', cursive; font-size: 0.95rem; letter-spacing: 1px; color: var(--amber); }
+    .ml-inn   { font-size: 0.62rem; letter-spacing: 1px; color: var(--muted); text-align: center; }
+    .ml-who   { font-size: 0.55rem; letter-spacing: 1px; color: rgba(167,139,250,0.5); text-align: center; text-transform: uppercase; }
+
+    /* Milestone detail cards */
+    .milestone-cards { display: grid; grid-template-columns: repeat(5, 1fr); gap: 14px; grid-column: 1/-1; }
+
+    .ms-card {
+      background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 18px 16px; text-align: center;
+      position: relative; overflow: hidden;
+      transition: transform 0.3s, box-shadow 0.3s;
+    }
+
+    .ms-card:hover { transform: translateY(-4px); box-shadow: 0 10px 28px rgba(249,115,22,0.15); }
+
+    .ms-card::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 3px; }
+    .ms-card.reached::before { background: linear-gradient(90deg, var(--amber), transparent); }
+    .ms-card.record::before  { background: linear-gradient(90deg, var(--gold), var(--amber), transparent); }
+
+    .ms-card-milestone { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 8px; font-weight: 600; }
+    .ms-card-runs { font-family: 'Bebas Neue', cursive; font-size: 1.8rem; letter-spacing: 2px; color: var(--amber); line-height: 1; }
+    .ms-card-runs.record { color: var(--gold); }
+    .ms-card-inn  { font-family: 'Bebas Neue', cursive; font-size: 1.1rem; letter-spacing: 1px; color: var(--white); margin-top: 6px; }
+    .ms-card-inn span { font-size: 0.7rem; color: var(--muted); font-family: 'Rajdhani', sans-serif; font-weight: 600; letter-spacing: 1px; }
+    .ms-card-prev { font-size: 0.68rem; letter-spacing: 1px; color: var(--muted); margin-top: 6px; line-height: 1.5; }
+    .ms-card-prev .saved { color: #6ee7b7; font-weight: 700; }
+
+    /* ══════════════════════════════
+       TAB 4 — THE INNINGS
+    ══════════════════════════════ */
+    .innings-layout { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+
+    /* Big innings display */
+    .innings-hero-card {
+      grid-column: 1/-1;
+      background: linear-gradient(135deg, rgba(249,115,22,0.08), rgba(25,22,48,0.5), rgba(249,115,22,0.05));
+      border: 1px solid var(--amber-border); border-radius: 14px;
+      padding: 36px 40px;
+      display: flex; align-items: center; gap: 40px; flex-wrap: wrap;
+      position: relative; overflow: hidden;
+    }
+
+    .innings-hero-card::before { content: '🏏'; position: absolute; right: 30px; top: 50%; transform: translateY(-50%); font-size: 7rem; opacity: 0.05; pointer-events: none; }
+
+    .ihc-big { display: flex; flex-direction: column; align-items: center; gap: 4px; min-width: 100px; }
+    .ihc-num  { font-family: 'Bebas Neue', cursive; font-size: 4.5rem; letter-spacing: 4px; color: var(--amber); line-height: 1; }
+    .ihc-num.small { font-size: 2.5rem; color: var(--gold); }
+    .ihc-num.green { font-size: 2.5rem; color: #6ee7b7; }
+    .ihc-lbl  { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); }
+
+    .ihc-divider { width: 1px; height: 80px; background: var(--border); }
+
+    .ihc-detail { flex: 1; }
+    .ihc-match { font-family: 'Bebas Neue', cursive; font-size: 1.4rem; letter-spacing: 3px; color: var(--white); margin-bottom: 4px; }
+    .ihc-venue { font-size: 0.78rem; letter-spacing: 2px; color: var(--muted); margin-bottom: 16px; }
+
+    .ihc-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+    .ihc-tag {
+      padding: 5px 14px; border-radius: 20px; font-size: 0.68rem;
+      letter-spacing: 2px; text-transform: uppercase; font-weight: 700;
+    }
+
+    .ihc-tag.record { background: var(--amber-dim); border: 1px solid var(--amber-border); color: var(--amber); }
+    .ihc-tag.match  { background: rgba(124,58,237,0.15); border: 1px solid rgba(124,58,237,0.3); color: var(--lavender); }
+    .ihc-tag.won    { background: var(--green-dim); border: 1px solid rgba(16,185,129,0.3); color: #6ee7b7; }
+
+    /* Ball-by-ball */
+    .timeline-card { grid-column: 1/-1; background: var(--card-bg); border: 1px solid var(--border); border-radius: 12px; padding: 28px 32px; }
+    .timeline-title { font-family: 'Bebas Neue', cursive; font-size: 1.2rem; letter-spacing: 3px; color: var(--gold-light); margin-bottom: 24px; }
+    .timeline-track { display: flex; flex-wrap: wrap; gap: 8px; }
+
+    .ball-dot { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 0.72rem; font-weight: 700; border: 1px solid; transition: transform 0.2s; cursor: default; }
+    .ball-dot:hover { transform: scale(1.15); }
+    .ball-0 { background: rgba(25,22,48,0.5); border-color: rgba(167,139,250,0.2); color: var(--muted); }
+    .ball-1,.ball-2,.ball-3 { background: rgba(124,58,237,0.15); border-color: rgba(124,58,237,0.35); color: var(--lavender); }
+    .ball-4 { background: rgba(249,115,22,0.15); border-color: rgba(249,115,22,0.4); color: var(--amber); }
+    .ball-6 { background: rgba(16,185,129,0.15); border-color: rgba(16,185,129,0.4); color: #6ee7b7; }
+    .ball-W { background: rgba(239,68,68,0.15); border-color: rgba(239,68,68,0.4); color: #fca5a5; }
+    .ball-milestone { background: linear-gradient(135deg, var(--amber-dim), rgba(245,158,11,0.1)); border-color: var(--amber); color: var(--gold); font-size: 0.55rem; text-align: center; line-height: 1.2; animation: glowPulse 2s ease-in-out infinite; }
+    .ball-add { background: rgba(25,22,48,0.2); border-color: var(--border); color: var(--muted); font-size: 0.5rem; text-align: center; line-height: 1.2; }
+
+    .ball-legend { display: flex; flex-wrap: wrap; gap: 16px; margin-top: 20px; padding-top: 16px; border-top: 1px solid var(--border); }
+    .legend-item { display: flex; align-items: center; gap: 7px; font-size: 0.72rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); }
+    .legend-dot  { width: 12px; height: 12px; border-radius: 50%; border: 1px solid; }
+
+    /* ══════════════════════════════
+       TAB 5 — ALL-TIME FASTEST LIST
+    ══════════════════════════════ */
+    .fastest-table { width: 100%; border-collapse: collapse; }
+    .fastest-table thead th {
+      background: linear-gradient(90deg, rgba(249,115,22,0.2), rgba(25,22,48,0.3));
+      color: var(--amber); font-family: 'Bebas Neue', cursive;
+      letter-spacing: 2px; font-size: 0.9rem; padding: 14px 18px;
+      text-align: left; border-bottom: 1px solid var(--border);
+    }
+    .fastest-table tbody td { padding: 14px 18px; font-size: 0.9rem; color: var(--muted); border-bottom: 1px solid rgba(167,139,250,0.06); transition: background 0.2s; }
+    .fastest-table tbody tr:last-child td { border-bottom: none; }
+    .fastest-table tbody tr:hover td { background: var(--amber-dim); color: var(--white); }
+    .fastest-table tbody td:first-child { font-weight: 700; }
+    .fastest-table .kohli-row td { color: var(--amber) !important; font-weight: 700 !important; background: rgba(249,115,22,0.05) !important; }
+    .fastest-table .kohli-row:hover td { background: rgba(249,115,22,0.1) !important; }
+
+    .rank-circle {
+      width: 32px; height: 32px; border-radius: 50%;
+      display: inline-flex; align-items: center; justify-content: center;
+      font-family: 'Bebas Neue', cursive; font-size: 1rem; letter-spacing: 1px; border: 2px solid;
+    }
+
+    .r1 { background: var(--amber-dim); border-color: var(--amber); color: var(--amber); box-shadow: 0 0 10px rgba(249,115,22,0.3); }
+    .r2 { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.35); color: var(--gold); }
+    .r3 { background: rgba(167,139,250,0.1); border-color: rgba(167,139,250,0.25); color: var(--lavender); }
+    .rn { background: rgba(25,22,48,0.4); border-color: rgba(167,139,250,0.15); color: var(--muted); }
+
+    /* Inn saved column */
+    .saved-pill {
+      display: inline-block; padding: 3px 10px; border-radius: 20px;
+      font-size: 0.68rem; letter-spacing: 1.5px; font-weight: 700; text-transform: uppercase;
+    }
+
+    .saved-pill.fast  { background: var(--amber-dim); border: 1px solid var(--amber-border); color: var(--amber); }
+    .saved-pill.other { background: rgba(167,139,250,0.1); border: 1px solid rgba(167,139,250,0.2); color: var(--muted); }
+
+    /* Milestone comparison by innings chart */
+    .milestone-bar-wrap { grid-column: 1/-1; }
+
+    /* ══════════════════════════════
+       TAB 6 — VIDEOS
+    ══════════════════════════════ */
+    .video-grid { display: grid; grid-template-columns: 2fr 1fr; gap: 24px; }
+    .video-main { border-radius: 12px; overflow: hidden; background: var(--card-bg); border: 1px solid var(--border); }
+
+    .video-embed { position: relative; aspect-ratio: 16/9; background: #04030b; display: flex; align-items: center; justify-content: center; cursor: pointer; overflow: hidden; }
+
+    .video-thumb-placeholder { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px; background: linear-gradient(135deg, #04030b, #0d0b1a); }
+    .video-thumb-placeholder .ph-icon  { font-size: 3rem; opacity: 0.35; }
+    .video-thumb-placeholder .ph-text  { font-size: 0.72rem; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); opacity: 0.6; text-align: center; padding: 0 20px; }
+    .video-thumb-placeholder .ph-hint  { font-size: 0.65rem; color: var(--amber); opacity: 0.55; letter-spacing: 1.5px; text-align: center; padding: 0 24px; }
+
+    .play-btn-overlay { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(8,7,15,0.3); transition: background 0.3s; }
+    .video-embed:hover .play-btn-overlay { background: rgba(8,7,15,0.1); }
+
+    .play-btn { width: 76px; height: 76px; border-radius: 50%; background: linear-gradient(135deg, var(--amber), var(--amber-light)); display: flex; align-items: center; justify-content: center; box-shadow: 0 0 50px rgba(249,115,22,0.5); transition: transform 0.3s, box-shadow 0.3s; }
+    .video-embed:hover .play-btn { transform: scale(1.1); box-shadow: 0 0 70px rgba(249,115,22,0.7); }
+    .play-btn svg { margin-left: 5px; }
+
+    .video-info { padding: 20px 22px; border-top: 1px solid var(--border); }
+    .video-tag  { font-size: 0.65rem; letter-spacing: 3px; text-transform: uppercase; color: var(--amber); font-weight: 700; margin-bottom: 8px; }
+    .video-title{ font-size: 1.05rem; font-weight: 700; color: var(--white); line-height: 1.4; margin-bottom: 8px; }
+    .video-meta { font-size: 0.78rem; color: rgba(167,139,250,0.5); letter-spacing: 1px; }
+
+    .video-list { display: flex; flex-direction: column; gap: 14px; }
+    .video-list-item { background: var(--card-bg); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; display: flex; cursor: pointer; transition: border-color 0.3s, transform 0.2s; }
+    .video-list-item:hover { border-color: var(--amber-border); transform: translateX(3px); }
+    .vli-thumb { width: 110px; min-width: 110px; background: #04030b; display: flex; align-items: center; justify-content: center; flex-direction: column; gap: 4px; position: relative; }
+    .vli-thumb .vli-ph { font-size: 1.4rem; opacity: 0.35; }
+    .vli-thumb .vli-ph-text { font-size: 0.55rem; letter-spacing: 1.5px; text-transform: uppercase; color: var(--muted); opacity: 0.5; text-align: center; padding: 0 6px; }
+    .vli-thumb .mini-play { position: absolute; inset: 0; display: flex; align-items: center; justify-content: center; }
+    .vli-thumb .mini-play-btn { width: 32px; height: 32px; border-radius: 50%; background: rgba(249,115,22,0.85); display: flex; align-items: center; justify-content: center; }
+    .vli-body { padding: 12px 14px; display: flex; flex-direction: column; justify-content: center; gap: 4px; }
+    .vli-tag  { font-size: 0.6rem; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 700; }
+    .vli-title{ font-size: 0.85rem; font-weight: 700; color: var(--white); line-height: 1.3; }
+    .vli-meta { font-size: 0.72rem; color: rgba(167,139,250,0.45); }
+
+    /* ══════════════════════════════
+       TAB 7 — GALLERY
+    ══════════════════════════════ */
+    .photo-masonry { display: grid; grid-template-columns: repeat(3, 1fr); grid-auto-rows: 190px; gap: 14px; }
+    .photo-item { border-radius: 10px; overflow: hidden; background: var(--card-bg); border: 1px solid var(--border); cursor: pointer; position: relative; transition: transform 0.3s, box-shadow 0.3s; }
+    .photo-item:hover { transform: translateY(-4px); box-shadow: 0 12px 35px rgba(249,115,22,0.2); }
+    .photo-item.tall { grid-row: span 2; }
+    .photo-item.wide { grid-column: span 2; }
+    .photo-inner { width: 100%; height: 100%; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; }
+    .photo-inner .ph-icon  { font-size: 2.2rem; opacity: 0.35; }
+    .photo-inner .ph-label { font-size: 0.65rem; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); opacity: 0.55; text-align: center; padding: 0 14px; }
+    .photo-inner .ph-hint  { font-size: 0.6rem; letter-spacing: 1px; color: var(--amber); opacity: 0.55; text-align: center; padding: 0 10px; }
+    .photo-overlay { position: absolute; inset: 0; background: linear-gradient(180deg, transparent 40%, rgba(8,7,15,0.9)); display: flex; align-items: flex-end; padding: 14px; opacity: 0; transition: opacity 0.3s; }
+    .photo-item:hover .photo-overlay { opacity: 1; }
+    .photo-caption { font-size: 0.72rem; letter-spacing: 2px; color: var(--amber-pale); text-transform: uppercase; font-weight: 600; }
+    .upload-cta { grid-column: 1/-1; background: linear-gradient(90deg, var(--amber-dim), rgba(25,22,48,0.2)); border: 1px dashed var(--amber-border); border-radius: 10px; padding: 20px 24px; display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; }
+    .upload-cta p { font-size: 0.82rem; color: var(--muted); letter-spacing: 1px; }
+    .upload-cta p strong { color: var(--amber); }
+    .upload-cta .upload-badge { background: var(--amber-dim); border: 1px solid var(--amber-border); border-radius: 4px; padding: 6px 16px; font-size: 0.7rem; letter-spacing: 2px; color: var(--amber); text-transform: uppercase; font-weight: 700; }
+
+    /* ══════════════════════════════
+       ANIMATIONS
+    ══════════════════════════════ */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes pulse  { 0%,100% { opacity:1; transform:scale(1); } 50% { opacity:0.5; transform:scale(0.85); } }
+    @keyframes barGrow { from { width: 0 !important; } to { } }
+
+    /* ══════════════════════════════
+       RESPONSIVE
+    ══════════════════════════════ */
+    @media (max-width: 960px) {
+      .story-grid, .comp-layout, .milestone-layout, .innings-layout, .video-grid { grid-template-columns: 1fr; }
+      .milestone-cards { grid-template-columns: repeat(2,1fr); }
+      .photo-masonry { grid-template-columns: repeat(2,1fr); }
+      .hero-inner, .speed-content { padding-left: 24px; padding-right: 24px; }
+      .odometer-strip { padding: 18px 24px; }
+      .vr-name { width: 120px; min-width: 120px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section class="speed-hero">
+
+  <div class="speed-lines">
+    <div class="sl"></div><div class="sl"></div><div class="sl"></div>
+    <div class="sl"></div><div class="sl"></div><div class="sl"></div>
+  </div>
+
+  <div class="hero-10k-bg">10K</div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-inner">
+
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <span class="eyebrow-text">Chapter 05 · The Record</span>
+    </div>
+
+    <div class="hero-date-badge">
+      <div class="dot"></div>
+      <span>2018 · ODI · Fastest Ever to 10,000 Runs</span>
+    </div>
+
+    <h1 class="hero-title">
+      FASTEST TO<br>
+      <span class="accent">10,000 ODI RUNS</span>
+    </h1>
+
+    <div class="record-badge">
+      <div class="rb-icon">⚡</div>
+      <div class="rb-detail">
+        <span class="rb-title">World Record — 205 Innings</span>
+        <span class="rb-sub">Surpassed Sachin Tendulkar's record of 259 innings · 2018</span>
+      </div>
+    </div>
+
+    <p class="hero-subtitle">
+      In 2018, Virat Kohli smashed the most coveted milestone in ODI batting —
+      reaching <strong>10,000 runs</strong> in just <strong>205 innings</strong>,
+      shattering Sachin Tendulkar's world record of 259 innings and rewriting
+      cricket history with unmatched speed and consistency.
+    </p>
+
+    <div class="hero-facts">
+      <div class="fact-item">
+        <div class="fact-label">Innings Taken</div>
+        <div class="fact-value amber">205</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Previous Record</div>
+        <div class="fact-value" style="color:var(--gold);">259 Inn</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Innings Saved</div>
+        <div class="fact-value green">54</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Year</div>
+        <div class="fact-value">2018</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">ODI Average</div>
+        <div class="fact-value gold"><!-- Add avg at time --> —</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Centuries</div>
+        <div class="fact-value amber"><!-- Add 100s at time --> —</div>
+      </div>
+      <div class="fact-item">
+        <div class="fact-label">Format</div>
+        <div class="fact-value green">ODI</div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<!-- ════════════════════════════════════════
+     ODOMETER STRIP
+════════════════════════════════════════ -->
+<div class="odometer-strip">
+
+  <div class="odo-block">
+    <div class="odo-num">205</div>
+    <div class="odo-label">Kohli's Innings</div>
+  </div>
+
+  <div class="odo-vs">vs</div>
+
+  <div class="odo-block">
+    <div class="odo-num" style="color:var(--gold);">259</div>
+    <div class="odo-label">Tendulkar's Record</div>
+  </div>
+
+  <div style="width:1px; height:60px; background:var(--border); margin: 0 20px;"></div>
+
+  <div class="odo-block">
+    <div class="odo-num white">54</div>
+    <div class="odo-label">Innings Saved</div>
+  </div>
+
+  <div style="width:1px; height:60px; background:var(--border); margin: 0 20px;"></div>
+
+  <div class="odo-block">
+    <div class="odo-num" style="color:#6ee7b7; font-size:2.8rem;">10,000</div>
+    <div class="odo-label">ODI Runs</div>
+  </div>
+
+  <div style="width:1px; height:60px; background:var(--border); margin: 0 20px;"></div>
+
+  <div class="odo-block">
+    <div class="odo-num" style="color:var(--lavender);">2018</div>
+    <div class="odo-label">Year Achieved</div>
+  </div>
+
+</div>
+
+
+<!-- ════════════════════════════════════════
+     TABBED CONTENT
+════════════════════════════════════════ -->
+<div class="speed-content">
+
+  <nav class="tab-nav" role="tablist">
+    <button class="tab-btn active" onclick="switchTab('story',this)">The Story</button>
+    <button class="tab-btn" onclick="switchTab('compare',this)">Record Comparison</button>
+    <button class="tab-btn" onclick="switchTab('milestones',this)">Milestones</button>
+    <button class="tab-btn" onclick="switchTab('innings',this)">The Innings</button>
+    <button class="tab-btn" onclick="switchTab('fastest',this)">All-Time Fastest</button>
+    <button class="tab-btn" onclick="switchTab('video',this)">Videos</button>
+    <button class="tab-btn" onclick="switchTab('gallery',this)">Gallery</button>
+  </nav>
+
+
+  <!-- ─────────────────────────────────
+       TAB 1 · THE STORY
+  ───────────────────────────────── -->
+  <div class="tab-panel active" id="tab-story">
+    <div class="story-grid">
+
+      <div class="img-box" style="aspect-ratio:3/4;">
+        <!--
+          ╔═══════════════════════════════════════════╗
+          ║  REPLACE WITH 10K MILESTONE PHOTO        ║
+          ║                                           ║
+          ║  <img src="assets/10k-kohli-main.jpg"     ║
+          ║       alt="Kohli 10000 ODI Runs"          ║
+          ║       style="width:100%;height:100%;      ║
+          ║       object-fit:cover;">                 ║
+          ╚═══════════════════════════════════════════╝
+        -->
+        <div class="img-placeholder" style="min-height:100%;">
+          <span class="ph-icon">⚡</span>
+          <span class="ph-label">Kohli — 10,000 ODI Runs Milestone Moment</span>
+          <span class="ph-hint">Replace with: assets/10k-kohli-main.jpg</span>
+        </div>
+        <div class="corner-badge">10K · 205 Innings</div>
+        <div class="img-caption-bar">
+          <p>Virat Kohli — Fastest to 10,000 ODI Runs · 2018</p>
+        </div>
+      </div>
+
+      <div class="story-text-wrap">
+
+        <div>
+          <div class="section-eyebrow">The Story Behind the Record</div>
+          <h2 class="section-heading">Rewriting<br>History in 205</h2>
+        </div>
+
+        <div class="story-body">
+          <p>
+            When <strong>Sachin Tendulkar</strong> reached 10,000 ODI runs in 259 innings in 1998,
+            it felt like an unbreakable milestone — a number so tied to greatness that no one
+            imagined it could be surpassed so quickly. Then came Virat Kohli.
+          </p>
+
+          <div class="pull-quote">
+            <p>Sachin was the benchmark for everything we dreamed about. To break his record — even one of them — is something I never dared to think about as a kid watching him bat.</p>
+            <span class="attr">— Virat Kohli, on breaking Sachin's 10K record</span>
+          </div>
+
+          <p>
+            In <strong>2018</strong>, in just his <strong>205th ODI innings</strong>, Kohli reached
+            the 10,000-run landmark — becoming the <strong>fastest batter in history</strong> to
+            achieve the milestone. He was <strong>54 innings faster</strong> than the God of Cricket,
+            a margin so large it underscored just how otherworldly his consistency had been.
+          </p>
+
+          <p>
+            At the time of reaching 10,000 runs, Kohli had an ODI average above <strong>58</strong>
+            — meaning he scored his 10,000 runs while getting out only around 170 times.
+            Every record he chased, he broke. Every legend he respected, he surpassed.
+          </p>
+        </div>
+
+        <div class="img-box" style="aspect-ratio:16/8;">
+          <!--
+            <img src="assets/10k-celebration.jpg"
+                 alt="Kohli 10K celebration"
+                 style="width:100%;height:100%;object-fit:cover;">
+          -->
+          <div class="img-placeholder">
+            <span class="ph-icon">🎊</span>
+            <span class="ph-label">10,000 Runs Celebration Moment</span>
+            <span class="ph-hint">Replace with: assets/10k-celebration.jpg</span>
+          </div>
+          <div class="corner-badge">Record Broken</div>
+          <div class="img-caption-bar">
+            <p>The moment Kohli reached 10,000 ODI runs · 2018</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────
+       TAB 2 · RECORD COMPARISON
+  ───────────────────────────────── -->
+  <div class="tab-panel" id="tab-compare">
+    <div class="comp-layout">
+
+      <!-- Innings saved banner -->
+      <div class="innings-saved-banner">
+        <div class="isb-icon">⚡</div>
+        <div class="isb-text">
+          <div class="isb-title">Kohli Reached 10,000 Runs 54 Innings Faster</div>
+          <div class="isb-desc">Sachin Tendulkar's world record stood for 20 years. Kohli didn't just break it — he obliterated it, reaching the milestone in <strong style="color:var(--white);">205 innings</strong> vs Sachin's <strong style="color:var(--white);">259</strong>.</div>
+        </div>
+        <div class="isb-nums">
+          <div class="isb-num-block">
+            <div class="isb-num amber">205</div>
+            <div class="isb-numlabel">Kohli's Innings</div>
+          </div>
+          <div style="display:flex; align-items:center; font-family:'Bebas Neue',cursive; font-size:1.5rem; color:rgba(249,115,22,0.3); padding:0 8px;">vs</div>
+          <div class="isb-num-block">
+            <div class="isb-num grey">259</div>
+            <div class="isb-numlabel">Previous Record</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Horizontal bar chart comparison -->
+      <div class="versus-card">
+        <div class="versus-title">Fastest to 10,000 ODI Runs — Top 10 Comparison</div>
+        <div class="versus-sub">Innings taken to reach 10,000 ODI runs · Less is better · Add exact innings values</div>
+
+        <div class="versus-rows">
+          <!--
+            HOW TO SET WIDTH:
+            Lowest innings = 205 (Kohli) = narrowest bar (best) → use ~25% width
+            Highest in top 10 ≈ 300+ → 100% width
+            Formula: width = (playerInnings / maxInnings * 100)%
+            Kohli 205 → ~65% width (shorter = faster)
+
+            Actually for "fastest" we want the SHORTEST bar to be the winner.
+            So INVERT: width = (maxInnings / playerInnings * 100) scaled
+            Kohli 205 → 99% width (longest bar = fastest)
+          -->
+
+          <div class="versus-row">
+            <div class="vr-name">
+              <span class="vr-player">🇮🇳 V Kohli</span>
+              <span class="vr-country">India · RECORD</span>
+            </div>
+            <div class="vr-bar-wrap">
+              <div class="vr-bar-track">
+                <div class="vr-bar-fill kohli" style="width:99%; animation-delay:0s;">
+                  <span class="vr-inn">205 Inn</span>
+                </div>
+              </div>
+            </div>
+            <div class="vr-badge fastest">⚡ #1</div>
+          </div>
+
+          <!-- Add all other top-10 fastest batters here -->
+          <!-- Example rows — fill in real names and innings -->
+          <div class="versus-row">
+            <div class="vr-name">
+              <span class="vr-player"><!-- Name --> —</span>
+              <span class="vr-country"><!-- Country --> —</span>
+            </div>
+            <div class="vr-bar-wrap">
+              <div class="vr-bar-track">
+                <div class="vr-bar-fill other" style="width:80%; animation-delay:0.1s;">
+                  <span class="vr-inn light">— Inn</span>
+                </div>
+              </div>
+            </div>
+            <div class="vr-badge other">#2</div>
+          </div>
+
+          <div class="versus-row">
+            <div class="vr-name"><span class="vr-player">—</span><span class="vr-country">—</span></div>
+            <div class="vr-bar-wrap"><div class="vr-bar-track"><div class="vr-bar-fill other" style="width:74%; animation-delay:0.2s;"><span class="vr-inn light">— Inn</span></div></div></div>
+            <div class="vr-badge other">#3</div>
+          </div>
+
+          <div class="versus-row">
+            <div class="vr-name"><span class="vr-player">—</span><span class="vr-country">—</span></div>
+            <div class="vr-bar-wrap"><div class="vr-bar-track"><div class="vr-bar-fill other" style="width:70%; animation-delay:0.3s;"><span class="vr-inn light">— Inn</span></div></div></div>
+            <div class="vr-badge other">#4</div>
+          </div>
+
+          <div class="versus-row">
+            <div class="vr-name"><span class="vr-player">—</span><span class="vr-country">—</span></div>
+            <div class="vr-bar-wrap"><div class="vr-bar-track"><div class="vr-bar-fill other" style="width:66%; animation-delay:0.4s;"><span class="vr-inn light">— Inn</span></div></div></div>
+            <div class="vr-badge other">#5</div>
+          </div>
+
+          <!-- Sachin row highlighted specially -->
+          <div class="versus-row">
+            <div class="vr-name">
+              <span class="vr-player">🇮🇳 SR Tendulkar</span>
+              <span class="vr-country">India · Prev Record</span>
+            </div>
+            <div class="vr-bar-wrap">
+              <div class="vr-bar-track">
+                <div class="vr-bar-fill sachin" style="width:79%; animation-delay:0.5s;">
+                  <span class="vr-inn" style="color:rgba(0,0,0,0.7);">259 Inn</span>
+                </div>
+              </div>
+            </div>
+            <div class="vr-badge" style="color:var(--gold);">#—</div>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- Kohli vs Sachin head-to-head comparison table -->
+      <div class="card">
+        <div class="card-header amber-header">
+          <h4>Kohli vs Sachin — 10K Journey</h4>
+          <span class="badge badge-speed">Head to Head</span>
+        </div>
+        <div class="info-rows">
+          <div class="info-row"><span class="lbl">Innings to 10K</span>
+            <span class="val" style="display:flex; gap:12px; align-items:center;">
+              <span style="color:var(--amber); font-weight:700;">205</span>
+              <span style="color:var(--muted); font-size:0.8rem;">vs</span>
+              <span style="color:var(--gold);">259</span>
+            </span>
+          </div>
+          <div class="info-row"><span class="lbl">Innings Saved</span><span class="val green">54 Innings</span></div>
+          <div class="info-row"><span class="lbl">ODI Avg (at 10K)</span><span class="val amber"><!-- Kohli avg -->— vs <!-- Sachin avg -->—</span></div>
+          <div class="info-row"><span class="lbl">Centuries (at 10K)</span><span class="val"><!-- Kohli 100s --> — vs <!-- Sachin 100s --> —</span></div>
+          <div class="info-row"><span class="lbl">Years to Reach</span><span class="val"><!-- e.g. Kohli 10yr vs Sachin 10yr --> — vs —</span></div>
+          <div class="info-row"><span class="lbl">Age at 10K</span><span class="val amber"><!-- Kohli age --> — yrs</span></div>
+          <div class="info-row"><span class="lbl">Record Set In</span><span class="val">2018 vs 1998</span></div>
+        </div>
+      </div>
+
+      <!-- Other 10K club members -->
+      <div class="card">
+        <div class="card-header">
+          <h4>ODI 10,000 Run Club</h4>
+          <span class="badge badge-rec">Elite</span>
+        </div>
+        <div class="info-rows">
+          <div class="info-row"><span class="lbl">SR Tendulkar 🇮🇳</span><span class="val gold">18,426 Runs</span></div>
+          <div class="info-row"><span class="lbl">K Sangakkara 🇱🇰</span><span class="val">14,234 Runs</span></div>
+          <div class="info-row"><span class="lbl">RT Ponting 🇦🇺</span><span class="val">13,704 Runs</span></div>
+          <div class="info-row"><span class="lbl">DPMD Jayawardene 🇱🇰</span><span class="val">12,650 Runs</span></div>
+          <div class="info-row"><span class="lbl">Inzamam-ul-Haq 🇵🇰</span><span class="val">11,739 Runs</span></div>
+          <div class="info-row"><span class="lbl">V Kohli 🇮🇳</span><span class="val amber">13,906+ Runs</span></div>
+          <div class="info-row"><span class="lbl"><!-- Add more members --> —</span><span class="val">—</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────
+       TAB 3 · MILESTONES
+  ───────────────────────────────── -->
+  <div class="tab-panel" id="tab-milestones">
+
+    <!-- Progress track -->
+    <div class="progress-card" style="margin-bottom:28px;">
+      <div class="pc-title">Kohli's ODI Run Milestones — Innings Tracker</div>
+      <div class="pc-sub">Each 1,000-run milestone reached faster than any batter in history · Fill in exact innings from records</div>
+
+      <div class="milestone-track">
+        <div class="mt-line">
+          <div class="mt-fill"></div>
+          <div class="milestone-dots">
+            <div class="ms-dot-wrap"><div class="ms-dot reached">1K</div></div>
+            <div class="ms-dot-wrap"><div class="ms-dot reached">2K</div></div>
+            <div class="ms-dot-wrap"><div class="ms-dot reached">3K</div></div>
+            <div class="ms-dot-wrap"><div class="ms-dot reached">4K</div></div>
+            <div class="ms-dot-wrap"><div class="ms-dot reached">5K</div></div>
+            <div class="ms-dot-wrap"><div class="ms-dot reached">6K</div></div>
+            <div class="ms-dot-wrap"><div class="ms-dot reached">7K</div></div>
+            <div class="ms-dot-wrap"><div class="ms-dot reached">8K</div></div>
+            <div class="ms-dot-wrap"><div class="ms-dot reached">9K</div></div>
+            <div class="ms-dot-wrap"><div class="ms-dot record">10K ⚡</div></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="milestone-labels">
+        <div class="ml-item"><div class="ml-runs">1,000</div><div class="ml-inn">— Inn</div></div>
+        <div class="ml-item"><div class="ml-runs">2,000</div><div class="ml-inn">— Inn</div></div>
+        <div class="ml-item"><div class="ml-runs">3,000</div><div class="ml-inn">— Inn</div></div>
+        <div class="ml-item"><div class="ml-runs">4,000</div><div class="ml-inn">— Inn</div></div>
+        <div class="ml-item"><div class="ml-runs">5,000</div><div class="ml-inn">— Inn</div></div>
+        <div class="ml-item"><div class="ml-runs">6,000</div><div class="ml-inn">— Inn</div></div>
+        <div class="ml-item"><div class="ml-runs">7,000</div><div class="ml-inn">— Inn</div></div>
+        <div class="ml-item"><div class="ml-runs">8,000</div><div class="ml-inn">— Inn</div></div>
+        <div class="ml-item"><div class="ml-runs">9,000</div><div class="ml-inn">— Inn</div></div>
+        <div class="ml-item"><div class="ml-runs" style="color:var(--gold);">10,000 ⚡</div><div class="ml-inn" style="color:var(--amber);">205 Inn</div><div class="ml-who">World Record</div></div>
+      </div>
+    </div>
+
+    <!-- Milestone cards -->
+    <div class="milestone-cards">
+
+      <div class="ms-card reached">
+        <div class="ms-card-milestone">1,000 Runs</div>
+        <div class="ms-card-runs">1K</div>
+        <div class="ms-card-inn"><!-- Inn --> — <span>Innings</span></div>
+        <div class="ms-card-prev">Previous record: <span class="saved">— Inn</span></div>
+      </div>
+
+      <div class="ms-card reached">
+        <div class="ms-card-milestone">2,000 Runs</div>
+        <div class="ms-card-runs">2K</div>
+        <div class="ms-card-inn">— <span>Innings</span></div>
+        <div class="ms-card-prev">Previous: — Inn</div>
+      </div>
+
+      <div class="ms-card reached">
+        <div class="ms-card-milestone">3,000 Runs</div>
+        <div class="ms-card-runs">3K</div>
+        <div class="ms-card-inn">— <span>Innings</span></div>
+        <div class="ms-card-prev">Previous: — Inn</div>
+      </div>
+
+      <div class="ms-card reached">
+        <div class="ms-card-milestone">4,000 Runs</div>
+        <div class="ms-card-runs">4K</div>
+        <div class="ms-card-inn">— <span>Innings</span></div>
+        <div class="ms-card-prev">Previous: — Inn</div>
+      </div>
+
+      <div class="ms-card reached">
+        <div class="ms-card-milestone">5,000 Runs</div>
+        <div class="ms-card-runs">5K</div>
+        <div class="ms-card-inn"><!-- Fastest 5K: 114 Inn --> — <span>Innings</span></div>
+        <div class="ms-card-prev">Previous: <span class="saved">— Inn faster</span></div>
+      </div>
+
+      <div class="ms-card reached">
+        <div class="ms-card-milestone">6,000 Runs</div>
+        <div class="ms-card-runs">6K</div>
+        <div class="ms-card-inn">— <span>Innings</span></div>
+        <div class="ms-card-prev">Previous: — Inn</div>
+      </div>
+
+      <div class="ms-card reached">
+        <div class="ms-card-milestone">7,000 Runs</div>
+        <div class="ms-card-runs">7K</div>
+        <div class="ms-card-inn">— <span>Innings</span></div>
+        <div class="ms-card-prev">Previous: — Inn</div>
+      </div>
+
+      <div class="ms-card reached">
+        <div class="ms-card-milestone">8,000 Runs</div>
+        <div class="ms-card-runs">8K</div>
+        <div class="ms-card-inn">— <span>Innings</span></div>
+        <div class="ms-card-prev">Previous: — Inn</div>
+      </div>
+
+      <div class="ms-card reached">
+        <div class="ms-card-milestone">9,000 Runs</div>
+        <div class="ms-card-runs">9K</div>
+        <div class="ms-card-inn">— <span>Innings</span></div>
+        <div class="ms-card-prev">Previous: — Inn</div>
+      </div>
+
+      <div class="ms-card record">
+        <div class="ms-card-milestone">⚡ 10,000 Runs</div>
+        <div class="ms-card-runs record">10K</div>
+        <div class="ms-card-inn" style="color:var(--amber);">205 <span>Innings</span></div>
+        <div class="ms-card-prev">Sachin: 259 Inn · <span class="saved">54 Faster ⚡</span></div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────
+       TAB 4 · THE INNINGS
+  ───────────────────────────────── -->
+  <div class="tab-panel" id="tab-innings">
+    <div class="innings-layout">
+
+      <!-- The record-breaking innings hero card -->
+      <div class="innings-hero-card">
+        <div class="ihc-big">
+          <div class="ihc-num"><!-- Kohli's score that day e.g. 160 --> —</div>
+          <div class="ihc-lbl">Runs Scored</div>
+        </div>
+        <div class="ihc-divider"></div>
+        <div class="ihc-big">
+          <div class="ihc-num small"><!-- Balls --> —</div>
+          <div class="ihc-lbl">Balls Faced</div>
+        </div>
+        <div class="ihc-divider"></div>
+        <div class="ihc-big">
+          <div class="ihc-num green">205</div>
+          <div class="ihc-lbl">Career Inn No.</div>
+        </div>
+        <div class="ihc-divider"></div>
+        <div class="ihc-detail">
+          <div class="ihc-match"><!-- Match: IND vs XXX --> India vs — · ODI</div>
+          <div class="ihc-venue"><!-- Venue, City --> — · —</div>
+          <div class="ihc-tags">
+            <span class="ihc-tag record">⚡ World Record Innings</span>
+            <span class="ihc-tag match"><!-- Series --> —</span>
+            <span class="ihc-tag won"><!-- Result --> —</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Match details -->
+      <div class="card">
+        <div class="card-header amber-header">
+          <h4>Match Details</h4>
+          <span class="badge badge-speed">Record Match</span>
+        </div>
+        <div class="info-rows">
+          <div class="info-row"><span class="lbl">Opponents</span><span class="val"><!-- Team --> —</span></div>
+          <div class="info-row"><span class="lbl">Series</span><span class="val lav"><!-- Series name --> —</span></div>
+          <div class="info-row"><span class="lbl">Venue</span><span class="val"><!-- Venue --> —</span></div>
+          <div class="info-row"><span class="lbl">Date</span><span class="val"><!-- Date --> —</span></div>
+          <div class="info-row"><span class="lbl">Result</span><span class="val green"><!-- Result --> —</span></div>
+          <div class="info-row"><span class="lbl">Toss</span><span class="val"><!-- Toss --> —</span></div>
+          <div class="info-row"><span class="lbl">Career Innings No.</span><span class="val amber">205th ODI Innings</span></div>
+          <div class="info-row"><span class="lbl">Record Broken</span><span class="val amber">Sachin Tendulkar's 259</span></div>
+        </div>
+      </div>
+
+      <!-- Kohli's innings details -->
+      <div class="card">
+        <div class="card-header amber-header">
+          <h4>Kohli's Record-Breaking Innings</h4>
+          <span class="badge badge-speed">⚡ 10K Innings</span>
+        </div>
+
+        <div style="padding:24px 24px 16px; display:flex; gap:20px; flex-wrap:wrap; border-bottom:1px solid var(--border);">
+          <div style="text-align:center;">
+            <div style="font-family:'Bebas Neue',cursive; font-size:3rem; color:var(--amber); line-height:1; letter-spacing:2px;"><!-- Score --> —</div>
+            <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:4px;">Runs</div>
+          </div>
+          <div style="width:1px; background:var(--border);"></div>
+          <div style="text-align:center;">
+            <div style="font-family:'Bebas Neue',cursive; font-size:3rem; color:var(--lavender); line-height:1; letter-spacing:2px;"><!-- Balls --> —</div>
+            <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:4px;">Balls</div>
+          </div>
+          <div style="width:1px; background:var(--border);"></div>
+          <div style="text-align:center;">
+            <div style="font-family:'Bebas Neue',cursive; font-size:3rem; color:var(--gold); line-height:1; letter-spacing:2px;"><!-- SR --> —</div>
+            <div style="font-size:0.65rem; letter-spacing:2px; text-transform:uppercase; color:var(--muted); margin-top:4px;">Strike Rate</div>
+          </div>
+        </div>
+
+        <div class="info-rows">
+          <div class="info-row"><span class="lbl">Fours (4s)</span><span class="val"><!-- 4s --> —</span></div>
+          <div class="info-row"><span class="lbl">Sixes (6s)</span><span class="val"><!-- 6s --> —</span></div>
+          <div class="info-row"><span class="lbl">Dismissed By</span><span class="val amber"><!-- Bowler --> —</span></div>
+          <div class="info-row"><span class="lbl">Mode of Dismissal</span><span class="val"><!-- How out --> —</span></div>
+          <div class="info-row"><span class="lbl">Run at which hit 10K</span><span class="val amber"><!-- Which run --> —</span></div>
+          <div class="info-row"><span class="lbl">Partnership (With)</span><span class="val"><!-- Partner + runs --> —</span></div>
+          <div class="info-row"><span class="lbl">Batting Position</span><span class="val"><!-- No. --> —</span></div>
+        </div>
+      </div>
+
+      <!-- Ball-by-ball -->
+      <div class="timeline-card">
+        <div class="timeline-title">Ball-by-Ball · The Record-Breaking Innings (205th ODI Innings)</div>
+
+        <div class="timeline-track">
+          <!--
+            Replace with actual ball-by-ball data.
+            Use .ball-milestone for the delivery where 10K was reached:
+            <div class="ball-dot ball-milestone">10K</div>
+          -->
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-1">1</div>
+          <div class="ball-dot ball-4">4</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-2">2</div>
+          <div class="ball-dot ball-1">1</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-4">4</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-3">3</div>
+          <div class="ball-dot ball-4">4</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-1">1</div>
+          <div class="ball-dot ball-6">6</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-2">2</div>
+          <div class="ball-dot ball-4">4</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-1">1</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-milestone">10K ⚡</div>
+          <div class="ball-dot ball-4">4</div>
+          <div class="ball-dot ball-0">·</div>
+          <div class="ball-dot ball-W">W</div>
+          <div class="ball-dot ball-add" style="font-size:0.5rem; text-align:center; line-height:1.2;">Add<br>Balls</div>
+        </div>
+
+        <div class="ball-legend">
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(25,22,48,0.5); border-color:rgba(167,139,250,0.2);"></div>Dot</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(124,58,237,0.15); border-color:rgba(124,58,237,0.35);"></div>1–3</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(249,115,22,0.15); border-color:rgba(249,115,22,0.4);"></div>Four</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(16,185,129,0.15); border-color:rgba(16,185,129,0.4);"></div>Six</div>
+          <div class="legend-item"><div class="legend-dot" style="background:rgba(239,68,68,0.15); border-color:rgba(239,68,68,0.4);"></div>Wicket</div>
+          <div class="legend-item"><div class="legend-dot" style="background:var(--amber-dim); border-color:var(--amber);"></div>⚡ 10K Milestone</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────
+       TAB 5 · ALL-TIME FASTEST LIST
+  ───────────────────────────────── -->
+  <div class="tab-panel" id="tab-fastest">
+
+    <!-- All-time top-10 fastest table -->
+    <div class="card" style="margin-bottom:28px;">
+      <div class="card-header amber-header">
+        <h4>All-Time Fastest to 10,000 ODI Runs</h4>
+        <span class="badge badge-speed">World Records</span>
+      </div>
+      <div style="overflow-x:auto;">
+        <table class="fastest-table">
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Batsman</th>
+              <th>Country</th>
+              <th>Innings</th>
+              <th>Matches</th>
+              <th>Avg at 10K</th>
+              <th>Year Achieved</th>
+              <th>Faster Than Prev Record</th>
+            </tr>
+          </thead>
+          <tbody>
+
+            <tr class="kohli-row">
+              <td><span class="rank-circle r1">1</span></td>
+              <td><strong>V Kohli</strong> ⚡</td>
+              <td>🇮🇳 India</td>
+              <td><strong>205</strong></td>
+              <td><!-- Matches --> —</td>
+              <td style="color:var(--amber);"><!-- Avg --> —</td>
+              <td>2018</td>
+              <td><span class="saved-pill fast">54 Inn Faster</span></td>
+            </tr>
+
+            <!-- Fill in remaining top-10 fastest batters -->
+            <tr>
+              <td><span class="rank-circle r2">2</span></td>
+              <td><!-- Name --> —</td>
+              <td><!-- Country --> —</td>
+              <td><!-- Inn --> —</td>
+              <td>—</td><td>—</td><td>—</td>
+              <td><span class="saved-pill other">— Inn faster</span></td>
+            </tr>
+
+            <tr>
+              <td><span class="rank-circle r3">3</span></td>
+              <td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td>
+              <td><span class="saved-pill other">—</span></td>
+            </tr>
+
+            <tr><td><span class="rank-circle rn">4</span></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="saved-pill other">—</span></td></tr>
+            <tr><td><span class="rank-circle rn">5</span></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="saved-pill other">—</span></td></tr>
+            <tr><td><span class="rank-circle rn">6</span></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="saved-pill other">—</span></td></tr>
+            <tr><td><span class="rank-circle rn">7</span></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="saved-pill other">—</span></td></tr>
+            <tr><td><span class="rank-circle rn">8</span></td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td>—</td><td><span class="saved-pill other">—</span></td></tr>
+
+            <!-- Sachin row — highlighted with gold -->
+            <tr style="background:rgba(245,158,11,0.04);">
+              <td><span class="rank-circle" style="background:rgba(245,158,11,0.1); border-color:rgba(245,158,11,0.3); color:var(--gold);">—</span></td>
+              <td style="color:var(--gold) !important; font-weight:700;">SR Tendulkar 🌟</td>
+              <td>🇮🇳 India</td>
+              <td style="color:var(--gold); font-weight:700;">259</td>
+              <td>—</td>
+              <td style="color:var(--gold);">—</td>
+              <td>1998</td>
+              <td><span class="saved-pill other">Prev World Record</span></td>
+            </tr>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Stats at time of reaching 10K -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:24px;">
+
+      <div class="card">
+        <div class="card-header amber-header">
+          <h4>Kohli's Stats at the 10K Landmark</h4>
+          <span class="badge badge-speed">Snapshot</span>
+        </div>
+        <div class="info-rows">
+          <div class="info-row"><span class="lbl">Innings</span><span class="val amber">205</span></div>
+          <div class="info-row"><span class="lbl">ODI Matches</span><span class="val"><!-- Matches --> —</span></div>
+          <div class="info-row"><span class="lbl">Batting Average</span><span class="val gold"><!-- avg --> —</span></div>
+          <div class="info-row"><span class="lbl">Strike Rate</span><span class="val"><!-- SR --> —</span></div>
+          <div class="info-row"><span class="lbl">Centuries</span><span class="val amber"><!-- 100s --> —</span></div>
+          <div class="info-row"><span class="lbl">Half-Centuries</span><span class="val"><!-- 50s --> —</span></div>
+          <div class="info-row"><span class="lbl">Highest Score</span><span class="val gold"><!-- HS --> —</span></div>
+          <div class="info-row"><span class="lbl">Not-Outs</span><span class="val"><!-- NOs --> —</span></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-header">
+          <h4>Key Records Held at 10K</h4>
+          <span class="badge badge-rec">Records</span>
+        </div>
+        <div class="info-rows">
+          <div class="info-row"><span class="lbl">Fastest to 1K ODI Runs</span><span class="val amber"><!-- Yes/No --> —</span></div>
+          <div class="info-row"><span class="lbl">Fastest to 5K ODI Runs</span><span class="val amber"><!-- Yes/No + Inn --> —</span></div>
+          <div class="info-row"><span class="lbl">Fastest to 8K ODI Runs</span><span class="val amber"><!-- Yes/No + Inn --> —</span></div>
+          <div class="info-row"><span class="lbl">Fastest to 9K ODI Runs</span><span class="val amber"><!-- Yes/No + Inn --> —</span></div>
+          <div class="info-row"><span class="lbl">Fastest to 10K ODI Runs</span><span class="val amber">✓ World Record</span></div>
+          <div class="info-row"><span class="lbl">Highest ODI Average (50+)</span><span class="val green">All time</span></div>
+          <div class="info-row"><span class="lbl">Most ODI 100s at the Time</span><span class="val"><!-- Rank --> —</span></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────
+       TAB 6 · VIDEOS
+  ───────────────────────────────── -->
+  <div class="tab-panel" id="tab-video">
+    <div class="video-grid">
+
+      <div class="video-main">
+        <div class="video-embed">
+          <!--
+            ╔═══════════════════════════════════════════════════════╗
+            ║  OPTION 1 — YouTube Embed:                            ║
+            ║  <iframe width="100%"                                 ║
+            ║    style="aspect-ratio:16/9; border:none;"            ║
+            ║    src="https://www.youtube.com/embed/VIDEO_ID"       ║
+            ║    allowfullscreen></iframe>                          ║
+            ║                                                       ║
+            ║  OPTION 2 — Local File:                               ║
+            ║  <video width="100%" controls                         ║
+            ║    poster="assets/10k-thumb.jpg">                     ║
+            ║    <source src="assets/10k-highlights.mp4"            ║
+            ║            type="video/mp4">                          ║
+            ║  </video>                                             ║
+            ╚═══════════════════════════════════════════════════════╝
+          -->
+          <div class="video-thumb-placeholder">
+            <span class="ph-icon">⚡</span>
+            <span class="ph-text">The Moment Kohli Reached 10,000 ODI Runs</span>
+            <span class="ph-hint">Add YouTube embed or local video</span>
+          </div>
+          <div class="play-btn-overlay">
+            <div class="play-btn">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="#000">
+                <polygon points="5,3 19,12 5,21"/>
+              </svg>
+            </div>
+          </div>
+        </div>
+        <div class="video-info">
+          <div class="video-tag">⚡ World Record · 10,000 ODI Runs</div>
+          <div class="video-title">Virat Kohli Reaches 10,000 ODI Runs — The Record-Breaking Moment</div>
+          <div class="video-meta">205th ODI Innings · 2018 · Fastest Batter in History</div>
+        </div>
+      </div>
+
+      <div class="video-list">
+
+        <div class="video-list-item">
+          <div class="vli-thumb"><span class="vli-ph">🏏</span><span class="vli-ph-text">Add thumb</span><div class="mini-play"><div class="mini-play-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+          <div class="vli-body">
+            <div class="vli-tag">🎬 Record Innings</div>
+            <div class="vli-title">Full Innings — The 10K Match</div>
+            <div class="vli-meta">Add video link · ~15 min</div>
+          </div>
+        </div>
+
+        <div class="video-list-item">
+          <div class="vli-thumb"><span class="vli-ph">📊</span><span class="vli-ph-text">Add thumb</span><div class="mini-play"><div class="mini-play-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+          <div class="vli-body">
+            <div class="vli-tag">📈 Analysis</div>
+            <div class="vli-title">How Kohli Broke Sachin's 10K Record</div>
+            <div class="vli-meta">Add video link · ~10 min</div>
+          </div>
+        </div>
+
+        <div class="video-list-item">
+          <div class="vli-thumb"><span class="vli-ph">🎙️</span><span class="vli-ph-text">Add thumb</span><div class="mini-play"><div class="mini-play-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+          <div class="vli-body">
+            <div class="vli-tag">🎙️ Reaction</div>
+            <div class="vli-title">Kohli Post-Match · 10K Record Reaction</div>
+            <div class="vli-meta">Add video link · ~4 min</div>
+          </div>
+        </div>
+
+        <div class="video-list-item">
+          <div class="vli-thumb"><span class="vli-ph">🌟</span><span class="vli-ph-text">Add thumb</span><div class="mini-play"><div class="mini-play-btn"><svg width="12" height="12" viewBox="0 0 24 24" fill="#000"><polygon points="5,3 19,12 5,21"/></svg></div></div></div>
+          <div class="vli-body">
+            <div class="vli-tag">📖 Legacy</div>
+            <div class="vli-title">All 10K Milestones — Every Thousand Runs</div>
+            <div class="vli-meta">Add video link · ~18 min</div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────
+       TAB 7 · GALLERY
+  ───────────────────────────────── -->
+  <div class="tab-panel" id="tab-gallery">
+    <div class="photo-masonry">
+
+      <div class="upload-cta">
+        <p>📁 Add 10K milestone images to <strong>assets/</strong> folder and replace placeholders · 6 slots ready</p>
+        <span class="upload-badge">6 Slots Ready</span>
+      </div>
+
+      <div class="photo-item wide tall">
+        <!--<img src="assets/10k-gallery-1.jpg" style="width:100%;height:100%;object-fit:cover;">-->
+        <div class="photo-inner">
+          <span class="ph-icon">⚡</span>
+          <span class="ph-label">Featured · 10,000 ODI Runs — The Record Moment</span>
+          <span class="ph-hint">assets/10k-gallery-1.jpg</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-caption">10,000 ODI runs · World Record 2018</span></div>
+      </div>
+
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">🎊</span>
+          <span class="ph-label">Kohli Celebrates the Milestone</span>
+          <span class="ph-hint">assets/10k-gallery-2.jpg</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-caption">10K milestone celebration</span></div>
+      </div>
+
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">🏏</span>
+          <span class="ph-label">The Record-Breaking Stroke / Shot</span>
+          <span class="ph-hint">assets/10k-gallery-3.jpg</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-caption">The shot that made history</span></div>
+      </div>
+
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">📰</span>
+          <span class="ph-label">World Reacts — Headlines & News</span>
+          <span class="ph-hint">assets/10k-gallery-4.jpg</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-caption">World reaction · 2018</span></div>
+      </div>
+
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">🤝</span>
+          <span class="ph-label">Sachin & Kohli — Legacy Moment</span>
+          <span class="ph-hint">assets/10k-gallery-5.jpg</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-caption">Sachin to Kohli — the baton passes</span></div>
+      </div>
+
+      <div class="photo-item">
+        <div class="photo-inner">
+          <span class="ph-icon">🏟️</span>
+          <span class="ph-label">Stadium / Crowd Reaction</span>
+          <span class="ph-hint">assets/10k-gallery-6.jpg</span>
+        </div>
+        <div class="photo-overlay"><span class="photo-caption">The crowd erupts · 10K record</span></div>
+      </div>
+
+    </div>
+  </div>
+
+</div><!-- /speed-content -->
+
+
+<script>
+  function switchTab(id, btn) {
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('tab-' + id).classList.add('active');
+  }
+</script>
+
+</body>
+</html>
