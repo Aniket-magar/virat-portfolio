@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virat Kohli — Champions Trophy 2025</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Barlow+Condensed:wght@300;400;600;700;900&family=Barlow:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #C9A84C;
+    --gold-light: #F0D080;
+    --gold-pale: #FDF3D0;
+    --deep-blue: #0A1628;
+    --mid-blue: #112244;
+    --accent-blue: #1B3A6B;
+    --cricket-green: #2D6A4F;
+    --off-white: #F5F0E8;
+    --text-muted: #8A8A8A;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: var(--deep-blue);
+    color: var(--off-white);
+    font-family: 'Barlow', sans-serif;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    position: relative;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 60px 6vw 80px;
+    overflow: hidden;
+  }
+
+  .hero-bg {
+    position: absolute; inset: 0;
+    background:
+      radial-gradient(ellipse 80% 60% at 70% 40%, rgba(201,168,76,0.18) 0%, transparent 60%),
+      radial-gradient(ellipse 50% 80% at 20% 80%, rgba(27,58,107,0.6) 0%, transparent 70%),
+      linear-gradient(160deg, #0A1628 0%, #0d1f3c 50%, #0A1628 100%);
+  }
+
+  /* Decorative grid lines */
+  .hero-bg::before {
+    content: '';
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(201,168,76,0.06) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(201,168,76,0.06) 1px, transparent 1px);
+    background-size: 60px 60px;
+  }
+
+  /* Large trophy watermark */
+  .hero-watermark {
+    position: absolute;
+    right: -4vw;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: clamp(240px, 30vw, 480px);
+    line-height: 1;
+    opacity: 0.06;
+    color: var(--gold);
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    pointer-events: none;
+    user-select: none;
+  }
+
+  .hero-eyebrow {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 24px;
+    animation: fadeUp 0.7s ease both;
+  }
+
+  .eyebrow-line {
+    width: 50px; height: 2px;
+    background: var(--gold);
+  }
+
+  .eyebrow-text {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 600;
+    font-size: 13px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+  }
+
+  .hero-name {
+    font-family: 'Playfair Display', serif;
+    font-weight: 900;
+    font-size: clamp(56px, 10vw, 130px);
+    line-height: 0.9;
+    color: var(--off-white);
+    animation: fadeUp 0.8s 0.1s ease both;
+  }
+
+  .hero-name span {
+    color: var(--gold);
+    display: block;
+  }
+
+  .hero-subtitle {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 300;
+    font-size: clamp(18px, 3vw, 32px);
+    letter-spacing: 6px;
+    text-transform: uppercase;
+    color: rgba(245,240,232,0.55);
+    margin-top: 18px;
+    animation: fadeUp 0.8s 0.2s ease both;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 36px;
+    background: linear-gradient(135deg, var(--gold) 0%, #A8762E 100%);
+    color: var(--deep-blue);
+    font-family: 'Barlow Condensed', sans-serif;
+    font-weight: 700;
+    font-size: 14px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 12px 28px;
+    clip-path: polygon(0 0, calc(100% - 12px) 0, 100% 100%, 12px 100%);
+    animation: fadeUp 0.8s 0.3s ease both;
+  }
+
+  /* ── TOURNAMENT SUMMARY BAR ── */
+  .summary-bar {
+    background: linear-gradient(90deg, var(--gold) 0%, #A8762E 100%);
+    padding: 20px 6vw;
+    display: flex;
+    gap: 40px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+
+  .summary-item {
+    display: flex;
+    flex-direction: column;
+    color: var(--deep-blue);
+  }
+
+  .summary-label {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-weight: 600;
+    opacity: 0.7;
+  }
+
+  .summary-value {
+    font-family: 'Playfair Display', serif;
+    font-size: 26px;
+    font-weight: 700;
+  }
+
+  .summary-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(10,22,40,0.25);
+  }
+
+  /* ── SECTION COMMON ── */
+  section {
+    padding: 80px 6vw;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 48px;
+  }
+
+  .section-label span {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 5px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  .section-label::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: rgba(201,168,76,0.25);
+  }
+
+  /* ── MATCH CARDS ── */
+  .matches-section {
+    background: var(--mid-blue);
+  }
+
+  .match-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2px;
+  }
+
+  .match-card {
+    background: var(--accent-blue);
+    padding: 36px 32px;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s ease, background 0.3s ease;
+    cursor: default;
+  }
+
+  .match-card:hover {
+    background: #1e4070;
+    transform: translateY(-4px);
+  }
+
+  .match-card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 4px; height: 100%;
+    background: var(--gold);
+  }
+
+  .match-stage {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 10px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .match-opponent {
+    font-family: 'Playfair Display', serif;
+    font-size: 28px;
+    font-weight: 700;
+    margin-bottom: 4px;
+  }
+
+  .match-date {
+    font-size: 13px;
+    color: var(--text-muted);
+    margin-bottom: 28px;
+  }
+
+  .match-score-box {
+    display: flex;
+    align-items: flex-end;
+    gap: 8px;
+    margin-bottom: 20px;
+  }
+
+  .match-runs {
+    font-family: 'Playfair Display', serif;
+    font-size: 72px;
+    font-weight: 900;
+    line-height: 1;
+    color: var(--gold-light);
+  }
+
+  .match-not-out {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 28px;
+    color: var(--gold);
+    font-weight: 700;
+    margin-bottom: 10px;
+  }
+
+  .match-balls {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 12px;
+  }
+
+  .match-result {
+    display: inline-block;
+    background: rgba(45,106,79,0.35);
+    border: 1px solid rgba(45,106,79,0.6);
+    color: #6edd9e;
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+  }
+
+  /* ── MILESTONES ── */
+  .milestones-section {
+    background: var(--deep-blue);
+  }
+
+  .milestones-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+    gap: 24px;
+  }
+
+  .milestone-card {
+    border: 1px solid rgba(201,168,76,0.2);
+    padding: 32px 28px;
+    position: relative;
+    background: rgba(201,168,76,0.03);
+    transition: border-color 0.3s, background 0.3s;
+  }
+
+  .milestone-card:hover {
+    border-color: rgba(201,168,76,0.5);
+    background: rgba(201,168,76,0.07);
+  }
+
+  .milestone-icon {
+    font-size: 36px;
+    margin-bottom: 16px;
+  }
+
+  .milestone-title {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 13px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 10px;
+  }
+
+  .milestone-desc {
+    font-size: 15px;
+    line-height: 1.6;
+    color: rgba(245,240,232,0.75);
+  }
+
+  .milestone-number {
+    position: absolute;
+    top: 24px; right: 24px;
+    font-family: 'Playfair Display', serif;
+    font-size: 48px;
+    font-weight: 900;
+    color: rgba(201,168,76,0.12);
+    line-height: 1;
+  }
+
+  /* ── STATS TABLE ── */
+  .stats-section {
+    background: var(--mid-blue);
+  }
+
+  .stats-table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+
+  .stats-table th {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 11px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+    text-align: left;
+    padding: 14px 20px;
+    border-bottom: 1px solid rgba(201,168,76,0.3);
+  }
+
+  .stats-table td {
+    padding: 16px 20px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+    color: var(--off-white);
+  }
+
+  .stats-table tr:hover td {
+    background: rgba(201,168,76,0.06);
+  }
+
+  .stats-table .highlight-row td {
+    color: var(--gold-light);
+    font-weight: 500;
+  }
+
+  .bar-cell {
+    position: relative;
+  }
+
+  .bar-wrap {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .bar-track {
+    flex: 1;
+    height: 6px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+
+  .bar-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--gold) 0%, var(--gold-light) 100%);
+    border-radius: 3px;
+    transition: width 1.2s ease;
+  }
+
+  /* ── QUOTE ── */
+  .quote-section {
+    background: var(--deep-blue);
+    text-align: center;
+    padding: 80px 10vw;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .quote-section::before {
+    content: '"';
+    position: absolute;
+    top: -40px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-family: 'Playfair Display', serif;
+    font-size: 280px;
+    color: rgba(201,168,76,0.08);
+    line-height: 1;
+    pointer-events: none;
+  }
+
+  .quote-text {
+    font-family: 'Playfair Display', serif;
+    font-size: clamp(20px, 3vw, 34px);
+    font-style: italic;
+    line-height: 1.5;
+    color: var(--off-white);
+    max-width: 800px;
+    margin: 0 auto 24px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .quote-attr {
+    font-family: 'Barlow Condensed', sans-serif;
+    font-size: 12px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    color: var(--gold);
+    font-weight: 600;
+  }
+
+  /* ── FOOTER ── */
+  footer {
+    background: #060e1a;
+    padding: 32px 6vw;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+  }
+
+  .footer-brand {
+    font-family: 'Playfair Display', serif;
+    font-size: 16px;
+    color: var(--gold);
+    letter-spacing: 2px;
+  }
+
+  .footer-note {
+    font-size: 12px;
+    color: var(--text-muted);
+  }
+
+  /* ── ANIMATIONS ── */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-in {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+  }
+
+  .fade-in.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* Scroll animation for bars */
+  .bar-fill { width: 0; }
+  .bar-fill.animated { width: var(--target-width); }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 600px) {
+    .summary-bar { gap: 20px; }
+    .summary-divider { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-watermark">🏆</div>
+
+  <div style="position:relative; z-index:2;">
+    <div class="hero-eyebrow">
+      <div class="eyebrow-line"></div>
+      <div class="eyebrow-text">ICC Men's Champions Trophy 2025 · Dubai</div>
+    </div>
+
+    <h1 class="hero-name">
+      Virat<br>
+      <span>Kohli</span>
+    </h1>
+    <p class="hero-subtitle">Champion · Legend · Conqueror</p>
+
+    <div class="hero-badge">
+      🏆 &nbsp;Champions Trophy Winner · 2013 &amp; 2025
+    </div>
+  </div>
+</section>
+
+<!-- SUMMARY BAR -->
+<div class="summary-bar">
+  <div class="summary-item">
+    <span class="summary-label">Tournament Runs</span>
+    <span class="summary-value">218</span>
+  </div>
+  <div class="summary-divider"></div>
+  <div class="summary-item">
+    <span class="summary-label">Average</span>
+    <span class="summary-value">54.50</span>
+  </div>
+  <div class="summary-divider"></div>
+  <div class="summary-item">
+    <span class="summary-label">Matches</span>
+    <span class="summary-value">4</span>
+  </div>
+  <div class="summary-divider"></div>
+  <div class="summary-item">
+    <span class="summary-label">Centuries</span>
+    <span class="summary-value">1</span>
+  </div>
+  <div class="summary-divider"></div>
+  <div class="summary-item">
+    <span class="summary-label">Half-Centuries</span>
+    <span class="summary-value">1</span>
+  </div>
+  <div class="summary-divider"></div>
+  <div class="summary-item">
+    <span class="summary-label">India Result</span>
+    <span class="summary-value" style="font-size:20px;">Champions 🏆</span>
+  </div>
+</div>
+
+<!-- MATCH-BY-MATCH -->
+<section class="matches-section">
+  <div class="section-label"><span>Match Performances</span></div>
+
+  <div class="match-grid">
+
+    <div class="match-card fade-in">
+      <div class="match-stage">Group Stage</div>
+      <div class="match-opponent">vs Bangladesh</div>
+      <div class="match-date">20 Feb 2025 · Dubai</div>
+      <div class="match-score-box">
+        <div class="match-runs">20</div>
+      </div>
+      <div class="match-balls">27 balls</div>
+      <div class="match-result">India Won</div>
+    </div>
+
+    <div class="match-card fade-in">
+      <div class="match-stage">Group Stage</div>
+      <div class="match-opponent">vs Pakistan</div>
+      <div class="match-date">23 Feb 2025 · Dubai</div>
+      <div class="match-score-box">
+        <div class="match-runs">100</div>
+        <div class="match-not-out">*</div>
+      </div>
+      <div class="match-balls">111 balls · 7 fours · 51st ODI Century · 82nd Int'l Hundred</div>
+      <div class="match-result" style="margin-top:14px;">India Won by 6 Wickets</div>
+    </div>
+
+    <div class="match-card fade-in">
+      <div class="match-stage">Group Stage</div>
+      <div class="match-opponent">vs New Zealand</div>
+      <div class="match-date">2 Mar 2025 · Dubai</div>
+      <div class="match-score-box">
+        <div class="match-runs">14</div>
+      </div>
+      <div class="match-balls">20 balls</div>
+      <div class="match-result">India Won</div>
+    </div>
+
+    <div class="match-card fade-in">
+      <div class="match-stage">Semi-Final</div>
+      <div class="match-opponent">vs Australia</div>
+      <div class="match-date">4 Mar 2025 · Dubai</div>
+      <div class="match-score-box">
+        <div class="match-runs">84</div>
+      </div>
+      <div class="match-balls">98 balls · Crucial match-winning knock</div>
+      <div class="match-result">India Won · Qualified for Final</div>
+    </div>
+
+    <div class="match-card fade-in">
+      <div class="match-stage">Final</div>
+      <div class="match-opponent">vs New Zealand</div>
+      <div class="match-date">9 Mar 2025 · Dubai</div>
+      <div class="match-score-box" style="align-items:center;">
+        <div style="font-size:44px;">🏆</div>
+      </div>
+      <div class="match-balls" style="font-size:15px; color: var(--off-white);">India won by 4 wickets — Champions!</div>
+      <div class="match-result" style="background:rgba(201,168,76,0.2); border-color:var(--gold); color:var(--gold-light); margin-top:10px;">India Champions 2025</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- MILESTONES -->
+<section class="milestones-section">
+  <div class="section-label"><span>Records &amp; Milestones</span></div>
+
+  <div class="milestones-grid">
+
+    <div class="milestone-card fade-in">
+      <div class="milestone-number">51</div>
+      <div class="milestone-icon">💯</div>
+      <div class="milestone-title">51st ODI Century</div>
+      <div class="milestone-desc">Brought up his record-extending 51st ODI hundred against arch-rivals Pakistan, hitting the winning runs with a boundary.</div>
+    </div>
+
+    <div class="milestone-card fade-in">
+      <div class="milestone-number">82</div>
+      <div class="milestone-icon">🌍</div>
+      <div class="milestone-title">82nd International Hundred</div>
+      <div class="milestone-desc">The century against Pakistan was his 82nd international hundred across all formats — cementing his place among the greats.</div>
+    </div>
+
+    <div class="milestone-card fade-in">
+      <div class="milestone-number">14K</div>
+      <div class="milestone-icon">⚡</div>
+      <div class="milestone-title">Fastest to 14,000 ODI Runs</div>
+      <div class="milestone-desc">Became the fastest batter in history to reach 14,000 ODI runs, surpassing every batter who came before him.</div>
+    </div>
+
+    <div class="milestone-card fade-in">
+      <div class="milestone-number">158</div>
+      <div class="milestone-icon">🤿</div>
+      <div class="milestone-title">Most ODI Catches by an Indian</div>
+      <div class="milestone-desc">Took his 158th ODI catch in the field during the Pakistan match, surpassing Mohammad Azharuddin's Indian record of 156.</div>
+    </div>
+
+    <div class="milestone-card fade-in">
+      <div class="milestone-number">2×</div>
+      <div class="milestone-icon">🥇</div>
+      <div class="milestone-title">Two-Time Champions Trophy Winner</div>
+      <div class="milestone-desc">Won the Champions Trophy in 2013 and again in 2025 — one of cricket's elite to lift the trophy twice in their career.</div>
+    </div>
+
+    <div class="milestone-card fade-in">
+      <div class="milestone-number">5</div>
+      <div class="milestone-icon">🏅</div>
+      <div class="milestone-title">Team of the Tournament</div>
+      <div class="milestone-desc">Named in the ICC Men's Champions Trophy 2025 Team of the Tournament, batting at number three after finishing 5th in run-scoring charts.</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- STATS COMPARISON TABLE -->
+<section class="stats-section">
+  <div class="section-label"><span>Performance Breakdown</span></div>
+
+  <table class="stats-table">
+    <thead>
+      <tr>
+        <th>Innings</th>
+        <th>Runs</th>
+        <th>Balls</th>
+        <th>Opposition</th>
+        <th>Stage</th>
+        <th>Performance</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>20</td>
+        <td>27</td>
+        <td>Bangladesh</td>
+        <td>Group</td>
+        <td class="bar-cell">
+          <div class="bar-wrap">
+            <div class="bar-track"><div class="bar-fill" style="--target-width:20%;"></div></div>
+            <span>20</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="highlight-row">
+        <td>2</td>
+        <td><strong>100*</strong></td>
+        <td>111</td>
+        <td>Pakistan</td>
+        <td>Group</td>
+        <td class="bar-cell">
+          <div class="bar-wrap">
+            <div class="bar-track"><div class="bar-fill" style="--target-width:100%;"></div></div>
+            <span>100*</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>14</td>
+        <td>20</td>
+        <td>New Zealand</td>
+        <td>Group</td>
+        <td class="bar-cell">
+          <div class="bar-wrap">
+            <div class="bar-track"><div class="bar-fill" style="--target-width:14%;"></div></div>
+            <span>14</span>
+          </div>
+        </td>
+      </tr>
+      <tr class="highlight-row">
+        <td>4</td>
+        <td><strong>84</strong></td>
+        <td>98</td>
+        <td>Australia</td>
+        <td>Semi-Final</td>
+        <td class="bar-cell">
+          <div class="bar-wrap">
+            <div class="bar-track"><div class="bar-fill" style="--target-width:84%;"></div></div>
+            <span>84</span>
+          </div>
+        </td>
+      </tr>
+      <tr>
+        <td colspan="5" style="color:var(--gold); font-family:'Barlow Condensed',sans-serif; letter-spacing:3px; font-size:13px; text-transform:uppercase;">Total</td>
+        <td><strong style="color:var(--gold-light);">218 runs @ 54.50 avg</strong></td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+
+<!-- QUOTE -->
+<section class="quote-section">
+  <p class="quote-text">
+    "These are the things, after playing for so long, you look forward to — being in situations where you are put under pressure and you walk in and you put your hand up."
+  </p>
+  <div class="quote-attr">— Virat Kohli · Post-Final, Champions Trophy 2025</div>
+</section>
+
+<!-- ODI CAREER CONTEXT -->
+<section style="background: var(--mid-blue); padding: 60px 6vw;">
+  <div class="section-label"><span>Career Context</span></div>
+
+  <div style="display:grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 32px;">
+    <div style="text-align:center;">
+      <div style="font-family:'Playfair Display',serif; font-size:52px; font-weight:900; color:var(--gold-light);">14,180</div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--text-muted); margin-top:6px;">ODI Career Runs</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-family:'Playfair Display',serif; font-size:52px; font-weight:900; color:var(--gold-light);">58.11</div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--text-muted); margin-top:6px;">ODI Batting Average</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-family:'Playfair Display',serif; font-size:52px; font-weight:900; color:var(--gold-light);">51</div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--text-muted); margin-top:6px;">ODI Centuries (Record)</div>
+    </div>
+    <div style="text-align:center;">
+      <div style="font-family:'Playfair Display',serif; font-size:52px; font-weight:900; color:var(--gold-light);">82</div>
+      <div style="font-family:'Barlow Condensed',sans-serif; font-size:11px; letter-spacing:4px; text-transform:uppercase; color:var(--text-muted); margin-top:6px;">International Hundreds</div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-brand">Virat Kohli · Legacy Archive</div>
+  <div class="footer-note">ICC Champions Trophy 2025 · India Champions · Dubai, UAE · March 2025</div>
+</footer>
+
+<script>
+  // Intersection Observer for scroll animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          entry.target.classList.add('visible');
+        }, i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Animate stat bars
+  const barObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.querySelectorAll('.bar-fill').forEach(bar => {
+          setTimeout(() => bar.classList.add('animated'), 200);
+        });
+        barObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.3 });
+
+  const statsTable = document.querySelector('.stats-table');
+  if (statsTable) barObserver.observe(statsTable);
+</script>
+
+</body>
+</html>
