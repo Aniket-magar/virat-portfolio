@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virat Kohli — ICC U19 World Cup 2008</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --cream: #F5F0E8;
+    --ink: #1A1410;
+    --saffron: #FF6B1A;
+    --gold: #C8992A;
+    --india-blue: #0A2558;
+    --muted: #6B6055;
+    --border: rgba(26,20,16,0.12);
+  }
+
+  body {
+    background: var(--cream);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    line-height: 1.6;
+    min-height: 100vh;
+  }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--india-blue);
+    position: relative;
+    overflow: hidden;
+    padding: 3rem 2rem 3.5rem;
+    text-align: center;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(
+      -45deg,
+      transparent,
+      transparent 18px,
+      rgba(255,255,255,0.025) 18px,
+      rgba(255,255,255,0.025) 19px
+    );
+  }
+
+  .hero-badge {
+    display: inline-block;
+    background: var(--saffron);
+    color: #fff;
+    font-size: 11px;
+    font-weight: 500;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    padding: 5px 14px;
+    border-radius: 2px;
+    margin-bottom: 1.25rem;
+    position: relative;
+  }
+
+  .hero-name {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: clamp(3.5rem, 10vw, 7rem);
+    color: #fff;
+    letter-spacing: 0.03em;
+    line-height: 0.9;
+    position: relative;
+  }
+
+  .hero-name span {
+    color: var(--saffron);
+  }
+
+  .hero-sub {
+    margin-top: 1rem;
+    color: rgba(255,255,255,0.55);
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    position: relative;
+  }
+
+  .hero-trophy {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 1.5rem;
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.2rem;
+    letter-spacing: 0.12em;
+    color: var(--gold);
+  }
+
+  .hero-trophy::before,
+  .hero-trophy::after {
+    content: '';
+    flex: 1;
+    max-width: 80px;
+    height: 1px;
+    background: var(--gold);
+    opacity: 0.5;
+  }
+
+  /* ── STATS BAR ── */
+  .stats-bar {
+    background: var(--ink);
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    border-bottom: 3px solid var(--saffron);
+  }
+
+  .stat-item {
+    padding: 1.25rem 1rem;
+    text-align: center;
+    border-right: 1px solid rgba(255,255,255,0.06);
+  }
+
+  .stat-item:last-child { border-right: none; }
+
+  .stat-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 2.4rem;
+    color: #fff;
+    letter-spacing: 0.02em;
+    line-height: 1;
+  }
+
+  .stat-num .accent { color: var(--saffron); }
+
+  .stat-label {
+    font-size: 11px;
+    color: rgba(255,255,255,0.4);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-top: 4px;
+  }
+
+  /* ── LAYOUT ── */
+  .content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2.5rem 1.5rem 4rem;
+  }
+
+  .section-label {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--saffron);
+    font-weight: 500;
+    margin-bottom: 0.75rem;
+  }
+
+  /* ── MATCH TABLE ── */
+  .table-wrap {
+    background: #fff;
+    border-radius: 4px;
+    border: 1px solid var(--border);
+    overflow: hidden;
+    margin-bottom: 2rem;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 14px;
+  }
+
+  thead tr {
+    background: var(--india-blue);
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    font-size: 10.5px;
+    letter-spacing: 0.1em;
+  }
+
+  thead th {
+    padding: 10px 16px;
+    text-align: left;
+    font-weight: 400;
+  }
+
+  thead th:not(:first-child) { text-align: right; }
+
+  tbody tr {
+    border-bottom: 1px solid var(--border);
+    transition: background 0.15s;
+  }
+
+  tbody tr:last-child { border-bottom: none; }
+  tbody tr:hover { background: #f9f6f1; }
+
+  tbody td {
+    padding: 12px 16px;
+    color: var(--ink);
+  }
+
+  tbody td:not(:first-child) {
+    text-align: right;
+    color: var(--muted);
+  }
+
+  .score-pill {
+    display: inline-block;
+    background: #E8F5E9;
+    color: #2E7D32;
+    font-weight: 500;
+    padding: 2px 10px;
+    border-radius: 2px;
+    font-size: 13px;
+  }
+
+  .stage-badge {
+    font-size: 11px;
+    background: var(--india-blue);
+    color: rgba(255,255,255,0.7);
+    padding: 2px 8px;
+    border-radius: 2px;
+  }
+
+  .stage-badge.final {
+    background: var(--saffron);
+    color: #fff;
+  }
+
+  /* ── HIGHLIGHTS ── */
+  .highlights {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin-bottom: 2rem;
+  }
+
+  .highlight-row {
+    display: grid;
+    grid-template-columns: 48px 1fr;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    padding: 1rem 0;
+    align-items: start;
+  }
+
+  .highlight-row:first-child { border-top: 1px solid var(--border); }
+
+  .hi-num {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.5rem;
+    color: var(--gold);
+    line-height: 1.2;
+  }
+
+  .hi-text {
+    font-size: 14px;
+    color: var(--ink);
+    line-height: 1.6;
+    padding-top: 2px;
+  }
+
+  .hi-text strong {
+    font-weight: 500;
+  }
+
+  /* ── TOURNAMENT INFO ── */
+  .info-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .info-cell {
+    background: #fff;
+    padding: 1rem 1.25rem;
+  }
+
+  .info-key {
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    margin-bottom: 4px;
+  }
+
+  .info-val {
+    font-size: 15px;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .info-val.champion {
+    color: var(--saffron);
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 1.3rem;
+    letter-spacing: 0.05em;
+  }
+
+  /* ── DIVIDER ── */
+  .divider {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 2rem 0 1.25rem;
+  }
+
+  .divider::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  @media (max-width: 560px) {
+    .stats-bar { grid-template-columns: repeat(2, 1fr); }
+    .info-grid { grid-template-columns: 1fr; }
+    thead th:nth-child(3) { display: none; }
+    tbody td:nth-child(3) { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="hero-badge">ICC U19 World Cup 2008</div>
+  <h1 class="hero-name">VIRAT<br><span>KOHLI</span></h1>
+  <p class="hero-sub">Captain &nbsp;|&nbsp; India U19 &nbsp;|&nbsp; Right-hand bat</p>
+  <div class="hero-trophy">World Champions</div>
+</div>
+
+<div class="stats-bar">
+  <div class="stat-item">
+    <div class="stat-num">235</div>
+    <div class="stat-label">Tournament Runs</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">6</div>
+    <div class="stat-label">Matches</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">47<span class="accent">.</span>0</div>
+    <div class="stat-label">Average</div>
+  </div>
+  <div class="stat-item">
+    <div class="stat-num">1 <span class="accent">×</span></div>
+    <div class="stat-label">Century</div>
+  </div>
+</div>
+
+<div class="content">
+
+  <!-- Match Log -->
+  <div class="divider"><span class="section-label">Match log</span></div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Opponent</th>
+          <th>Runs</th>
+          <th>Balls</th>
+          <th>Stage</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Sri Lanka U19</td>
+          <td>48</td>
+          <td>52</td>
+          <td><span class="stage-badge">Group B</span></td>
+        </tr>
+        <tr>
+          <td>West Indies U19</td>
+          <td><span class="score-pill">100*</span></td>
+          <td>74</td>
+          <td><span class="stage-badge">Group B</span></td>
+        </tr>
+        <tr>
+          <td>England U19</td>
+          <td>25</td>
+          <td>31</td>
+          <td><span class="stage-badge">Group B</span></td>
+        </tr>
+        <tr>
+          <td>Pakistan U19</td>
+          <td>—</td>
+          <td>—</td>
+          <td><span class="stage-badge">Quarter-final</span></td>
+        </tr>
+        <tr>
+          <td>New Zealand U19</td>
+          <td>43</td>
+          <td>53</td>
+          <td><span class="stage-badge">Semi-final</span></td>
+        </tr>
+        <tr>
+          <td>South Africa U19</td>
+          <td>19</td>
+          <td>—</td>
+          <td><span class="stage-badge final">Final</span></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Highlights -->
+  <div class="divider"><span class="section-label">Key highlights</span></div>
+
+  <div class="highlights">
+    <div class="highlight-row">
+      <div class="hi-num">01</div>
+      <div class="hi-text"><strong>100* off 74 balls</strong> vs West Indies — 10 fours &amp; 4 sixes. Called the "innings of the tournament" by commentators and earned Man of the Match.</div>
+    </div>
+    <div class="highlight-row">
+      <div class="hi-num">02</div>
+      <div class="hi-text">One of only <strong>three batsmen</strong> in the entire tournament to score a century; finished as the 3rd highest run-scorer overall.</div>
+    </div>
+    <div class="highlight-row">
+      <div class="hi-num">03</div>
+      <div class="hi-text"><strong>Semi-final all-rounder:</strong> 43 runs + 2/27 vs New Zealand — second consecutive Player of the Match award.</div>
+    </div>
+    <div class="highlight-row">
+      <div class="hi-num">04</div>
+      <div class="hi-text">Led India to a <strong>12-run D/L victory</strong> in the final vs South Africa on 2 March 2008 in Kuala Lumpur — India's second U19 World Cup title.</div>
+    </div>
+    <div class="highlight-row">
+      <div class="hi-num">05</div>
+      <div class="hi-text">Team also featured <strong>Ravindra Jadeja</strong> (vice-captain), Pradeep Sangwan, and Tanmay Srivastava — several of whom went on to senior international careers.</div>
+    </div>
+  </div>
+
+  <!-- Tournament Info -->
+  <div class="divider"><span class="section-label">Tournament details</span></div>
+
+  <div class="info-grid">
+    <div class="info-cell">
+      <div class="info-key">Tournament</div>
+      <div class="info-val">ICC U19 World Cup 2007/08</div>
+    </div>
+    <div class="info-cell">
+      <div class="info-key">Host nation</div>
+      <div class="info-val">Malaysia</div>
+    </div>
+    <div class="info-cell">
+      <div class="info-key">Dates</div>
+      <div class="info-val">17 Feb – 2 Mar 2008</div>
+    </div>
+    <div class="info-cell">
+      <div class="info-key">Final venue</div>
+      <div class="info-val">Kinrara Oval, Kuala Lumpur</div>
+    </div>
+    <div class="info-cell">
+      <div class="info-key">Batting position</div>
+      <div class="info-val">No. 3</div>
+    </div>
+    <div class="info-cell">
+      <div class="info-key">Result</div>
+      <div class="info-val champion">&#127942; Champions</div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>

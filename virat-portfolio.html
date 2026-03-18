@@ -84,6 +84,16 @@
       </div>
       <div class="row g-4">
         <div class="col-md-6 col-lg-4 reveal">
+          <div class="career-card" onclick="u19_wc();">
+            <div class="career-year">2008</div>
+            <h5>U19 Cricket World Cup 2008</h5>
+            <p>Virat Kohli captained India to victory in the ICC Under-19 Cricket World Cup 2008, showcasing strong
+              leadership and batting consistency.
+              His performance in the tournament marked the beginning of his rise as one of India’s future cricket stars.
+            </p>
+          </div>
+        </div>
+        <div class="col-md-6 col-lg-4 reveal">
           <div class="career-card" onclick="showIntldeb();">
             <div class="career-year">2008</div>
             <h5>International Debut</h5>
@@ -131,16 +141,16 @@
               India lift the trophy after 17 years.</p>
           </div>
         </div>
-      </div>
-      <div class="col-md-6 col-lg-4 reveal">
-        <div class="career-card" onclick="champ_tr_25();">
-          <div class="career-year">2025</div>
-          <h5>Champians trophy 2025</h5>
-          <p>Virat Kohli was a key player in India’s ICC Champions Trophy 2025 win, scoring consistently and delivering
-            crucial performances in important matches, making him one of the standout players of the tournament.</p>
+        <div class="col-md-6 col-lg-4 reveal">
+          <div class="career-card" onclick="champ_tr_25();">
+            <div class="career-year">2025</div>
+            <h5>Champians trophy 2025</h5>
+            <p>Virat Kohli was a key player in India’s ICC Champions Trophy 2025 win, scoring consistently and
+              delivering
+              crucial performances in important matches, making him one of the standout players of the tournament.</p>
+          </div>
         </div>
       </div>
-    </div>
   </section>
 
   <!-- STATISTICS -->
@@ -514,7 +524,9 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-
+    function u19_wc(){
+      window.location="/u19-world-cup.html"
+    }
     function showIntldeb() {
       window.location = "/international-debut.html";
     }
