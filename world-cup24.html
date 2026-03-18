@@ -951,14 +951,48 @@
       .hero-inner { padding-left: 24px; padding-right: 24px; }
     }
 
+     .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F5C400;
+    color: #111;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(245,196,0,0.4);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    margin-bottom: 14px;
+  }
+ 
+  .back-btn:hover {
+    background: #FFD700;
+    transform: translateX(-4px);
+    box-shadow: 0 6px 20px rgba(245,196,0,0.6);
+  }
+ 
+  .back-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(245,196,0,0.3);
+  }
+ 
+  .back-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
 </style>
 </head>
 <body>
 <div class="india-flag-bar"></div>
 
+
 <!-- ════════════════════════════════
-     HERO
+HERO
 ════════════════════════════════ -->
+
 <section class="wc24-hero">
 
   <div class="confetti-wrap">
@@ -972,8 +1006,14 @@
   <div class="hero-trophy-wm">🏆</div>
 
   <div class="hero-inner">
-
+<a href="virat-portfolio.html#career" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Back
+  </a>
     <div class="hero-eyebrow">
+      
       <div class="eyebrow-line"></div>
       <span class="eyebrow-text">Chapter 06 · The Farewell &amp; The Trophy</span>
     </div>

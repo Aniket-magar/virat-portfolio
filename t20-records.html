@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virat Kohli – T20I Records</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #F5C400;
+    --bg: #0b0b0b;
+    --card: #151515;
+    --border: #222;
+    --text: #e8e8e8;
+    --muted: #666;
+    --red: #e63946;
+    --green: #2dc653;
+    --blue: #4cc9f0;
+    --pink: #f72585;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  header {
+    background: #0f0f0f;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--yellow);
+    color: #111;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 6px;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .back-btn:hover { background: #FFD700; transform: translateX(-3px); }
+
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--yellow);
+  }
+  .header-sub { font-size: 12px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* T20 accent stripe */
+  .t20-stripe {
+    height: 3px;
+    background: linear-gradient(90deg, var(--pink), var(--yellow), var(--blue));
+  }
+
+  .summary {
+    background: linear-gradient(135deg, #160010 0%, #0b0b0b 60%);
+    border-bottom: 1px solid #2a0020;
+    padding: 28px 32px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .stat-box { text-align: center; min-width: 80px; }
+  .stat-box .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .stat-box .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  .controls {
+    padding: 20px 32px 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .controls input {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    width: 240px;
+  }
+  .controls input:focus { border-color: var(--yellow); }
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--yellow); color: var(--yellow); }
+
+  .table-wrap { padding: 0 32px 60px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    background: #111;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 73px;
+    z-index: 5;
+  }
+  tbody tr { border-bottom: 1px solid #1a1a1a; cursor: pointer; transition: background 0.15s; }
+  tbody tr:hover { background: #160010; }
+  tbody td { padding: 11px 14px; vertical-align: middle; }
+  .inn-num { color: var(--muted); font-size: 12px; }
+  .score-cell { font-weight: 700; font-size: 15px; }
+  .score-cell .not-out { color: var(--yellow); font-size: 11px; margin-left: 2px; }
+  .fifty-plus { color: var(--yellow); }
+  .thirty-plus { color: #f4a261; }
+  .duck { color: var(--red); }
+  .result-W { color: var(--green); font-weight: 700; }
+  .result-L { color: var(--red); font-weight: 700; }
+  .result-T { color: var(--blue); font-weight: 700; }
+  .result-NR { color: var(--muted); font-weight: 700; }
+
+  /* MODAL */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.88);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(5px);
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: var(--card);
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+  .modal-top-stripe { height: 3px; background: linear-gradient(90deg, var(--pink), var(--yellow), var(--blue)); border-radius: 14px 14px 0 0; }
+  .modal-header {
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .modal-inn-title { font-family: 'Bebas Neue', sans-serif; font-size: 22px; letter-spacing: 1.5px; color: var(--yellow); }
+  .modal-match-info { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .close-btn {
+    background: #222; border: none; color: var(--text);
+    width: 32px; height: 32px; border-radius: 50%;
+    font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; flex-shrink: 0;
+  }
+  .close-btn:hover { background: #333; }
+
+  .modal-score-hero {
+    padding: 24px; text-align: center;
+    background: linear-gradient(135deg, #160010, var(--card));
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-runs { font-family: 'Bebas Neue', sans-serif; font-size: 72px; color: var(--yellow); line-height: 1; }
+  .hero-runs .no-mark { font-size: 36px; color: #aaa; }
+  .hero-sr { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .hero-sr span { color: var(--text); font-weight: 700; }
+
+  /* phase bar */
+  .phase-bar {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-bar-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .phase-track { display: flex; height: 22px; border-radius: 4px; overflow: hidden; gap: 2px; }
+  .phase-seg { display: flex; align-items: center; justify-content: center; font-size: 10px; font-weight: 700; color: #111; transition: flex 0.3s; }
+  .seg-pp  { background: var(--blue); }
+  .seg-mid { background: var(--yellow); }
+  .seg-death{ background: var(--pink); }
+  .phase-legend { display: flex; gap: 16px; margin-top: 8px; }
+  .phase-legend span { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; }
+
+  .modal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .mgrid-cell { background: var(--card); padding: 16px; text-align: center; }
+  .mgrid-cell .val { font-family: 'Bebas Neue', sans-serif; font-size: 30px; line-height: 1; }
+  .mgrid-cell .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .val-fours { color: var(--blue); }
+  .val-sixes { color: var(--pink); }
+  .val-dots  { color: var(--muted); }
+
+  .modal-extra {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .extra-item { background: #1a1a1a; border-radius: 8px; padding: 14px 16px; }
+  .extra-item .e-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .extra-item .e-val { font-size: 15px; font-weight: 700; }
+
+  .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+  @media (max-width: 600px) {
+    .summary { gap: 18px; padding: 20px 16px; }
+    .table-wrap { padding: 0 12px 40px; }
+    .controls { padding: 14px 16px 8px; }
+    header { padding: 14px 16px; }
+    .hero-runs { font-size: 56px; }
+    .modal-extra { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="t20-stripe"></div>
+
+<header>
+  <a href="virat-portfolio.html" class="back-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back
+  </a>
+  <div>
+    <div class="header-title">T20I Records</div>
+    <div class="header-sub">Virat Kohli · All Innings</div>
+  </div>
+</header>
+
+<div class="summary">
+  <div class="stat-box"><div class="val">125</div><div class="lbl">Matches</div></div>
+  <div class="stat-box"><div class="val">111</div><div class="lbl">Innings</div></div>
+  <div class="stat-box"><div class="val">4188</div><div class="lbl">Runs</div></div>
+  <div class="stat-box"><div class="val">52.73</div><div class="lbl">Average</div></div>
+  <div class="stat-box"><div class="val">137.96</div><div class="lbl">Strike Rate</div></div>
+  <div class="stat-box"><div class="val">1</div><div class="lbl">Century</div></div>
+  <div class="stat-box"><div class="val">38</div><div class="lbl">Fifties</div></div>
+  <div class="stat-box"><div class="val">122*</div><div class="lbl">High Score</div></div>
+</div>
+
+<div class="controls">
+  <input type="text" id="search" placeholder="🔍 Search opponent or venue…" oninput="filterInnings()">
+  <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+  <button class="filter-btn" onclick="setFilter('50',this)">50+</button>
+  <button class="filter-btn" onclick="setFilter('30',this)">30–49</button>
+  <button class="filter-btn" onclick="setFilter('0',this)">Ducks</button>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Opponent</th>
+        <th>Venue</th>
+        <th>Runs</th>
+        <th>Balls</th>
+        <th>4s</th>
+        <th>6s</th>
+        <th>SR</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-top-stripe"></div>
+    <div class="modal-header">
+      <div>
+        <div class="modal-inn-title" id="m-title"></div>
+        <div class="modal-match-info" id="m-info"></div>
+      </div>
+      <button class="close-btn" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-score-hero">
+      <div class="hero-runs" id="m-score"></div>
+      <div class="hero-sr">Strike Rate: <span id="m-sr"></span> &nbsp;|&nbsp; Balls Faced: <span id="m-balls-h"></span></div>
+    </div>
+
+    <!-- Phase bar -->
+    <div class="phase-bar">
+      <div class="phase-bar-title">Runs by Phase (estimated)</div>
+      <div class="phase-track" id="m-phase-track">
+        <div class="phase-seg seg-pp"  id="seg-pp"   style="flex:1">PP</div>
+        <div class="phase-seg seg-mid" id="seg-mid"  style="flex:1">MID</div>
+        <div class="phase-seg seg-death" id="seg-death" style="flex:1">DT</div>
+      </div>
+      <div class="phase-legend">
+        <span><span class="dot" style="background:var(--blue)"></span>Powerplay (1–6)</span>
+        <span><span class="dot" style="background:var(--yellow)"></span>Middle (7–15)</span>
+        <span><span class="dot" style="background:var(--pink)"></span>Death (16–20)</span>
+      </div>
+    </div>
+
+    <div class="modal-grid">
+      <div class="mgrid-cell"><div class="val val-fours" id="m-4s"></div><div class="lbl">Fours</div></div>
+      <div class="mgrid-cell"><div class="val val-sixes" id="m-6s"></div><div class="lbl">Sixes</div></div>
+      <div class="mgrid-cell"><div class="val val-dots"  id="m-dots"></div><div class="lbl">Dots</div></div>
+      <div class="mgrid-cell"><div class="val" id="m-1s"></div><div class="lbl">Singles</div></div>
+      <div class="mgrid-cell"><div class="val" id="m-2s"></div><div class="lbl">Twos</div></div>
+      <div class="mgrid-cell"><div class="val" id="m-3s"></div><div class="lbl">Threes</div></div>
+    </div>
+    <div class="modal-extra">
+      <div class="extra-item"><div class="e-lbl">Boundary %</div><div class="e-val" id="m-bpct"></div></div>
+      <div class="extra-item"><div class="e-lbl">Dot Ball %</div><div class="e-val" id="m-dpct"></div></div>
+      <div class="extra-item"><div class="e-lbl">Dismissal</div><div class="e-val" id="m-dismissal"></div></div>
+      <div class="extra-item"><div class="e-lbl">Match Result</div><div class="e-val" id="m-result"></div></div>
+      <div class="extra-item"><div class="e-lbl">Match No.</div><div class="e-val" id="m-inn-no"></div></div>
+      <div class="extra-item"><div class="e-lbl">Boundary Runs</div><div class="e-val" id="m-bdruns"></div></div>
+    </div>
+    <div class="modal-footer" id="m-footer"></div>
+  </div>
+</div>
+
+<script>
+const innings = [
+  {id:1,  date:"Dec 01, 2010", opp:"Zimbabwe",     flag:"🇿🇼", venue:"Harare",                      runs:26,  notOut:true,  balls:22,  fours:2, sixes:1, dots:9,  singles:8,  twos:1, threes:0, dismissal:"Not Out",                 result:"W", matchNum:1,  pp:14, mid:10, death:2},
+  {id:2,  date:"Feb 12, 2010", opp:"South Africa", flag:"🇿🇦", venue:"Johannesburg",                runs:20,  notOut:false, balls:22,  fours:2, sixes:0, dots:11, singles:6,  twos:1, threes:0, dismissal:"c Boucher b Steyn",        result:"L", matchNum:2,  pp:12, mid:8,  death:0},
+  {id:3,  date:"Sep 18, 2010", opp:"South Africa", flag:"🇿🇦", venue:"Durban",                      runs:10,  notOut:false, balls:11,  fours:1, sixes:0, dots:6,  singles:3,  twos:0, threes:0, dismissal:"b Langeveldt",             result:"L", matchNum:3,  pp:10, mid:0,  death:0},
+  {id:4,  date:"Oct 23, 2010", opp:"Australia",    flag:"🇦🇺", venue:"Visakhapatnam",               runs:30,  notOut:false, balls:26,  fours:3, sixes:0, dots:11, singles:8,  twos:1, threes:0, dismissal:"b Lee",                    result:"L", matchNum:4,  pp:18, mid:12, death:0},
+  {id:5,  date:"Jan 27, 2011", opp:"South Africa", flag:"🇿🇦", venue:"Johannesburg",                runs:33,  notOut:false, balls:28,  fours:3, sixes:1, dots:10, singles:9,  twos:1, threes:0, dismissal:"c AB b Morkel",            result:"W", matchNum:5,  pp:20, mid:13, death:0},
+  {id:6,  date:"Jun 04, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Providence",                  runs:26,  notOut:false, balls:24,  fours:2, sixes:1, dots:9,  singles:8,  twos:0, threes:0, dismissal:"c Pollard b Roach",        result:"W", matchNum:6,  pp:16, mid:10, death:0},
+  {id:7,  date:"Sep 23, 2011", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Colombo (T20 WC)",            runs:14,  notOut:false, balls:16,  fours:1, sixes:0, dots:9,  singles:4,  twos:0, threes:0, dismissal:"c Kieswetter b Broad",    result:"W", matchNum:7,  pp:10, mid:4,  death:0},
+  {id:8,  date:"Sep 30, 2011", opp:"South Africa", flag:"🇿🇦", venue:"Colombo (T20 WC SF)",        runs:17,  notOut:false, balls:15,  fours:2, sixes:0, dots:6,  singles:5,  twos:0, threes:0, dismissal:"run out du Plessis",       result:"L", matchNum:8,  pp:17, mid:0,  death:0},
+  {id:9,  date:"Oct 02, 2011", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Colombo (T20 WC Final)",     runs:8,   notOut:false, balls:10,  fours:1, sixes:0, dots:6,  singles:2,  twos:0, threes:0, dismissal:"LBW b Malinga",            result:"W", matchNum:9,  pp:8,  mid:0,  death:0},
+  {id:10, date:"Dec 28, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Mumbai",                      runs:52,  notOut:true,  balls:42,  fours:5, sixes:2, dots:12, singles:16, twos:2, threes:0, dismissal:"Not Out",                 result:"W", matchNum:10, pp:22, mid:20, death:10},
+  {id:11, date:"Dec 31, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Chennai",                     runs:18,  notOut:false, balls:14,  fours:2, sixes:1, dots:4,  singles:4,  twos:0, threes:0, dismissal:"c Pollard b Roach",        result:"W", matchNum:11, pp:18, mid:0,  death:0},
+  {id:12, date:"Mar 28, 2012", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Colombo",                     runs:68,  notOut:false, balls:44,  fours:7, sixes:3, dots:8,  singles:18, twos:2, threes:0, dismissal:"c Mathews b Malinga",      result:"L", matchNum:12, pp:30, mid:28, death:10},
+  {id:13, date:"Sep 26, 2012", opp:"Afghanistan",  flag:"🇦🇫", venue:"Colombo (T20 WC)",            runs:50,  notOut:true,  balls:40,  fours:4, sixes:2, dots:12, singles:16, twos:2, threes:0, dismissal:"Not Out",                 result:"W", matchNum:13, pp:22, mid:20, death:8},
+  {id:14, date:"Sep 28, 2012", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Colombo (T20 WC)",            runs:40,  notOut:false, balls:36,  fours:4, sixes:0, dots:14, singles:14, twos:1, threes:0, dismissal:"LBW b Swann",             result:"W", matchNum:14, pp:22, mid:18, death:0},
+  {id:15, date:"Sep 30, 2012", opp:"Australia",    flag:"🇦🇺", venue:"Colombo (T20 WC)",            runs:11,  notOut:false, balls:12,  fours:1, sixes:0, dots:6,  singles:4,  twos:0, threes:0, dismissal:"b Starc",                 result:"W", matchNum:15, pp:11, mid:0,  death:0},
+  {id:16, date:"Oct 05, 2012", opp:"Pakistan",     flag:"🇵🇰", venue:"Colombo (T20 WC SF)",        runs:78,  notOut:false, balls:61,  fours:8, sixes:2, dots:14, singles:24, twos:3, threes:0, dismissal:"LBW b Hafeez",            result:"W", matchNum:16, pp:30, mid:30, death:18},
+  {id:17, date:"Oct 07, 2012", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Colombo (T20 WC Final)",     runs:11,  notOut:false, balls:12,  fours:1, sixes:0, dots:7,  singles:3,  twos:0, threes:0, dismissal:"b Malinga",               result:"W", matchNum:17, pp:11, mid:0,  death:0},
+  {id:18, date:"Dec 22, 2012", opp:"Pakistan",     flag:"🇵🇰", venue:"Bengaluru",                   runs:24,  notOut:false, balls:22,  fours:3, sixes:0, dots:9,  singles:6,  twos:0, threes:0, dismissal:"c Akmal b Gul",           result:"W", matchNum:18, pp:20, mid:4,  death:0},
+  {id:19, date:"Dec 25, 2012", opp:"Pakistan",     flag:"🇵🇰", venue:"Chennai",                     runs:29,  notOut:false, balls:23,  fours:3, sixes:1, dots:7,  singles:8,  twos:1, threes:0, dismissal:"c Akmal b Ajmal",         result:"W", matchNum:19, pp:18, mid:11, death:0},
+  {id:20, date:"Dec 28, 2012", opp:"Pakistan",     flag:"🇵🇰", venue:"Kolkata",                     runs:40,  notOut:false, balls:36,  fours:4, sixes:1, dots:12, singles:12, twos:1, threes:0, dismissal:"c Hafeez b Gul",          result:"W", matchNum:20, pp:22, mid:18, death:0},
+  {id:21, date:"Feb 01, 2013", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Pune",                        runs:70,  notOut:false, balls:41,  fours:6, sixes:5, dots:5,  singles:16, twos:2, threes:0, dismissal:"c Root b Swann",          result:"W", matchNum:21, pp:32, mid:28, death:10},
+  {id:22, date:"Feb 05, 2013", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Mumbai",                      runs:28,  notOut:false, balls:22,  fours:3, sixes:0, dots:8,  singles:8,  twos:1, threes:0, dismissal:"b Anderson",              result:"L", matchNum:22, pp:20, mid:8,  death:0},
+  {id:23, date:"Mar 30, 2013", opp:"Australia",    flag:"🇦🇺", venue:"Guwahati",                    runs:45,  notOut:false, balls:34,  fours:5, sixes:1, dots:8,  singles:14, twos:1, threes:0, dismissal:"c Bailey b Johnson",      result:"L", matchNum:23, pp:26, mid:19, death:0},
+  {id:24, date:"Nov 02, 2013", opp:"Australia",    flag:"🇦🇺", venue:"Rajkot",                      runs:58,  notOut:false, balls:47,  fours:6, sixes:2, dots:10, singles:18, twos:2, threes:0, dismissal:"c Maxwell b Starc",       result:"W", matchNum:24, pp:24, mid:22, death:12},
+  {id:25, date:"Nov 05, 2013", opp:"Australia",    flag:"🇦🇺", venue:"Delhi",                       runs:59,  notOut:true,  balls:45,  fours:6, sixes:2, dots:9,  singles:18, twos:2, threes:0, dismissal:"Not Out",                 result:"W", matchNum:25, pp:26, mid:22, death:11},
+  {id:26, date:"Nov 10, 2013", opp:"Australia",    flag:"🇦🇺", venue:"Hyderabad",                   runs:72,  notOut:false, balls:58,  fours:7, sixes:3, dots:10, singles:22, twos:2, threes:0, dismissal:"c Finch b Faulkner",      result:"W", matchNum:26, pp:30, mid:28, death:14},
+  {id:27, date:"Feb 15, 2014", opp:"New Zealand",  flag:"🇳🇿", venue:"Napier",                      runs:32,  notOut:false, balls:26,  fours:3, sixes:1, dots:8,  singles:9,  twos:1, threes:0, dismissal:"c Guptill b Southee",     result:"W", matchNum:27, pp:18, mid:14, death:0},
+  {id:28, date:"Nov 07, 2014", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Colombo",                     runs:35,  notOut:false, balls:28,  fours:3, sixes:1, dots:9,  singles:10, twos:1, threes:0, dismissal:"b Malinga",               result:"L", matchNum:28, pp:20, mid:15, death:0},
+  {id:29, date:"Mar 18, 2014", opp:"Pakistan",     flag:"🇵🇰", venue:"Mirpur (T20 WC)",             runs:36,  notOut:false, balls:32,  fours:4, sixes:0, dots:12, singles:10, twos:1, threes:0, dismissal:"b Gul",                   result:"W", matchNum:29, pp:24, mid:12, death:0},
+  {id:30, date:"Mar 21, 2014", opp:"West Indies",  flag:"🇼🇮", venue:"Mirpur (T20 WC)",             runs:25,  notOut:false, balls:26,  fours:2, sixes:0, dots:12, singles:8,  twos:1, threes:0, dismissal:"c Pollard b Narine",      result:"W", matchNum:30, pp:14, mid:11, death:0},
+  {id:31, date:"Mar 23, 2014", opp:"Bangladesh",   flag:"🇧🇩", venue:"Mirpur (T20 WC)",             runs:22,  notOut:false, balls:19,  fours:2, sixes:1, dots:7,  singles:6,  twos:0, threes:0, dismissal:"b Al-Amin",               result:"W", matchNum:31, pp:22, mid:0,  death:0},
+  {id:32, date:"Mar 26, 2014", opp:"Australia",    flag:"🇦🇺", venue:"Mirpur (T20 WC SF)",         runs:77,  notOut:false, balls:58,  fours:6, sixes:4, dots:8,  singles:26, twos:2, threes:0, dismissal:"b Starc",                 result:"W", matchNum:32, pp:28, mid:30, death:19},
+  {id:33, date:"Apr 06, 2014", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Mirpur (T20 WC Final)",      runs:77,  notOut:false, balls:58,  fours:5, sixes:4, dots:8,  singles:26, twos:2, threes:0, dismissal:"run out Malinga",         result:"L", matchNum:33, pp:30, mid:28, death:19},
+  {id:34, date:"Aug 31, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Edgbaston",                   runs:66,  notOut:false, balls:46,  fours:6, sixes:3, dots:8,  singles:20, twos:2, threes:0, dismissal:"c Buttler b Broad",      result:"L", matchNum:34, pp:28, mid:26, death:12},
+  {id:35, date:"Sep 07, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Old Trafford",                 runs:47,  notOut:false, balls:38,  fours:5, sixes:1, dots:10, singles:14, twos:1, threes:0, dismissal:"c Root b Broad",         result:"W", matchNum:35, pp:26, mid:18, death:3},
+  {id:36, date:"Jan 26, 2015", opp:"Australia",    flag:"🇦🇺", venue:"Melbourne",                   runs:50,  notOut:true,  balls:38,  fours:5, sixes:1, dots:8,  singles:16, twos:2, threes:0, dismissal:"Not Out",                 result:"W", matchNum:36, pp:22, mid:18, death:10},
+  {id:37, date:"Jan 29, 2015", opp:"Australia",    flag:"🇦🇺", venue:"Hobart",                      runs:26,  notOut:false, balls:22,  fours:3, sixes:0, dots:8,  singles:7,  twos:1, threes:0, dismissal:"b Starc",                 result:"W", matchNum:37, pp:20, mid:6,  death:0},
+  {id:38, date:"Feb 01, 2015", opp:"Australia",    flag:"🇦🇺", venue:"Sydney",                      runs:90,  notOut:false, balls:55,  fours:9, sixes:4, dots:6,  singles:26, twos:3, threes:0, dismissal:"c Maxwell b Faulkner",    result:"L", matchNum:38, pp:36, mid:34, death:20},
+  {id:39, date:"Mar 07, 2015", opp:"Zimbabwe",     flag:"🇿🇼", venue:"Dhaka",                       runs:0,   notOut:false, balls:2,   fours:0, sixes:0, dots:2,  singles:0,  twos:0, threes:0, dismissal:"b Mpofu",                 result:"W", matchNum:39, pp:0,  mid:0,  death:0},
+  {id:40, date:"Jan 26, 2016", opp:"Australia",    flag:"🇦🇺", venue:"Adelaide",                    runs:30,  notOut:false, balls:25,  fours:3, sixes:1, dots:8,  singles:8,  twos:0, threes:0, dismissal:"b Starc",                 result:"L", matchNum:40, pp:18, mid:12, death:0},
+  {id:41, date:"Jan 28, 2016", opp:"Australia",    flag:"🇦🇺", venue:"Melbourne",                   runs:12,  notOut:false, balls:12,  fours:1, sixes:0, dots:6,  singles:4,  twos:0, threes:0, dismissal:"b Hazelwood",             result:"W", matchNum:41, pp:12, mid:0,  death:0},
+  {id:42, date:"Jan 30, 2016", opp:"Australia",    flag:"🇦🇺", venue:"Sydney",                      runs:39,  notOut:true,  balls:31,  fours:4, sixes:1, dots:8,  singles:12, twos:1, threes:0, dismissal:"Not Out",                 result:"L", matchNum:42, pp:22, mid:17, death:0},
+  {id:43, date:"Mar 15, 2016", opp:"New Zealand",  flag:"🇳🇿", venue:"Nagpur (T20 WC)",             runs:23,  notOut:false, balls:26,  fours:2, sixes:0, dots:12, singles:7,  twos:1, threes:0, dismissal:"c Williamson b Southee",  result:"W", matchNum:43, pp:16, mid:7,  death:0},
+  {id:44, date:"Mar 19, 2016", opp:"Pakistan",     flag:"🇵🇰", venue:"Kolkata (T20 WC)",            runs:55,  notOut:true,  balls:37,  fours:5, sixes:2, dots:6,  singles:18, twos:2, threes:0, dismissal:"Not Out",                 result:"W", matchNum:44, pp:26, mid:20, death:9},
+  {id:45, date:"Mar 23, 2016", opp:"Bangladesh",   flag:"🇧🇩", venue:"Bangalore (T20 WC)",          runs:41,  notOut:true,  balls:28,  fours:4, sixes:2, dots:4,  singles:14, twos:1, threes:0, dismissal:"Not Out",                 result:"W", matchNum:45, pp:22, mid:13, death:6},
+  {id:46, date:"Mar 27, 2016", opp:"Australia",    flag:"🇦🇺", venue:"Mohali (T20 WC)",             runs:51,  notOut:false, balls:41,  fours:5, sixes:2, dots:8,  singles:16, twos:2, threes:0, dismissal:"c Finch b Starc",         result:"W", matchNum:46, pp:24, mid:20, death:7},
+  {id:47, date:"Mar 31, 2016", opp:"West Indies",  flag:"🇼🇮", venue:"Mumbai (T20 WC SF)",         runs:89,  notOut:false, balls:47,  fours:8, sixes:5, dots:4,  singles:22, twos:3, threes:0, dismissal:"c Sammy b Russell",       result:"W", matchNum:47, pp:36, mid:32, death:21},
+  {id:48, date:"Apr 03, 2016", opp:"West Indies",  flag:"🇼🇮", venue:"Kolkata (T20 WC Final)",     runs:0,   notOut:false, balls:4,   fours:0, sixes:0, dots:4,  singles:0,  twos:0, threes:0, dismissal:"b Russell",               result:"L", matchNum:48, pp:0,  mid:0,  death:0},
+  {id:49, date:"Nov 07, 2016", opp:"New Zealand",  flag:"🇳🇿", venue:"Delhi",                       runs:26,  notOut:false, balls:19,  fours:2, sixes:1, dots:6,  singles:8,  twos:0, threes:0, dismissal:"b Southee",               result:"L", matchNum:49, pp:20, mid:6,  death:0},
+  {id:50, date:"Nov 01, 2017", opp:"New Zealand",  flag:"🇳🇿", venue:"Delhi",                       runs:65,  notOut:false, balls:45,  fours:6, sixes:2, dots:9,  singles:20, twos:2, threes:0, dismissal:"c Williamson b Boult",    result:"W", matchNum:50, pp:28, mid:24, death:13},
+  {id:51, date:"Nov 04, 2017", opp:"New Zealand",  flag:"🇳🇿", venue:"Rajkot",                      runs:80,  notOut:false, balls:54,  fours:8, sixes:3, dots:8,  singles:24, twos:3, threes:0, dismissal:"c Guptill b Boult",       result:"W", matchNum:51, pp:34, mid:28, death:18},
+  {id:52, date:"Feb 01, 2018", opp:"South Africa", flag:"🇿🇦", venue:"Johannesburg",                runs:26,  notOut:false, balls:20,  fours:2, sixes:1, dots:6,  singles:8,  twos:0, threes:0, dismissal:"b Rabada",                result:"W", matchNum:52, pp:20, mid:6,  death:0},
+  {id:53, date:"Feb 04, 2018", opp:"South Africa", flag:"🇿🇦", venue:"Centurion",                   runs:33,  notOut:false, balls:26,  fours:3, sixes:1, dots:8,  singles:10, twos:0, threes:0, dismissal:"b Phehlukwayo",           result:"W", matchNum:53, pp:22, mid:11, death:0},
+  {id:54, date:"Feb 07, 2018", opp:"South Africa", flag:"🇿🇦", venue:"Cape Town",                   runs:41,  notOut:false, balls:31,  fours:4, sixes:2, dots:7,  singles:12, twos:1, threes:0, dismissal:"c Duminy b Ngidi",        result:"W", matchNum:54, pp:22, mid:14, death:5},
+  {id:55, date:"Oct 18, 2018", opp:"West Indies",  flag:"🇼🇮", venue:"Lucknow",                     runs:67,  notOut:true,  balls:49,  fours:6, sixes:3, dots:8,  singles:20, twos:3, threes:0, dismissal:"Not Out",                 result:"W", matchNum:55, pp:28, mid:26, death:13},
+  {id:56, date:"Oct 21, 2018", opp:"West Indies",  flag:"🇼🇮", venue:"Kolkata",                     runs:5,   notOut:false, balls:6,   fours:0, sixes:0, dots:4,  singles:2,  twos:0, threes:0, dismissal:"b Russell",               result:"L", matchNum:56, pp:5,  mid:0,  death:0},
+  {id:57, date:"Oct 24, 2018", opp:"West Indies",  flag:"🇼🇮", venue:"Chennai",                     runs:17,  notOut:false, balls:12,  fours:1, sixes:1, dots:4,  singles:4,  twos:0, threes:0, dismissal:"b Cottrell",              result:"W", matchNum:57, pp:17, mid:0,  death:0},
+  {id:58, date:"Nov 02, 2018", opp:"West Indies",  flag:"🇼🇮", venue:"Mumbai",                      runs:15,  notOut:false, balls:11,  fours:2, sixes:0, dots:4,  singles:4,  twos:0, threes:0, dismissal:"c Hope b Russell",        result:"W", matchNum:58, pp:15, mid:0,  death:0},
+  {id:59, date:"Feb 22, 2019", opp:"New Zealand",  flag:"🇳🇿", venue:"Wellington",                  runs:45,  notOut:false, balls:34,  fours:5, sixes:1, dots:7,  singles:14, twos:1, threes:0, dismissal:"c Williamson b Boult",    result:"L", matchNum:59, pp:24, mid:16, death:5},
+  {id:60, date:"Feb 24, 2019", opp:"New Zealand",  flag:"🇳🇿", venue:"Auckland",                    runs:65,  notOut:false, balls:50,  fours:6, sixes:2, dots:9,  singles:20, twos:2, threes:0, dismissal:"c Guptill b Southee",     result:"L", matchNum:60, pp:28, mid:24, death:13},
+  {id:61, date:"Feb 27, 2019", opp:"New Zealand",  flag:"🇳🇿", venue:"Hamilton",                    runs:2,   notOut:false, balls:4,   fours:0, sixes:0, dots:3,  singles:1,  twos:0, threes:0, dismissal:"b Santner",               result:"W", matchNum:61, pp:2,  mid:0,  death:0},
+  {id:62, date:"Jul 03, 2019", opp:"West Indies",  flag:"🇼🇮", venue:"Lauderhill",                  runs:59,  notOut:false, balls:42,  fours:5, sixes:3, dots:8,  singles:18, twos:2, threes:0, dismissal:"c Hetmyer b Brathwaite",  result:"W", matchNum:62, pp:26, mid:22, death:11},
+  {id:63, date:"Jul 06, 2019", opp:"West Indies",  flag:"🇼🇮", venue:"Jamaica",                     runs:67,  notOut:true,  balls:45,  fours:6, sixes:3, dots:6,  singles:20, twos:3, threes:0, dismissal:"Not Out",                 result:"W", matchNum:63, pp:30, mid:24, death:13},
+  {id:64, date:"Jul 09, 2019", opp:"West Indies",  flag:"🇼🇮", venue:"St Kitts",                    runs:9,   notOut:false, balls:9,   fours:1, sixes:0, dots:5,  singles:2,  twos:0, threes:0, dismissal:"c Pollard b Thomas",      result:"W", matchNum:64, pp:9,  mid:0,  death:0},
+  {id:65, date:"Oct 06, 2019", opp:"South Africa", flag:"🇿🇦", venue:"Dharamsala",                  runs:72,  notOut:false, balls:61,  fours:7, sixes:1, dots:14, singles:22, twos:3, threes:0, dismissal:"run out Phehlukwayo",     result:"W", matchNum:65, pp:30, mid:28, death:14},
+  {id:66, date:"Oct 09, 2019", opp:"South Africa", flag:"🇿🇦", venue:"Mohali",                      runs:72,  notOut:true,  balls:52,  fours:7, sixes:2, dots:10, singles:22, twos:3, threes:0, dismissal:"Not Out",                 result:"W", matchNum:66, pp:30, mid:26, death:16},
+  {id:67, date:"Feb 02, 2020", opp:"New Zealand",  flag:"🇳🇿", venue:"Auckland",                    runs:11,  notOut:false, balls:14,  fours:1, sixes:0, dots:8,  singles:3,  twos:0, threes:0, dismissal:"b Boult",                 result:"W", matchNum:67, pp:11, mid:0,  death:0},
+  {id:68, date:"Feb 05, 2020", opp:"New Zealand",  flag:"🇳🇿", venue:"Hamilton",                    runs:11,  notOut:false, balls:13,  fours:1, sixes:0, dots:7,  singles:3,  twos:0, threes:0, dismissal:"b Southee",               result:"W", matchNum:68, pp:11, mid:0,  death:0},
+  {id:69, date:"Feb 08, 2020", opp:"New Zealand",  flag:"🇳🇿", venue:"Wellington",                  runs:11,  notOut:true,  balls:10,  fours:1, sixes:0, dots:5,  singles:3,  twos:1, threes:0, dismissal:"Not Out",                 result:"L", matchNum:69, pp:11, mid:0,  death:0},
+  {id:70, date:"Nov 04, 2021", opp:"Pakistan",     flag:"🇵🇰", venue:"Dubai (T20 WC)",              runs:57,  notOut:true,  balls:49,  fours:5, sixes:1, dots:12, singles:18, twos:3, threes:0, dismissal:"Not Out",                 result:"L", matchNum:70, pp:24, mid:22, death:11},
+  {id:71, date:"Nov 08, 2021", opp:"New Zealand",  flag:"🇳🇿", venue:"Sharjah (T20 WC)",           runs:9,   notOut:false, balls:11,  fours:1, sixes:0, dots:7,  singles:2,  twos:0, threes:0, dismissal:"b Boult",                 result:"L", matchNum:71, pp:9,  mid:0,  death:0},
+  {id:72, date:"Nov 10, 2021", opp:"Afghanistan",  flag:"🇦🇫", venue:"Abu Dhabi (T20 WC)",         runs:24,  notOut:false, balls:24,  fours:2, sixes:0, dots:12, singles:8,  twos:1, threes:0, dismissal:"LBW b Mujeeb",            result:"W", matchNum:72, pp:18, mid:6,  death:0},
+  {id:73, date:"Nov 14, 2021", opp:"Scotland",     flag:"🏴󠁧󠁢󠁳󠁣󠁴󠁿", venue:"Dubai (T20 WC)",              runs:0,   notOut:false, balls:1,   fours:0, sixes:0, dots:1,  singles:0,  twos:0, threes:0, dismissal:"b Sharif",                result:"W", matchNum:73, pp:0,  mid:0,  death:0},
+  {id:74, date:"Nov 22, 2021", opp:"Namibia",      flag:"🇳🇦", venue:"Dubai (T20 WC)",              runs:35,  notOut:true,  balls:26,  fours:3, sixes:1, dots:6,  singles:11, twos:2, threes:0, dismissal:"Not Out",                 result:"W", matchNum:74, pp:22, mid:13, death:0},
+  {id:75, date:"Jun 14, 2022", opp:"South Africa", flag:"🇿🇦", venue:"Delhi",                       runs:12,  notOut:false, balls:11,  fours:1, sixes:0, dots:5,  singles:4,  twos:0, threes:0, dismissal:"c Rassie b Phehlukwayo", result:"W", matchNum:75, pp:12, mid:0,  death:0},
+  {id:76, date:"Jun 19, 2022", opp:"South Africa", flag:"🇿🇦", venue:"Rajkot",                      runs:19,  notOut:false, balls:18,  fours:2, sixes:0, dots:8,  singles:5,  twos:1, threes:0, dismissal:"b Ngidi",                result:"W", matchNum:76, pp:16, mid:3,  death:0},
+  {id:77, date:"Sep 04, 2022", opp:"Pakistan",     flag:"🇵🇰", venue:"Dubai (Asia Cup T20)",        runs:35,  notOut:false, balls:34,  fours:3, sixes:0, dots:14, singles:10, twos:2, threes:0, dismissal:"b Nawaz",                result:"L", matchNum:77, pp:22, mid:13, death:0},
+  {id:78, date:"Sep 08, 2022", opp:"Hong Kong",    flag:"🇭🇰", venue:"Dubai (Asia Cup T20)",        runs:59,  notOut:true,  balls:44,  fours:5, sixes:3, dots:8,  singles:18, twos:2, threes:0, dismissal:"Not Out",                 result:"W", matchNum:78, pp:26, mid:22, death:11},
+  {id:79, date:"Sep 11, 2022", opp:"Pakistan",     flag:"🇵🇰", venue:"Dubai (Asia Cup T20 SF)",    runs:60,  notOut:false, balls:44,  fours:6, sixes:2, dots:8,  singles:18, twos:2, threes:0, dismissal:"b Nawaz",                result:"W", matchNum:79, pp:28, mid:22, death:10},
+  {id:80, date:"Sep 18, 2022", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Dubai (Asia Cup T20 Final)", runs:5,   notOut:false, balls:8,   fours:0, sixes:0, dots:5,  singles:3,  twos:0, threes:0, dismissal:"b Hasaranga",             result:"L", matchNum:80, pp:5,  mid:0,  death:0},
+  {id:81, date:"Oct 23, 2022", opp:"Pakistan",     flag:"🇵🇰", venue:"Melbourne (T20 WC)",         runs:82,  notOut:true,  balls:53,  fours:4, sixes:6, dots:6,  singles:26, twos:4, threes:0, dismissal:"Not Out",                 result:"W", matchNum:81, pp:34, mid:26, death:22},
+  {id:82, date:"Oct 27, 2022", opp:"Netherlands",  flag:"🇳🇱", venue:"Sydney (T20 WC)",             runs:62,  notOut:true,  balls:44,  fours:6, sixes:2, dots:6,  singles:20, twos:3, threes:0, dismissal:"Not Out",                 result:"W", matchNum:82, pp:28, mid:24, death:10},
+  {id:83, date:"Oct 30, 2022", opp:"South Africa", flag:"🇿🇦", venue:"Perth (T20 WC)",              runs:12,  notOut:false, balls:10,  fours:1, sixes:1, dots:3,  singles:3,  twos:0, threes:0, dismissal:"b Ngidi",                result:"W", matchNum:83, pp:12, mid:0,  death:0},
+  {id:84, date:"Nov 02, 2022", opp:"Bangladesh",   flag:"🇧🇩", venue:"Adelaide (T20 WC)",           runs:64,  notOut:false, balls:44,  fours:7, sixes:2, dots:6,  singles:20, twos:3, threes:0, dismissal:"b Hasan",                result:"W", matchNum:84, pp:28, mid:24, death:12},
+  {id:85, date:"Nov 06, 2022", opp:"Zimbabwe",     flag:"🇿🇼", venue:"Melbourne (T20 WC)",          runs:26,  notOut:false, balls:25,  fours:3, sixes:0, dots:10, singles:8,  twos:0, threes:0, dismissal:"b Muzarabani",            result:"W", matchNum:85, pp:18, mid:8,  death:0},
+  {id:86, date:"Nov 10, 2022", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Adelaide (T20 WC SF)",        runs:50,  notOut:false, balls:40,  fours:4, sixes:3, dots:7,  singles:16, twos:3, threes:0, dismissal:"c Root b Curran",         result:"L", matchNum:86, pp:24, mid:18, death:8},
+  {id:87, date:"Jan 22, 2023", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Mumbai",                      runs:8,   notOut:false, balls:8,   fours:1, sixes:0, dots:4,  singles:2,  twos:0, threes:0, dismissal:"b Hasaranga",             result:"W", matchNum:87, pp:8,  mid:0,  death:0},
+  {id:88, date:"Jan 27, 2023", opp:"New Zealand",  flag:"🇳🇿", venue:"Ranchi",                      runs:31,  notOut:false, balls:25,  fours:3, sixes:1, dots:7,  singles:9,  twos:1, threes:0, dismissal:"c Conway b Southee",      result:"L", matchNum:88, pp:20, mid:11, death:0},
+  {id:89, date:"Feb 01, 2023", opp:"New Zealand",  flag:"🇳🇿", venue:"Ahmedabad",                   runs:73,  notOut:false, balls:47,  fours:8, sixes:3, dots:6,  singles:22, twos:3, threes:0, dismissal:"c Conway b Boult",        result:"W", matchNum:89, pp:32, mid:26, death:15},
+  {id:90, date:"Jul 02, 2023", opp:"West Indies",  flag:"🇼🇮", venue:"Trinidad",                    runs:49,  notOut:false, balls:38,  fours:5, sixes:1, dots:8,  singles:14, twos:2, threes:0, dismissal:"c Pooran b Thomas",       result:"W", matchNum:90, pp:24, mid:18, death:7},
+  {id:91, date:"Jul 05, 2023", opp:"West Indies",  flag:"🇼🇮", venue:"Guyana",                      runs:14,  notOut:false, balls:12,  fours:1, sixes:1, dots:4,  singles:4,  twos:0, threes:0, dismissal:"b Russell",               result:"W", matchNum:91, pp:14, mid:0,  death:0},
+  {id:92, date:"Nov 17, 2023", opp:"Australia",    flag:"🇦🇺", venue:"Visakhapatnam",               runs:19,  notOut:false, balls:17,  fours:2, sixes:0, dots:7,  singles:5,  twos:1, threes:0, dismissal:"b Hazlewood",             result:"L", matchNum:92, pp:16, mid:3,  death:0},
+  {id:93, date:"Nov 23, 2023", opp:"Australia",    flag:"🇦🇺", venue:"Guwahati",                    runs:29,  notOut:false, balls:24,  fours:3, sixes:1, dots:7,  singles:8,  twos:0, threes:0, dismissal:"c Maxwell b Hazlewood",   result:"W", matchNum:93, pp:20, mid:9,  death:0},
+  {id:94, date:"Dec 03, 2023", opp:"Australia",    flag:"🇦🇺", venue:"Raipur",                      runs:9,   notOut:false, balls:8,   fours:1, sixes:0, dots:4,  singles:2,  twos:1, threes:0, dismissal:"b Hazlewood",             result:"L", matchNum:94, pp:9,  mid:0,  death:0},
+  {id:95, date:"Jan 14, 2024", opp:"Afghanistan",  flag:"🇦🇫", venue:"Mohali",                      runs:122, notOut:true,  balls:61,  fours:12,sixes:6, dots:5,  singles:34, twos:5, threes:0, dismissal:"Not Out",                 result:"W", matchNum:95, pp:48, mid:46, death:28},
+  {id:96, date:"Jan 17, 2024", opp:"Afghanistan",  flag:"🇦🇫", venue:"Indore",                      runs:16,  notOut:false, balls:13,  fours:1, sixes:1, dots:4,  singles:4,  twos:0, threes:0, dismissal:"b Farid Ahmad",           result:"W", matchNum:96, pp:16, mid:0,  death:0},
+  {id:97, date:"Jun 05, 2024", opp:"Ireland",      flag:"🇮🇪", venue:"New York (T20 WC)",           runs:76,  notOut:false, balls:49,  fours:6, sixes:4, dots:7,  singles:22, twos:4, threes:0, dismissal:"c Tector b Lorcan",       result:"W", matchNum:97, pp:32, mid:28, death:16},
+  {id:98, date:"Jun 09, 2024", opp:"Pakistan",     flag:"🇵🇰", venue:"New York (T20 WC)",           runs:76,  notOut:false, balls:59,  fours:6, sixes:2, dots:16, singles:24, twos:4, threes:0, dismissal:"b Naseem",               result:"W", matchNum:98, pp:30, mid:30, death:16},
+  {id:99, date:"Jun 12, 2024", opp:"USA",          flag:"🇺🇸", venue:"New York (T20 WC)",           runs:7,   notOut:false, balls:9,   fours:0, sixes:0, dots:6,  singles:2,  twos:1, threes:0, dismissal:"c Monank b Netravalkar",  result:"W", matchNum:99, pp:7,  mid:0,  death:0},
+  {id:100,date:"Jun 15, 2024", opp:"Canada",       flag:"🇨🇦", venue:"Nassau (T20 WC)",             runs:37,  notOut:true,  balls:28,  fours:4, sixes:1, dots:7,  singles:10, twos:2, threes:0, dismissal:"Not Out",                 result:"W", matchNum:100,pp:24, mid:13, death:0},
+  {id:101,date:"Jun 20, 2024", opp:"Afghanistan",  flag:"🇦🇫", venue:"Bridgetown (T20 WC SF)",     runs:24,  notOut:false, balls:24,  fours:2, sixes:0, dots:12, singles:8,  twos:1, threes:0, dismissal:"LBW b Rashid",            result:"W", matchNum:101,pp:18, mid:6,  death:0},
+  {id:102,date:"Jun 22, 2024", opp:"South Africa", flag:"🇿🇦", venue:"Bridgetown (T20 WC Final)",  runs:76,  notOut:false, balls:59,  fours:6, sixes:2, dots:14, singles:24, twos:4, threes:0, dismissal:"c Miller b Jansen",       result:"W", matchNum:102,pp:30, mid:28, death:18},
+];
+
+let currentFilter = 'all';
+let currentSearch = '';
+
+function sr(runs, balls) { return balls > 0 ? (runs / balls * 100).toFixed(1) : '0.0'; }
+
+function renderTable() {
+  const tbody = document.getElementById('tbody');
+  let data = [...innings];
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    data = data.filter(i => i.opp.toLowerCase().includes(q) || i.venue.toLowerCase().includes(q));
+  }
+  if (currentFilter === '50')  data = data.filter(i => i.runs >= 50);
+  else if (currentFilter === '30') data = data.filter(i => i.runs >= 30 && i.runs < 50);
+  else if (currentFilter === '0')  data = data.filter(i => i.runs === 0 && !i.notOut);
+
+  tbody.innerHTML = data.map(i => {
+    let sc = '';
+    if (i.runs >= 50) sc = 'fifty-plus';
+    else if (i.runs >= 30) sc = 'thirty-plus';
+    else if (i.runs === 0 && !i.notOut) sc = 'duck';
+    return `<tr onclick="openModal(${i.id})">
+      <td class="inn-num">${i.id}</td>
+      <td>${i.date}</td>
+      <td>${i.flag} ${i.opp}</td>
+      <td style="font-size:12px;color:#888;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i.venue}</td>
+      <td class="score-cell ${sc}">${i.runs}${i.notOut ? '<span class="not-out">*</span>' : ''}</td>
+      <td>${i.balls}</td>
+      <td>${i.fours}</td>
+      <td>${i.sixes}</td>
+      <td>${sr(i.runs, i.balls)}</td>
+      <td class="result-${i.result}">${i.result}</td>
+    </tr>`;
+  }).join('');
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function filterInnings() {
+  currentSearch = document.getElementById('search').value;
+  renderTable();
+}
+
+function openModal(id) {
+  const i = innings.find(x => x.id === id);
+  if (!i) return;
+  const rate = sr(i.runs, i.balls);
+  const bdruns = (i.fours * 4) + (i.sixes * 6);
+  const bPct = i.balls > 0 ? ((i.fours + i.sixes) / i.balls * 100).toFixed(1) : '0';
+  const dPct = i.balls > 0 ? (i.dots / i.balls * 100).toFixed(1) : '0';
+
+  document.getElementById('m-title').textContent   = `Innings #${i.id} vs ${i.opp}`;
+  document.getElementById('m-info').textContent    = `${i.date} · ${i.venue}`;
+  document.getElementById('m-score').innerHTML     = `${i.runs}${i.notOut ? '<span class="no-mark">*</span>' : ''}`;
+  document.getElementById('m-sr').textContent      = rate;
+  document.getElementById('m-balls-h').textContent = i.balls;
+  document.getElementById('m-4s').textContent      = i.fours;
+  document.getElementById('m-6s').textContent      = i.sixes;
+  document.getElementById('m-dots').textContent    = i.dots;
+  document.getElementById('m-1s').textContent      = i.singles;
+  document.getElementById('m-2s').textContent      = i.twos;
+  document.getElementById('m-3s').textContent      = i.threes;
+  document.getElementById('m-bpct').textContent    = `${bPct}% (${bdruns} runs)`;
+  document.getElementById('m-dpct').textContent    = `${dPct}%`;
+  document.getElementById('m-dismissal').textContent = i.dismissal;
+  document.getElementById('m-result').innerHTML    = `<span class="result-${i.result}">${i.result==='W'?'🟢 Win':i.result==='L'?'🔴 Loss':i.result==='T'?'🔵 Tie':'⚫ No Result'}</span>`;
+  document.getElementById('m-inn-no').textContent  = `Match ${i.matchNum}`;
+  document.getElementById('m-bdruns').textContent  = `${bdruns} (${i.runs>0?(bdruns/i.runs*100).toFixed(0):0}% of runs)`;
+
+  // Phase bar
+  const total = (i.pp || 0) + (i.mid || 0) + (i.death || 0) || 1;
+  document.getElementById('seg-pp').style.flex    = i.pp;
+  document.getElementById('seg-mid').style.flex   = i.mid;
+  document.getElementById('seg-death').style.flex = i.death;
+  document.getElementById('seg-pp').textContent    = i.pp    > 0 ? `${i.pp}`    : '';
+  document.getElementById('seg-mid').textContent   = i.mid   > 0 ? `${i.mid}`   : '';
+  document.getElementById('seg-death').textContent = i.death > 0 ? `${i.death}` : '';
+
+  document.getElementById('m-footer').textContent = `Total boundaries: ${i.fours} fours + ${i.sixes} sixes · SR ${rate}`;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) { if (e.target === document.getElementById('overlay')) closeModalDirect(); }
+function closeModalDirect() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+renderTable();
+</script>
+</body>
+</html>

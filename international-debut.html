@@ -1090,15 +1090,55 @@
       .debut-content { padding: 50px 24px; }
       .teams-banner { flex-direction: column; text-align: center; }
     }
+
+    .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #F5C400;
+    color: #111;
+    text-decoration: none;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 12px 28px;
+    border-radius: 8px;
+    box-shadow: 0 4px 14px rgba(245,196,0,0.4);
+    transition: transform 0.2s, box-shadow 0.2s, background 0.2s;
+    margin-bottom: 14px;
+  }
+ 
+  .back-btn:hover {
+    background: #FFD700;
+    transform: translateX(-4px);
+    box-shadow: 0 6px 20px rgba(245,196,0,0.6);
+  }
+ 
+  .back-btn:active {
+    transform: scale(0.96);
+    box-shadow: 0 2px 8px rgba(245,196,0,0.3);
+  }
+ 
+  .back-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
   </style>
 </head>
 <body>
-
-<!-- ═══════════════════════════════════════════
-     DEBUT HERO SECTION
-═══════════════════════════════════════════ -->
-<section class="debut-hero">
-  <div class="hero-inner">
+  <!-- ═══════════════════════════════════════════
+  DEBUT HERO SECTION
+  ═══════════════════════════════════════════ -->
+  <section class="debut-hero">
+    <div class="hero-inner">
+    
+    
+      <a href="virat-portfolio.html#career" class="back-btn">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+      <polyline points="15 18 9 12 15 6"/>
+    </svg>
+    Back
+  </a>
 
     <div class="hero-eyebrow">
       <div class="eyebrow-line"></div>
@@ -1184,6 +1224,7 @@
           ║       object-fit:cover;">            ║
           ╚══════════════════════════════════════╝
         -->
+          <img src="/assets/vk-internation-debut2.jpeg" alt="" style="height:100%;width:100%;object-fit: cover;">
         <div class="img-placeholder">
           <span class="ph-icon">📸</span>
           <span class="ph-label">Virat Kohli — ODI Debut Photo</span>

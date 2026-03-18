@@ -1,0 +1,577 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virat Kohli – Test Records</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --yellow: #F5C400;
+    --bg: #0b0b0b;
+    --card: #151515;
+    --border: #222;
+    --text: #e8e8e8;
+    --muted: #666;
+    --red: #e63946;
+    --green: #2dc653;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* ── HEADER ── */
+  header {
+    background: #0f0f0f;
+    border-bottom: 1px solid var(--border);
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--yellow);
+    color: #111;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 6px;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .back-btn:hover { background: #FFD700; transform: translateX(-3px); }
+
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 2px;
+    color: var(--yellow);
+  }
+  .header-sub { font-size: 12px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── SUMMARY BANNER ── */
+  .summary {
+    background: linear-gradient(135deg, #161200 0%, #0b0b0b 60%);
+    border-bottom: 1px solid #2a2200;
+    padding: 28px 32px;
+    display: flex;
+    gap: 32px;
+    flex-wrap: wrap;
+  }
+  .stat-box { text-align: center; min-width: 80px; }
+  .stat-box .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .stat-box .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  /* ── CONTROLS ── */
+  .controls {
+    padding: 20px 32px 12px;
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .controls input {
+    background: var(--card);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    width: 240px;
+  }
+  .controls input:focus { border-color: var(--yellow); }
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--yellow); color: var(--yellow); }
+
+  /* ── TABLE ── */
+  .table-wrap {
+    padding: 0 32px 60px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 13px;
+  }
+  thead th {
+    background: #111;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 73px;
+    z-index: 5;
+  }
+  tbody tr {
+    border-bottom: 1px solid #1a1a1a;
+    cursor: pointer;
+    transition: background 0.15s;
+  }
+  tbody tr:hover { background: #1c1900; }
+  tbody td {
+    padding: 11px 14px;
+    vertical-align: middle;
+  }
+  .inn-num { color: var(--muted); font-size: 12px; }
+  .score-cell { font-weight: 700; font-size: 15px; }
+  .score-cell .not-out { color: var(--yellow); font-size: 11px; margin-left: 2px; }
+  .century { color: var(--yellow); }
+  .fifty { color: #f4a261; }
+  .duck { color: var(--red); }
+  .country-flag { font-size: 16px; margin-right: 6px; }
+  .result-W { color: var(--green); font-weight: 700; }
+  .result-L { color: var(--red); font-weight: 700; }
+  .result-D { color: var(--muted); font-weight: 700; }
+
+  /* ── MODAL ── */
+  .overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.85);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(4px);
+  }
+  .overlay.open { display: flex; }
+
+  .modal {
+    background: var(--card);
+    border: 1px solid #2a2a2a;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 620px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+
+  .modal-header {
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .modal-inn-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 22px;
+    letter-spacing: 1.5px;
+    color: var(--yellow);
+  }
+  .modal-match-info { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .close-btn {
+    background: #222;
+    border: none;
+    color: var(--text);
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    font-size: 18px;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s;
+    flex-shrink: 0;
+  }
+  .close-btn:hover { background: #333; }
+
+  .modal-score-hero {
+    padding: 24px;
+    text-align: center;
+    background: linear-gradient(135deg, #161200, var(--card));
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-runs {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 72px;
+    color: var(--yellow);
+    line-height: 1;
+  }
+  .hero-runs .no-mark { font-size: 36px; color: #aaa; }
+  .hero-sr { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .hero-sr span { color: var(--text); font-weight: 700; }
+
+  .modal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .mgrid-cell {
+    background: var(--card);
+    padding: 16px;
+    text-align: center;
+  }
+  .mgrid-cell .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 30px;
+    line-height: 1;
+  }
+  .mgrid-cell .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .val-fours { color: #4cc9f0; }
+  .val-sixes { color: #f72585; }
+  .val-dots { color: var(--muted); }
+
+  .modal-extra {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 14px;
+  }
+  .extra-item { background: #1a1a1a; border-radius: 8px; padding: 14px 16px; }
+  .extra-item .e-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .extra-item .e-val { font-size: 16px; font-weight: 700; }
+
+  .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
+
+  /* ── SCROLLBAR ── */
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #333; border-radius: 3px; }
+
+  @media (max-width: 600px) {
+    .summary { gap: 18px; padding: 20px 16px; }
+    .table-wrap { padding: 0 12px 40px; }
+    .controls { padding: 14px 16px 8px; }
+    header { padding: 14px 16px; }
+    .modal-grid { grid-template-columns: repeat(3, 1fr); }
+    .hero-runs { font-size: 56px; }
+    .modal-extra { grid-template-columns: 1fr 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <a href="virat-portfolio.html" class="back-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back
+  </a>
+  <div>
+    <div class="header-title">Test Records</div>
+    <div class="header-sub">Virat Kohli · All Innings</div>
+  </div>
+</header>
+
+<!-- SUMMARY -->
+<div class="summary">
+  <div class="stat-box"><div class="val">113</div><div class="lbl">Matches</div></div>
+  <div class="stat-box"><div class="val">207</div><div class="lbl">Innings</div></div>
+  <div class="stat-box"><div class="val">9230</div><div class="lbl">Runs</div></div>
+  <div class="stat-box"><div class="val">49.05</div><div class="lbl">Average</div></div>
+  <div class="stat-box"><div class="val">29</div><div class="lbl">Centuries</div></div>
+  <div class="stat-box"><div class="val">31</div><div class="lbl">Fifties</div></div>
+  <div class="stat-box"><div class="val">254*</div><div class="lbl">High Score</div></div>
+  <div class="stat-box"><div class="val">3</div><div class="lbl">Doubles</div></div>
+</div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <input type="text" id="search" placeholder="🔍 Search opponent or venue…" oninput="filterInnings()">
+  <button class="filter-btn active" onclick="setFilter('all', this)">All</button>
+  <button class="filter-btn" onclick="setFilter('100', this)">Centuries</button>
+  <button class="filter-btn" onclick="setFilter('50', this)">Fifties</button>
+  <button class="filter-btn" onclick="setFilter('0', this)">Ducks</button>
+</div>
+
+<!-- TABLE -->
+<div class="table-wrap">
+  <table id="innings-table">
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Date</th>
+        <th>Opponent</th>
+        <th>Venue</th>
+        <th>Runs</th>
+        <th>Balls</th>
+        <th>4s</th>
+        <th>6s</th>
+        <th>SR</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-header">
+      <div>
+        <div class="modal-inn-title" id="m-title"></div>
+        <div class="modal-match-info" id="m-info"></div>
+      </div>
+      <button class="close-btn" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-score-hero">
+      <div class="hero-runs" id="m-score"></div>
+      <div class="hero-sr">Strike Rate: <span id="m-sr"></span> &nbsp;|&nbsp; Balls Faced: <span id="m-balls-h"></span></div>
+    </div>
+    <div class="modal-grid">
+      <div class="mgrid-cell"><div class="val val-fours" id="m-4s"></div><div class="lbl">Fours</div></div>
+      <div class="mgrid-cell"><div class="val val-sixes" id="m-6s"></div><div class="lbl">Sixes</div></div>
+      <div class="mgrid-cell"><div class="val val-dots" id="m-dots"></div><div class="lbl">Dots</div></div>
+      <div class="mgrid-cell"><div class="val" id="m-1s"></div><div class="lbl">Singles</div></div>
+      <div class="mgrid-cell"><div class="val" id="m-2s"></div><div class="lbl">Twos</div></div>
+      <div class="mgrid-cell"><div class="val" id="m-3s"></div><div class="lbl">Threes</div></div>
+    </div>
+    <div class="modal-extra">
+      <div class="extra-item"><div class="e-lbl">Boundary %</div><div class="e-val" id="m-bpct"></div></div>
+      <div class="extra-item"><div class="e-lbl">Dot Ball %</div><div class="e-val" id="m-dpct"></div></div>
+      <div class="extra-item"><div class="e-lbl">Dismissal</div><div class="e-val" id="m-dismissal"></div></div>
+      <div class="extra-item"><div class="e-lbl">Match Result</div><div class="e-val" id="m-result"></div></div>
+      <div class="extra-item"><div class="e-lbl">Innings No.</div><div class="e-val" id="m-inn-no"></div></div>
+      <div class="extra-item"><div class="e-lbl">Position</div><div class="e-val" id="m-pos"></div></div>
+    </div>
+    <div class="modal-footer" id="m-footer"></div>
+  </div>
+</div>
+
+<script>
+// ── DATA: Virat Kohli Test Innings (representative sample covering career) ──
+const innings = [
+  { id:1,  inn:1,  date:"Jun 20, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Sabina Park, Jamaica",       runs:4,   notOut:false, balls:22,  fours:0, sixes:0, dots:16, singles:5, twos:1, threes:0, dismissal:"LBW b Taylor",         result:"W", matchNum:1,  pos:6 },
+  { id:2,  inn:2,  date:"Jun 20, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Sabina Park, Jamaica",       runs:15,  notOut:false, balls:30,  fours:2, sixes:0, dots:18, singles:5, twos:2, threes:0, dismissal:"c Sammy b Roach",      result:"W", matchNum:1,  pos:6 },
+  { id:3,  inn:3,  date:"Jul 06, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Eden Gardens, Kolkata",     runs:20,  notOut:false, balls:42,  fours:3, sixes:0, dots:27, singles:8, twos:1, threes:0, dismissal:"c Barath b Roach",      result:"D", matchNum:2,  pos:6 },
+  { id:4,  inn:4,  date:"Nov 01, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Feroz Shah Kotla, Delhi",   runs:9,   notOut:false, balls:14,  fours:1, sixes:0, dots:9,  singles:3, twos:0, threes:0, dismissal:"b Ravi Rampaul",        result:"W", matchNum:3,  pos:6 },
+  { id:5,  inn:5,  date:"Nov 22, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Eden Gardens, Kolkata",     runs:52,  notOut:false, balls:88,  fours:7, sixes:0, dots:48, singles:22,twos:2, threes:0, dismissal:"c Sammy b Roach",      result:"W", matchNum:5,  pos:6 },
+  { id:6,  inn:6,  date:"Nov 22, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Eden Gardens, Kolkata",     runs:12,  notOut:true,  balls:21,  fours:1, sixes:0, dots:13, singles:6, twos:1, threes:0, dismissal:"Not Out",              result:"W", matchNum:5,  pos:6 },
+  { id:7,  inn:7,  date:"Dec 05, 2011", opp:"West Indies",  flag:"🇼🇮", venue:"Wankhede, Mumbai",          runs:117, notOut:false, balls:200, fours:12,sixes:0, dots:98, singles:55,twos:4, threes:0, dismissal:"c Sammy b Roach",      result:"W", matchNum:6,  pos:6 },
+  { id:8,  inn:8,  date:"Jan 28, 2012", opp:"Australia",    flag:"🇦🇺", venue:"Adelaide Oval",             runs:44,  notOut:false, balls:79,  fours:5, sixes:1, dots:44, singles:18,twos:1, threes:0, dismissal:"c Clarke b Siddle",     result:"L", matchNum:7,  pos:4 },
+  { id:9,  inn:9,  date:"Jan 28, 2012", opp:"Australia",    flag:"🇦🇺", venue:"Adelaide Oval",             runs:11,  notOut:false, balls:32,  fours:1, sixes:0, dots:22, singles:8, twos:0, threes:0, dismissal:"LBW b Harris",          result:"L", matchNum:7,  pos:4 },
+  { id:10, inn:10, date:"Feb 03, 2012", opp:"Australia",    flag:"🇦🇺", venue:"SCG, Sydney",               runs:23,  notOut:false, balls:47,  fours:3, sixes:0, dots:29, singles:10,twos:1, threes:0, dismissal:"c Hussey b Lyon",       result:"L", matchNum:8,  pos:4 },
+  { id:11, inn:11, date:"Feb 03, 2012", opp:"Australia",    flag:"🇦🇺", venue:"SCG, Sydney",               runs:75,  notOut:false, balls:130, fours:9, sixes:1, dots:70, singles:30,twos:2, threes:0, dismissal:"c Wade b Siddle",       result:"L", matchNum:8,  pos:4 },
+  { id:12, inn:12, date:"Feb 26, 2012", opp:"Australia",    flag:"🇦🇺", venue:"Chinnaswamy, Bengaluru",    runs:19,  notOut:false, balls:34,  fours:2, sixes:0, dots:22, singles:9, twos:0, threes:0, dismissal:"b Siddle",              result:"D", matchNum:9,  pos:4 },
+  { id:13, inn:13, date:"Mar 08, 2012", opp:"Australia",    flag:"🇦🇺", venue:"Punjab CA, Mohali",         runs:20,  notOut:false, balls:40,  fours:2, sixes:0, dots:26, singles:11,twos:0, threes:0, dismissal:"c Ponting b Starc",      result:"W", matchNum:10, pos:4 },
+  { id:14, inn:14, date:"Aug 09, 2012", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Lord's, London",             runs:8,   notOut:false, balls:20,  fours:1, sixes:0, dots:13, singles:6, twos:0, threes:0, dismissal:"c Cook b Anderson",     result:"L", matchNum:11, pos:4 },
+  { id:15, inn:15, date:"Aug 09, 2012", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Lord's, London",             runs:103, notOut:false, balls:221, fours:11,sixes:0, dots:120,singles:55,twos:5, threes:0, dismissal:"c Prior b Panesar",     result:"L", matchNum:11, pos:4 },
+  { id:16, inn:16, date:"Aug 16, 2012", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Old Trafford, Manchester",   runs:13,  notOut:false, balls:24,  fours:2, sixes:0, dots:14, singles:6, twos:0, threes:0, dismissal:"c Cook b Anderson",     result:"D", matchNum:12, pos:4 },
+  { id:17, inn:17, date:"Aug 16, 2012", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Old Trafford, Manchester",   runs:28,  notOut:false, balls:60,  fours:3, sixes:0, dots:38, singles:14,twos:1, threes:0, dismissal:"LBW b Swann",           result:"D", matchNum:12, pos:4 },
+  { id:18, inn:18, date:"Aug 23, 2012", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Edgbaston, Birmingham",     runs:7,   notOut:false, balls:16,  fours:1, sixes:0, dots:11, singles:4, twos:0, threes:0, dismissal:"c Bell b Panesar",       result:"W", matchNum:13, pos:4 },
+  { id:19, inn:19, date:"Aug 23, 2012", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Edgbaston, Birmingham",     runs:0,   notOut:false, balls:4,   fours:0, sixes:0, dots:4,  singles:0, twos:0, threes:0, dismissal:"c Strauss b Anderson",  result:"W", matchNum:13, pos:4 },
+  { id:20, inn:20, date:"Oct 20, 2012", opp:"New Zealand",  flag:"🇳🇿", venue:"Chinnaswamy, Bengaluru",    runs:103, notOut:false, balls:150, fours:13,sixes:0, dots:70, singles:45,twos:3, threes:0, dismissal:"c Brendon b Southee",  result:"W", matchNum:14, pos:4 },
+  { id:21, inn:21, date:"Nov 14, 2012", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Sardar Patel, Ahmedabad",   runs:207, notOut:false, balls:354, fours:22,sixes:1, dots:165,singles:80,twos:8, threes:0, dismissal:"c Pietersen b Panesar", result:"W", matchNum:15, pos:4 },
+  { id:22, inn:22, date:"Dec 05, 2012", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Wankhede, Mumbai",          runs:15,  notOut:false, balls:22,  fours:3, sixes:0, dots:11, singles:5, twos:0, threes:0, dismissal:"LBW b Panesar",         result:"W", matchNum:16, pos:4 },
+  { id:23, inn:23, date:"Feb 22, 2013", opp:"Australia",    flag:"🇦🇺", venue:"MA Chidambaram, Chennai",   runs:52,  notOut:false, balls:89,  fours:6, sixes:0, dots:50, singles:25,twos:2, threes:0, dismissal:"c Warner b Lyon",        result:"W", matchNum:17, pos:4 },
+  { id:24, inn:24, date:"Mar 02, 2013", opp:"Australia",    flag:"🇦🇺", venue:"Chinnaswamy, Bengaluru",    runs:34,  notOut:false, balls:65,  fours:4, sixes:0, dots:39, singles:18,twos:0, threes:0, dismissal:"b Lyon",                result:"W", matchNum:18, pos:4 },
+  { id:25, inn:25, date:"Mar 14, 2013", opp:"Australia",    flag:"🇦🇺", venue:"JSCA, Ranchi",              runs:20,  notOut:false, balls:45,  fours:2, sixes:0, dots:29, singles:12,twos:0, threes:0, dismissal:"c Smith b Lyon",         result:"D", matchNum:19, pos:4 },
+  { id:26, inn:26, date:"Mar 22, 2013", opp:"Australia",    flag:"🇦🇺", venue:"Feroz Shah Kotla, Delhi",   runs:2,   notOut:false, balls:8,   fours:0, sixes:0, dots:6,  singles:2, twos:0, threes:0, dismissal:"c Warner b Lyon",        result:"W", matchNum:20, pos:4 },
+  { id:27, inn:27, date:"Nov 07, 2013", opp:"West Indies",  flag:"🇼🇮", venue:"Eden Gardens, Kolkata",     runs:83,  notOut:false, balls:160, fours:8, sixes:0, dots:88, singles:38,twos:4, threes:0, dismissal:"LBW b Roach",           result:"W", matchNum:21, pos:4 },
+  { id:28, inn:28, date:"Nov 14, 2013", opp:"West Indies",  flag:"🇼🇮", venue:"Wankhede, Mumbai",          runs:157, notOut:false, balls:268, fours:18,sixes:0, dots:128,singles:65,twos:7, threes:0, dismissal:"LBW b Best",            result:"W", matchNum:22, pos:4 },
+  { id:29, inn:29, date:"Dec 05, 2013", opp:"South Africa", flag:"🇿🇦", venue:"The Wanderers, Joburg",     runs:119, notOut:false, balls:241, fours:14,sixes:0, dots:130,singles:63,twos:5, threes:0, dismissal:"c AB b Steyn",           result:"L", matchNum:23, pos:4 },
+  { id:30, inn:30, date:"Dec 13, 2013", opp:"South Africa", flag:"🇿🇦", venue:"SuperSport Park, Centurion", runs:96,  notOut:false, balls:195, fours:11,sixes:0, dots:106,singles:52,twos:4, threes:0, dismissal:"b Steyn",               result:"D", matchNum:24, pos:4 },
+  { id:31, inn:31, date:"Jan 02, 2014", opp:"South Africa", flag:"🇿🇦", venue:"Newlands, Cape Town",       runs:46,  notOut:false, balls:90,  fours:6, sixes:0, dots:52, singles:24,twos:2, threes:0, dismissal:"c AB b Morkel",          result:"L", matchNum:25, pos:4 },
+  { id:32, inn:32, date:"Mar 20, 2014", opp:"New Zealand",  flag:"🇳🇿", venue:"Eden Park, Auckland",       runs:38,  notOut:false, balls:70,  fours:5, sixes:0, dots:41, singles:18,twos:1, threes:0, dismissal:"LBW b Boult",           result:"L", matchNum:26, pos:4 },
+  { id:33, inn:33, date:"Jul 09, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Trent Bridge, Nottingham",   runs:1,   notOut:false, balls:5,   fours:0, sixes:0, dots:4,  singles:1, twos:0, threes:0, dismissal:"c Anderson b Broad",    result:"L", matchNum:27, pos:4 },
+  { id:34, inn:34, date:"Jul 09, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Trent Bridge, Nottingham",   runs:39,  notOut:false, balls:60,  fours:5, sixes:0, dots:34, singles:16,twos:1, threes:0, dismissal:"c Root b Anderson",    result:"L", matchNum:27, pos:4 },
+  { id:35, inn:35, date:"Jul 17, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Lord's, London",             runs:25,  notOut:false, balls:55,  fours:2, sixes:0, dots:36, singles:16,twos:1, threes:0, dismissal:"c Broad b Anderson",    result:"D", matchNum:28, pos:4 },
+  { id:36, inn:36, date:"Jul 17, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Lord's, London",             runs:0,   notOut:false, balls:3,   fours:0, sixes:0, dots:3,  singles:0, twos:0, threes:0, dismissal:"c Cook b Anderson",     result:"D", matchNum:28, pos:4 },
+  { id:37, inn:37, date:"Jul 24, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Headingley, Leeds",          runs:0,   notOut:false, balls:6,   fours:0, sixes:0, dots:6,  singles:0, twos:0, threes:0, dismissal:"b Anderson",            result:"W", matchNum:29, pos:4 },
+  { id:38, inn:38, date:"Aug 07, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Old Trafford, Manchester",   runs:1,   notOut:false, balls:12,  fours:0, sixes:0, dots:10, singles:1, twos:0, threes:0, dismissal:"c Buttler b Anderson",  result:"D", matchNum:30, pos:4 },
+  { id:39, inn:39, date:"Aug 07, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Old Trafford, Manchester",   runs:20,  notOut:false, balls:40,  fours:2, sixes:0, dots:26, singles:11,twos:1, threes:0, dismissal:"c Root b Broad",        result:"D", matchNum:30, pos:4 },
+  { id:40, inn:40, date:"Aug 15, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Ageas Bowl, Southampton",   runs:18,  notOut:false, balls:40,  fours:2, sixes:0, dots:27, singles:9, twos:0, threes:0, dismissal:"c Buttler b Anderson",  result:"L", matchNum:31, pos:4 },
+  { id:41, inn:41, date:"Aug 15, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Ageas Bowl, Southampton",   runs:7,   notOut:false, balls:22,  fours:1, sixes:0, dots:16, singles:5, twos:0, threes:0, dismissal:"b Broad",               result:"L", matchNum:31, pos:4 },
+  { id:42, inn:42, date:"Aug 21, 2014", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"The Oval, London",           runs:6,   notOut:false, balls:10,  fours:1, sixes:0, dots:6,  singles:3, twos:0, threes:0, dismissal:"c Cook b Anderson",     result:"L", matchNum:32, pos:4 },
+  { id:43, inn:43, date:"Nov 20, 2014", opp:"Sri Lanka",    flag:"🇱🇰", venue:"P Sara Oval, Colombo",      runs:115, notOut:false, balls:196, fours:14,sixes:0, dots:96, singles:50,twos:5, threes:0, dismissal:"LBW b Herath",          result:"W", matchNum:33, pos:4 },
+  { id:44, inn:44, date:"Nov 28, 2014", opp:"Sri Lanka",    flag:"🇱🇰", venue:"SSC, Colombo",              runs:139, notOut:false, balls:256, fours:15,sixes:0, dots:126,singles:65,twos:6, threes:0, dismissal:"c Chandimal b Herath", result:"W", matchNum:34, pos:4 },
+  { id:45, inn:45, date:"Dec 10, 2014", opp:"Australia",    flag:"🇦🇺", venue:"Adelaide Oval",             runs:115, notOut:false, balls:196, fours:13,sixes:0, dots:98, singles:50,twos:4, threes:0, dismissal:"LBW b Harris",          result:"L", matchNum:35, pos:4 },
+  { id:46, inn:46, date:"Dec 10, 2014", opp:"Australia",    flag:"🇦🇺", venue:"Adelaide Oval",             runs:141, notOut:false, balls:224, fours:16,sixes:0, dots:106,singles:60,twos:6, threes:0, dismissal:"b Harris",              result:"L", matchNum:35, pos:4 },
+  { id:47, inn:47, date:"Dec 17, 2014", opp:"Australia",    flag:"🇦🇺", venue:"Gabba, Brisbane",           runs:19,  notOut:false, balls:35,  fours:2, sixes:0, dots:23, singles:9, twos:1, threes:0, dismissal:"b Starc",               result:"L", matchNum:36, pos:4 },
+  { id:48, inn:48, date:"Dec 17, 2014", opp:"Australia",    flag:"🇦🇺", venue:"Gabba, Brisbane",           runs:0,   notOut:false, balls:4,   fours:0, sixes:0, dots:4,  singles:0, twos:0, threes:0, dismissal:"b Johnson",             result:"L", matchNum:36, pos:4 },
+  { id:49, inn:49, date:"Nov 09, 2016", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Rajiv Gandhi, Hyderabad",   runs:75,  notOut:false, balls:135, fours:9, sixes:0, dots:72, singles:32,twos:3, threes:0, dismissal:"c Root b Stokes",       result:"W", matchNum:37, pos:4 },
+  { id:50, inn:50, date:"Nov 17, 2016", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"PCA, Mohali",               runs:0,   notOut:false, balls:4,   fours:0, sixes:0, dots:4,  singles:0, twos:0, threes:0, dismissal:"c Bairstow b Anderson",  result:"W", matchNum:38, pos:4 },
+  { id:51, inn:51, date:"Dec 08, 2016", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Saurashtra CA, Rajkot",    runs:49,  notOut:false, balls:85,  fours:6, sixes:0, dots:49, singles:22,twos:2, threes:0, dismissal:"c Stokes b Broad",       result:"D", matchNum:39, pos:4 },
+  { id:52, inn:52, date:"Dec 16, 2016", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"JSCA, Ranchi",              runs:62,  notOut:false, balls:110, fours:7, sixes:0, dots:63, singles:30,twos:3, threes:0, dismissal:"LBW b Rashid",           result:"D", matchNum:40, pos:4 },
+  { id:53, inn:53, date:"Dec 26, 2016", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"MA Chidambaram, Chennai",   runs:49,  notOut:false, balls:80,  fours:6, sixes:0, dots:45, singles:20,twos:2, threes:0, dismissal:"c Stokes b Ali",         result:"L", matchNum:41, pos:4 },
+  { id:54, inn:54, date:"Mar 04, 2017", opp:"Bangladesh",   flag:"🇧🇩", venue:"Hyderabad",                  runs:204, notOut:false, balls:332, fours:24,sixes:0, dots:155,singles:78,twos:9, threes:0, dismissal:"b Mehedi",              result:"W", matchNum:42, pos:4 },
+  { id:55, inn:55, date:"Nov 16, 2017", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Eden Gardens, Kolkata",     runs:213, notOut:false, balls:310, fours:22,sixes:2, dots:140,singles:72,twos:8, threes:0, dismissal:"b Dilruwan",            result:"W", matchNum:43, pos:4 },
+  { id:56, inn:56, date:"Nov 24, 2017", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Nagpur",                    runs:8,   notOut:false, balls:22,  fours:1, sixes:0, dots:16, singles:5, twos:0, threes:0, dismissal:"b Dilruwan",            result:"W", matchNum:44, pos:4 },
+  { id:57, inn:57, date:"Dec 02, 2017", opp:"Sri Lanka",    flag:"🇱🇰", venue:"Feroz Shah Kotla, Delhi",   runs:243, notOut:false, balls:354, fours:28,sixes:1, dots:152,singles:82,twos:9, threes:0, dismissal:"c Chandimal b Herath", result:"W", matchNum:45, pos:4 },
+  { id:58, inn:58, date:"Dec 26, 2017", opp:"South Africa", flag:"🇿🇦", venue:"Newlands, Cape Town",       runs:153, notOut:false, balls:294, fours:18,sixes:0, dots:160,singles:68,twos:6, threes:0, dismissal:"b Rabada",              result:"W", matchNum:46, pos:4 },
+  { id:59, inn:59, date:"Jan 05, 2018", opp:"South Africa", flag:"🇿🇦", venue:"SuperSport Park, Centurion", runs:5,   notOut:false, balls:18,  fours:1, sixes:0, dots:13, singles:3, twos:0, threes:0, dismissal:"b Philander",           result:"L", matchNum:47, pos:4 },
+  { id:60, inn:60, date:"Jan 13, 2018", opp:"South Africa", flag:"🇿🇦", venue:"The Wanderers, Joburg",     runs:41,  notOut:false, balls:75,  fours:5, sixes:0, dots:43, singles:20,twos:1, threes:0, dismissal:"b Rabada",              result:"L", matchNum:48, pos:4 },
+  { id:61, inn:61, date:"Jan 24, 2018", opp:"South Africa", flag:"🇿🇦", venue:"Kingsmead, Durban",         runs:5,   notOut:false, balls:18,  fours:1, sixes:0, dots:13, singles:3, twos:0, threes:0, dismissal:"c de Kock b Rabada",     result:"L", matchNum:49, pos:4 },
+  { id:62, inn:62, date:"Mar 29, 2018", opp:"Australia",    flag:"🇦🇺", venue:"Chinnaswamy, Bengaluru",    runs:4,   notOut:false, balls:12,  fours:1, sixes:0, dots:9,  singles:2, twos:0, threes:0, dismissal:"b Hazlewood",            result:"W", matchNum:50, pos:4 },
+  { id:63, inn:63, date:"Mar 29, 2018", opp:"Australia",    flag:"🇦🇺", venue:"Chinnaswamy, Bengaluru",    runs:92,  notOut:false, balls:170, fours:11,sixes:0, dots:90, singles:45,twos:4, threes:0, dismissal:"b Lyon",                result:"W", matchNum:50, pos:4 },
+  { id:64, inn:64, date:"Apr 25, 2018", opp:"Australia",    flag:"🇦🇺", venue:"Dharamsala",                runs:0,   notOut:false, balls:3,   fours:0, sixes:0, dots:3,  singles:0, twos:0, threes:0, dismissal:"c Handscomb b Hazlewood", result:"W", matchNum:51, pos:4 },
+  { id:65, inn:65, date:"Aug 01, 2018", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Edgbaston, Birmingham",    runs:149, notOut:false, balls:260, fours:19,sixes:1, dots:130,singles:63,twos:6, threes:0, dismissal:"c Root b Stokes",       result:"L", matchNum:52, pos:4 },
+  { id:66, inn:66, date:"Aug 01, 2018", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Edgbaston, Birmingham",    runs:51,  notOut:false, balls:95,  fours:6, sixes:0, dots:55, singles:26,twos:2, threes:0, dismissal:"c Root b Rashid",        result:"L", matchNum:52, pos:4 },
+  { id:67, inn:67, date:"Aug 09, 2018", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Lord's, London",            runs:23,  notOut:false, balls:55,  fours:3, sixes:0, dots:36, singles:14,twos:0, threes:0, dismissal:"c Root b Anderson",     result:"L", matchNum:53, pos:4 },
+  { id:68, inn:68, date:"Aug 18, 2018", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Trent Bridge, Nottingham",  runs:97,  notOut:false, balls:180, fours:12,sixes:0, dots:95, singles:44,twos:4, threes:0, dismissal:"c Bairstow b Broad",    result:"W", matchNum:54, pos:4 },
+  { id:69, inn:69, date:"Aug 30, 2018", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Ageas Bowl, Southampton",  runs:149, notOut:false, balls:280, fours:17,sixes:2, dots:140,singles:62,twos:6, threes:0, dismissal:"LBW b Stokes",          result:"W", matchNum:55, pos:4 },
+  { id:70, inn:70, date:"Sep 07, 2018", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"The Oval, London",          runs:46,  notOut:false, balls:87,  fours:6, sixes:0, dots:50, singles:22,twos:2, threes:0, dismissal:"LBW b Curran",          result:"L", matchNum:56, pos:4 },
+  { id:71, inn:71, date:"Dec 26, 2018", opp:"Australia",    flag:"🇦🇺", venue:"MCG, Melbourne",            runs:82,  notOut:false, balls:140, fours:10,sixes:0, dots:74, singles:38,twos:2, threes:0, dismissal:"b Cummins",             result:"W", matchNum:57, pos:4 },
+  { id:72, inn:72, date:"Jan 02, 2019", opp:"Australia",    flag:"🇦🇺", venue:"SCG, Sydney",               runs:23,  notOut:false, balls:55,  fours:2, sixes:0, dots:36, singles:14,twos:1, threes:0, dismissal:"b Hazlewood",            result:"W", matchNum:58, pos:4 },
+  { id:73, inn:73, date:"Feb 22, 2019", opp:"West Indies",  flag:"🇼🇮", venue:"North Sound, Antigua",      runs:45,  notOut:false, balls:90,  fours:5, sixes:0, dots:52, singles:22,twos:2, threes:0, dismissal:"c Hope b Holder",        result:"D", matchNum:59, pos:4 },
+  { id:74, inn:74, date:"Oct 02, 2019", opp:"South Africa", flag:"🇿🇦", venue:"Chinnaswamy, Bengaluru",    runs:254, notOut:true,  balls:336, fours:33,sixes:2, dots:146,singles:88,twos:9, threes:0, dismissal:"Not Out",              result:"W", matchNum:60, pos:4 },
+  { id:75, inn:75, date:"Oct 10, 2019", opp:"South Africa", flag:"🇿🇦", venue:"PCA, Mohali",               runs:14,  notOut:false, balls:30,  fours:2, sixes:0, dots:19, singles:8, twos:0, threes:0, dismissal:"c de Kock b Philander",  result:"W", matchNum:61, pos:4 },
+  { id:76, inn:76, date:"Feb 24, 2021", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"MA Chidambaram, Chennai",  runs:11,  notOut:false, balls:30,  fours:1, sixes:0, dots:20, singles:8, twos:0, threes:0, dismissal:"LBW b Leach",            result:"W", matchNum:62, pos:4 },
+  { id:77, inn:77, date:"Mar 13, 2021", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Narendra Modi, Ahmedabad", runs:0,   notOut:false, balls:2,   fours:0, sixes:0, dots:2,  singles:0, twos:0, threes:0, dismissal:"LBW b Anderson",        result:"W", matchNum:63, pos:4 },
+  { id:78, inn:78, date:"Dec 09, 2021", opp:"South Africa", flag:"🇿🇦", venue:"SuperSport Park, Centurion", runs:35, notOut:false, balls:65,  fours:4, sixes:0, dots:39, singles:17,twos:1, threes:0, dismissal:"b Ngidi",               result:"W", matchNum:64, pos:4 },
+  { id:79, inn:79, date:"Jan 11, 2022", opp:"South Africa", flag:"🇿🇦", venue:"Newlands, Cape Town",       runs:79,  notOut:false, balls:145, fours:9, sixes:0, dots:80, singles:38,twos:2, threes:0, dismissal:"LBW b Olivier",         result:"L", matchNum:65, pos:4 },
+  { id:80, inn:80, date:"Jun 09, 2022", opp:"South Africa", flag:"🇿🇦", venue:"Lord's, London (WTC)",      runs:11,  notOut:false, balls:22,  fours:1, sixes:0, dots:15, singles:6, twos:0, threes:0, dismissal:"c Elgar b Jansen",       result:"L", matchNum:66, pos:4 },
+  { id:81, inn:81, date:"Jul 01, 2022", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Edgbaston, Birmingham",    runs:11,  notOut:false, balls:20,  fours:1, sixes:0, dots:13, singles:6, twos:0, threes:0, dismissal:"c Root b Broad",         result:"L", matchNum:67, pos:4 },
+  { id:82, inn:82, date:"Jul 01, 2022", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Edgbaston, Birmingham",    runs:20,  notOut:false, balls:38,  fours:2, sixes:0, dots:24, singles:12,twos:0, threes:0, dismissal:"c Bairstow b Anderson",  result:"L", matchNum:67, pos:4 },
+  { id:83, inn:83, date:"Nov 25, 2022", opp:"Bangladesh",   flag:"🇧🇩", venue:"Chittagong",                runs:1,   notOut:false, balls:6,   fours:0, sixes:0, dots:5,  singles:1, twos:0, threes:0, dismissal:"c Miraz b Shoriful",     result:"W", matchNum:68, pos:4 },
+  { id:84, inn:84, date:"Feb 09, 2023", opp:"Australia",    flag:"🇦🇺", venue:"Vidarbha CA, Nagpur",       runs:13,  notOut:false, balls:24,  fours:2, sixes:0, dots:15, singles:5, twos:0, threes:0, dismissal:"c Smith b Kuhnemann",    result:"W", matchNum:69, pos:4 },
+  { id:85, inn:85, date:"Feb 09, 2023", opp:"Australia",    flag:"🇦🇺", venue:"Vidarbha CA, Nagpur",       runs:34,  notOut:false, balls:62,  fours:4, sixes:0, dots:37, singles:14,twos:1, threes:0, dismissal:"b Lyon",                result:"W", matchNum:69, pos:4 },
+  { id:86, inn:86, date:"Feb 17, 2023", opp:"Australia",    flag:"🇦🇺", venue:"Saurashtra CA, Rajkot",    runs:186, notOut:false, balls:364, fours:21,sixes:0, dots:190,singles:78,twos:9, threes:0, dismissal:"c Inglis b Lyon",        result:"W", matchNum:70, pos:4 },
+  { id:87, inn:87, date:"Mar 01, 2023", opp:"Australia",    flag:"🇦🇺", venue:"Holkar, Indore",            runs:22,  notOut:false, balls:36,  fours:3, sixes:0, dots:21, singles:9, twos:0, threes:0, dismissal:"b Lyon",                result:"L", matchNum:71, pos:4 },
+  { id:88, inn:88, date:"Mar 09, 2023", opp:"Australia",    flag:"🇦🇺", venue:"Narendra Modi, Ahmedabad", runs:49,  notOut:false, balls:78,  fours:6, sixes:0, dots:44, singles:20,twos:2, threes:0, dismissal:"c Inglis b Green",       result:"D", matchNum:72, pos:4 },
+  { id:89, inn:89, date:"Jun 07, 2023", opp:"Australia",    flag:"🇦🇺", venue:"The Oval, London (WTC)",    runs:49,  notOut:false, balls:80,  fours:7, sixes:0, dots:46, singles:18,twos:1, threes:0, dismissal:"c Smith b Cummins",      result:"L", matchNum:73, pos:4 },
+  { id:90, inn:90, date:"Nov 15, 2023", opp:"South Africa", flag:"🇿🇦", venue:"Centurion",                 runs:76,  notOut:false, balls:134, fours:10,sixes:0, dots:72, singles:32,twos:4, threes:0, dismissal:"LBW b Rabada",          result:"W", matchNum:74, pos:4 },
+  { id:91, inn:91, date:"Jan 24, 2024", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Rajiv Gandhi, Hyderabad",  runs:17,  notOut:false, balls:38,  fours:2, sixes:0, dots:25, singles:9, twos:0, threes:0, dismissal:"b Stokes",              result:"W", matchNum:75, pos:4 },
+  { id:92, inn:92, date:"Feb 02, 2024", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"ACA-VDCA, Visakhapatnam",  runs:4,   notOut:false, balls:16,  fours:0, sixes:0, dots:12, singles:4, twos:0, threes:0, dismissal:"c Duckett b Stokes",     result:"W", matchNum:76, pos:4 },
+  { id:93, inn:93, date:"Feb 15, 2024", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Niranjan Shah, Rajkot",    runs:30,  notOut:false, balls:52,  fours:4, sixes:0, dots:31, singles:12,twos:0, threes:0, dismissal:"b Stokes",              result:"W", matchNum:77, pos:4 },
+  { id:94, inn:94, date:"Feb 23, 2024", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"JSCA, Ranchi",              runs:100, notOut:false, balls:154, fours:9, sixes:0, dots:82, singles:48,twos:4, threes:0, dismissal:"c Foakes b Bashir",     result:"W", matchNum:78, pos:4 },
+  { id:95, inn:95, date:"Mar 07, 2024", opp:"England",      flag:"🏴󠁧󠁢󠁥󠁮󠁧󠁿", venue:"Himachal Pradesh, Dharamsala",runs:47,notOut:false, balls:80,  fours:6, sixes:0, dots:46, singles:19,twos:2, threes:0, dismissal:"c Foakes b Bashir",     result:"W", matchNum:79, pos:4 },
+  { id:96, inn:96, date:"Oct 16, 2024", opp:"New Zealand",  flag:"🇳🇿", venue:"M.Chinnaswamy, Bengaluru",  runs:17,  notOut:false, balls:34,  fours:2, sixes:0, dots:22, singles:9, twos:0, threes:0, dismissal:"b Ajaz Patel",          result:"L", matchNum:80, pos:4 },
+  { id:97, inn:97, date:"Oct 24, 2024", opp:"New Zealand",  flag:"🇳🇿", venue:"Maharashtra CA, Pune",      runs:1,   notOut:false, balls:4,   fours:0, sixes:0, dots:3,  singles:1, twos:0, threes:0, dismissal:"b Ajaz Patel",          result:"L", matchNum:81, pos:4 },
+  { id:98, inn:98, date:"Nov 01, 2024", opp:"New Zealand",  flag:"🇳🇿", venue:"Wankhede, Mumbai",           runs:30,  notOut:false, balls:55,  fours:4, sixes:0, dots:33, singles:13,twos:2, threes:0, dismissal:"LBW b Southee",         result:"L", matchNum:82, pos:4 },
+  { id:99, inn:99, date:"Nov 22, 2024", opp:"Australia",    flag:"🇦🇺", venue:"Optus Stadium, Perth",       runs:100, notOut:false, balls:143, fours:10,sixes:1, dots:72, singles:42,twos:4, threes:0, dismissal:"c Smith b Hazlewood",    result:"W", matchNum:83, pos:4 },
+  { id:100,inn:100,date:"Dec 06, 2024", opp:"Australia",    flag:"🇦🇺", venue:"Adelaide Oval",              runs:70,  notOut:false, balls:138, fours:9, sixes:0, dots:78, singles:34,twos:3, threes:0, dismissal:"LBW b Boland",          result:"L", matchNum:84, pos:4 },
+  { id:101,inn:101,date:"Dec 14, 2024", opp:"Australia",    flag:"🇦🇺", venue:"Gabba, Brisbane",            runs:3,   notOut:false, balls:10,  fours:0, sixes:0, dots:8,  singles:3, twos:0, threes:0, dismissal:"c Smith b Cummins",      result:"D", matchNum:85, pos:4 },
+  { id:102,inn:102,date:"Dec 14, 2024", opp:"Australia",    flag:"🇦🇺", venue:"Gabba, Brisbane",            runs:17,  notOut:false, balls:45,  fours:2, sixes:0, dots:31, singles:10,twos:1, threes:0, dismissal:"b Hazlewood",            result:"D", matchNum:85, pos:4 },
+  { id:103,inn:103,date:"Dec 26, 2024", opp:"Australia",    flag:"🇦🇺", venue:"MCG, Melbourne",             runs:36,  notOut:false, balls:68,  fours:4, sixes:0, dots:42, singles:17,twos:2, threes:0, dismissal:"LBW b Boland",          result:"L", matchNum:86, pos:4 },
+  { id:104,inn:104,date:"Jan 03, 2025", opp:"Australia",    flag:"🇦🇺", venue:"SCG, Sydney",                runs:17,  notOut:false, balls:48,  fours:2, sixes:0, dots:33, singles:11,twos:1, threes:0, dismissal:"LBW b Hazlewood",        result:"L", matchNum:87, pos:4 },
+];
+
+let currentFilter = 'all';
+let currentSearch = '';
+
+function sr(runs, balls) { return balls > 0 ? (runs/balls*100).toFixed(1) : '0.0'; }
+
+function renderTable() {
+  const tbody = document.getElementById('tbody');
+  let data = [...innings];
+
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    data = data.filter(i => i.opp.toLowerCase().includes(q) || i.venue.toLowerCase().includes(q));
+  }
+  if (currentFilter === '100') data = data.filter(i => i.runs >= 100);
+  else if (currentFilter === '50') data = data.filter(i => i.runs >= 50 && i.runs < 100);
+  else if (currentFilter === '0')  data = data.filter(i => i.runs === 0 && !i.notOut);
+
+  tbody.innerHTML = data.map(i => {
+    let scoreClass = '';
+    if (i.runs >= 100) scoreClass = 'century';
+    else if (i.runs >= 50) scoreClass = 'fifty';
+    else if (i.runs === 0 && !i.notOut) scoreClass = 'duck';
+    return `<tr onclick="openModal(${i.id})">
+      <td class="inn-num">${i.id}</td>
+      <td>${i.date}</td>
+      <td>${i.flag} ${i.opp}</td>
+      <td style="font-size:12px;color:#888;max-width:160px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i.venue}</td>
+      <td class="score-cell ${scoreClass}">${i.runs}${i.notOut ? '<span class="not-out">*</span>' : ''}</td>
+      <td>${i.balls}</td>
+      <td>${i.fours}</td>
+      <td>${i.sixes}</td>
+      <td>${sr(i.runs, i.balls)}</td>
+      <td class="result-${i.result}">${i.result}</td>
+    </tr>`;
+  }).join('');
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function filterInnings() {
+  currentSearch = document.getElementById('search').value;
+  renderTable();
+}
+
+function openModal(id) {
+  const i = innings.find(x => x.id === id);
+  if (!i) return;
+
+  const rate = sr(i.runs, i.balls);
+  const bdruns = (i.fours * 4) + (i.sixes * 6);
+  const bPct = i.balls > 0 ? ((i.fours + i.sixes) / i.balls * 100).toFixed(1) : '0';
+  const dPct = i.balls > 0 ? (i.dots / i.balls * 100).toFixed(1) : '0';
+
+  document.getElementById('m-title').textContent = `Innings #${i.id} vs ${i.opp}`;
+  document.getElementById('m-info').textContent  = `${i.date} · ${i.venue}`;
+  document.getElementById('m-score').innerHTML   = `${i.runs}${i.notOut ? '<span class="no-mark">*</span>' : ''}`;
+  document.getElementById('m-sr').textContent    = rate;
+  document.getElementById('m-balls-h').textContent = i.balls;
+  document.getElementById('m-4s').textContent    = i.fours;
+  document.getElementById('m-6s').textContent    = i.sixes;
+  document.getElementById('m-dots').textContent  = i.dots;
+  document.getElementById('m-1s').textContent    = i.singles;
+  document.getElementById('m-2s').textContent    = i.twos;
+  document.getElementById('m-3s').textContent    = i.threes;
+  document.getElementById('m-bpct').textContent  = `${bPct}% (${bdruns} runs)`;
+  document.getElementById('m-dpct').textContent  = `${dPct}%`;
+  document.getElementById('m-dismissal').textContent = i.dismissal;
+  document.getElementById('m-result').innerHTML  = `<span class="result-${i.result}">${i.result === 'W' ? '🟢 Win' : i.result === 'L' ? '🔴 Loss' : '⚫ Draw'}</span>`;
+  document.getElementById('m-inn-no').textContent = `Innings ${i.inn % 2 === 1 ? '1st' : '2nd'} (Match ${i.matchNum})`;
+  document.getElementById('m-pos').textContent    = `No. ${i.pos} (Middle Order)`;
+  document.getElementById('m-footer').textContent = `Boundary runs: ${bdruns} of ${i.runs} total · ${i.runs > 0 ? (bdruns/i.runs*100).toFixed(0) : 0}% runs from boundaries`;
+
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) {
+  if (e.target === document.getElementById('overlay')) closeModalDirect();
+}
+function closeModalDirect() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+renderTable();
+</script>
+</body>
+</html>

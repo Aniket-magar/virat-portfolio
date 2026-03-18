@@ -9,6 +9,330 @@
   <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Rajdhani:wght@400;500;600;700&display=swap"
     rel="stylesheet">
   <link rel="stylesheet" href="virat.css">
+  <style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    /* --surface: #161616; */
+    /* --card: #1C1C1C; */
+    --card-hover: #222222;
+    --border: rgba(255,255,255,0.07);
+    --border-mid: rgba(255,255,255,0.14);
+    --text: #ffffff;
+    --muted: #fffefd;
+    --subtle: #f7ecea;
+    --gold: #D4A847;
+    --gold-dim: #8C6E2C;
+    --saffron: #E85D2C;
+    --teal: #2CA8A0;
+    --rose: #C45878;
+    --blue: #4A8FC4;
+    --green: #4CA86C;
+  }
+
+ 
+
+
+  
+
+
+  /* ─── LAYOUT ─── */
+  .page {
+    max-width: 80%;
+    margin: 0 auto;
+    padding: 3rem 1.5rem 5rem;
+  }
+
+  /* ─── SECTION HEADER ─── */
+  .sec-head {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 1.75rem;
+  }
+
+  .sec-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+  }
+
+  .sec-icon.family { background: rgba(212,168,71,0.12); }
+  .sec-icon.mates  { background: rgba(44,168,160,0.12); }
+
+  .sec-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .sec-sub {
+    font-size: 12.5px;
+    color: var(--subtle);
+    margin-top: 1px;
+  }
+
+  .sec-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* ─── PERSON CARDS ─── */
+  .person-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 12px;
+    margin-bottom: 3.5rem;
+  }
+
+  .p-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1.25rem;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    transition: background 0.18s, border-color 0.18s, transform 0.18s;
+    cursor: default;
+  }
+
+  .p-card:hover {
+    background: var(--card-hover);
+    border-color: var(--border-mid);
+    transform: translateY(-2px);
+  }
+
+  .p-card.featured {
+    border-color: rgba(212,168,71,0.25);
+    background: linear-gradient(135deg, #1C1C1C 60%, rgba(212,168,71,0.06));
+  }
+
+  .p-top {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .avatar {
+    width: 46px;
+    height: 46px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 13px;
+    flex-shrink: 0;
+    font-family: 'Outfit', sans-serif;
+    letter-spacing: 0.03em;
+  }
+
+  .av-gold  { background: rgba(212,168,71,0.15);  color: var(--gold);    border: 1px solid rgba(212,168,71,0.3); }
+  .av-rose  { background: rgba(196,88,120,0.15);  color: var(--rose);    border: 1px solid rgba(196,88,120,0.3); }
+  .av-teal  { background: rgba(44,168,160,0.15);  color: var(--teal);    border: 1px solid rgba(44,168,160,0.3); }
+  .av-blue  { background: rgba(74,143,196,0.15);  color: var(--blue);    border: 1px solid rgba(74,143,196,0.3); }
+  .av-saf   { background: rgba(232,93,44,0.15);   color: var(--saffron); border: 1px solid rgba(232,93,44,0.3); }
+  .av-green { background: rgba(76,168,108,0.15);  color: var(--green);   border: 1px solid rgba(76,168,108,0.3); }
+
+ 
+  .p-role {
+    font-size: 10.5px;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    margin-bottom: 1px;
+  }
+
+  .gold-text  { color: var(--gold); }
+  .rose-text  { color: var(--rose); }
+  .teal-text  { color: var(--teal); }
+  .blue-text  { color: var(--blue); }
+  .saf-text   { color: var(--saffron); }
+  .green-text { color: var(--green); }
+
+  .p-name {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .p-desc {
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .p-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 500;
+    padding: 3px 10px;
+    border-radius: 100px;
+    background: rgba(255,255,255,0.05);
+    border: 1px solid var(--border);
+    color: var(--subtle);
+    width: fit-content;
+  }
+
+  /* ─── CRICKET MATES ─── */
+  .mates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 12px;
+  }
+
+  .m-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+    transition: background 0.18s, border-color 0.18s, transform 0.18s;
+  }
+
+  .m-card:hover {
+    background: var(--card-hover);
+    border-color: var(--border-mid);
+    transform: translateY(-2px);
+  }
+
+  .m-card.hidden { display: none; }
+
+  .m-header {
+    padding: 0.9rem 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .m-header.teal-h  { background: rgba(44,168,160,0.08); }
+  .m-header.blue-h  { background: rgba(74,143,196,0.08); }
+  .m-header.saf-h   { background: rgba(232,93,44,0.08); }
+  .m-header.gold-h  { background: rgba(212,168,71,0.08); }
+  .m-header.rose-h  { background: rgba(196,88,120,0.08); }
+  .m-header.green-h { background: rgba(76,168,108,0.08); }
+  .m-header.blue2-h { background: rgba(100,130,200,0.08); }
+  .m-header.purple-h{ background: rgba(140,80,200,0.08); }
+  .m-header.amber-h { background: rgba(200,150,60,0.08); }
+  .m-header.red-h   { background: rgba(200,60,60,0.08); }
+
+  .m-initials {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 12px;
+    font-weight: 600;
+    flex-shrink: 0;
+  }
+  .m-name {
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--text);
+    line-height: 1.2;
+  }
+
+  .m-country {
+    font-size: 11.5px;
+    color: var(--subtle);
+    margin-top: 1px;
+  }
+
+  .m-body {
+    padding: 0.9rem 1.1rem;
+    font-size: 13px;
+    color: var(--muted);
+    line-height: 1.6;
+  }
+
+  .m-tag {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 600;
+    padding: 3px 9px;
+    border-radius: 100px;
+    margin-top: 8px;
+  }
+
+  .tag-teal   { background: rgba(44,168,160,0.15);  color: var(--teal);    border: 1px solid rgba(44,168,160,0.25); }
+  .tag-blue   { background: rgba(74,143,196,0.15);  color: var(--blue);    border: 1px solid rgba(74,143,196,0.25); }
+  .tag-saf    { background: rgba(232,93,44,0.15);   color: var(--saffron); border: 1px solid rgba(232,93,44,0.25); }
+  .tag-gold   { background: rgba(212,168,71,0.15);  color: var(--gold);    border: 1px solid rgba(212,168,71,0.25); }
+  .tag-rose   { background: rgba(196,88,120,0.15);  color: var(--rose);    border: 1px solid rgba(196,88,120,0.25); }
+  .tag-green  { background: rgba(76,168,108,0.15);  color: var(--green);   border: 1px solid rgba(76,168,108,0.25); }
+  .tag-purple { background: rgba(140,80,200,0.15);  color: #B47AE0;        border: 1px solid rgba(140,80,200,0.25); }
+  .tag-amber  { background: rgba(200,150,60,0.15);  color: #D4A050;        border: 1px solid rgba(200,150,60,0.25); }
+  .tag-red    { background: rgba(200,60,60,0.15);   color: #E07070;        border: 1px solid rgba(200,60,60,0.25); }
+
+  /* ─── SHOW MORE ─── */
+  .show-more-wrap {
+    margin-top: 1.5rem;
+    text-align: center;
+  }
+
+  .btn-show-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 24px;
+    background: transparent;
+    border: 1px solid var(--border-mid);
+    border-radius: 100px;
+    color: var(--muted);
+    font-family: 'Outfit', sans-serif;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+
+  .btn-show-more:hover {
+    background: var(--surface);
+    border-color: rgba(255,255,255,0.22);
+    color: var(--text);
+  }
+
+  .btn-show-more .arrow {
+    font-size: 11px;
+    transition: transform 0.3s;
+    display: inline-block;
+  }
+
+  .btn-show-more.open .arrow { transform: rotate(180deg); }
+
+  .count-badge {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: rgba(44,168,160,0.2);
+    color: var(--teal);
+    font-size: 10px;
+    font-weight: 700;
+  }
+
+  /* ─── DIVIDER SPACING ─── */
+  .spacer { height: 1px; background: var(--border); margin: 3rem 0; }
+
+  @media (max-width: 560px) {
+    .person-grid { grid-template-columns: 1fr; }
+    .mates-grid  { grid-template-columns: 1fr; }
+  }
+</style>
 </head>
 
 <body>
@@ -175,38 +499,46 @@
               <th>Avg</th>
               <th>100s</th>
               <th>50s</th>
+              <th>6</th>
+              <th>4</th>
             </tr>
           </thead>
           <tbody>
-            <tr>
+            <tr onclick="window.location.href='test-records.html';">
               <td><span class="format-badge badge-test">Test</span></td>
-              <td>121</td>
+              <td>123</td>
               <td>210</td>
               <td class="stat-highlight">9230</td>
               <td>254*</td>
-              <td class="stat-highlight">48.84</td>
+              <td class="stat-highlight">46.9</td>
               <td class="stat-highlight">30</td>
               <td>31</td>
+              <td>30</td>
+              <td>1027</td>
             </tr>
-            <tr>
+            <tr onclick="window.location.href='odi-records.html';">
               <td><span class="format-badge badge-odi">ODI</span></td>
-              <td>295</td>
-              <td>280</td>
-              <td class="stat-highlight">13906</td>
+              <td>311</td>
+              <td>299</td>
+              <td class="stat-highlight">14797</td>
               <td>183</td>
-              <td class="stat-highlight">58.19</td>
-              <td class="stat-highlight">50</td>
-              <td>72</td>
+              <td class="stat-highlight">58.7</td>
+              <td class="stat-highlight">54</td>
+              <td>77</td>
+              <td>168</td>
+              <td>1376</td>
             </tr>
-            <tr>
+            <tr onclick="window.location.href='t20-records.html'">
               <td><span class="format-badge badge-t20">T20I</span></td>
               <td>125</td>
-              <td>111</td>
+              <td>117</td>
               <td class="stat-highlight">4188</td>
               <td>122*</td>
-              <td class="stat-highlight">52.65</td>
+              <td class="stat-highlight">48.7</td>
               <td class="stat-highlight">1</td>
               <td>38</td>
+              <td>124</td>
+              <td>369</td>
             </tr>
           </tbody>
         </table>
@@ -323,6 +655,372 @@
       </div>
     </div>
   </section>
+  
+
+  
+
+
+<div class="page">
+
+  <!-- ══ FAMILY SECTION ══ -->
+  <div class="sec-head">
+    <div class="sec-icon family">👨‍👩‍👧‍👦</div>
+    <div>
+      <div class="sec-title">Family</div>
+      <div class="sec-sub">The people behind the champion</div>
+    </div>
+    <div class="sec-rule"></div>
+  </div>
+
+  <div class="person-grid">
+
+    <!-- Father -->
+    <div class="p-card featured">
+      <div class="p-top">
+        <div class="avatar av-gold">PK</div>
+        <div class="p-meta">
+          <div class="p-role gold-text">Father</div>
+          <div class="p-name">Prem Kohli</div>
+        </div>
+      </div>
+      <p class="p-desc">Criminal lawyer from Delhi who enrolled Virat in West Delhi Cricket Academy at age 9. Drove him to practice daily, even in harsh Delhi winters. Passed away on 18 Dec 2006 from a stroke aged 54 — while Virat was mid-match in the Ranji Trophy. Virat chose to continue and bat the next day, calling it the turning point that changed him as a person.</p>
+      <div class="p-tag">Biggest support & inspiration</div>
+    </div>
+
+    <!-- Mother -->
+    <div class="p-card">
+      <div class="p-top">
+        <div class="avatar av-teal">SK</div>
+        <div class="p-meta">
+          <div class="p-role teal-text">Mother</div>
+          <div class="p-name">Saroj Kohli</div>
+        </div>
+      </div>
+      <p class="p-desc">Homemaker and the family's emotional backbone. After Prem's passing, Saroj managed financial hardship while never discouraging Virat's cricket. In a heartfelt gesture in 2016, Virat wore a jersey with his mother's name on the back during an ODI against New Zealand.</p>
+      <div class="p-tag">Heart of the family</div>
+    </div>
+
+    <!-- Wife -->
+    <div class="p-card featured">
+      <div class="p-top">
+        <div class="avatar av-rose">AS</div>
+        <div class="p-meta">
+          <div class="p-role rose-text">Wife</div>
+          <div class="p-name">Anushka Sharma</div>
+        </div>
+      </div>
+      <p class="p-desc">Celebrated Bollywood actress and co-founder of Clean Slate Filmz. Met Virat in 2013 during a shampoo commercial shoot. Married in a private ceremony in Florence, Italy on 11 December 2017. Known for her unwavering public support; Kohli has always defended her against online criticism.</p>
+      <div class="p-tag">Married · 11 Dec 2017 · Florence, Italy</div>
+    </div>
+
+    <!-- Daughter -->
+    <div class="p-card">
+      <div class="p-top">
+        <div class="avatar av-saf">VK</div>
+        <div class="p-meta">
+          <div class="p-role saf-text">Daughter</div>
+          <div class="p-name">Vamika Kohli</div>
+        </div>
+      </div>
+      <p class="p-desc">Born 11 January 2021 at Breach Candy Hospital, Mumbai. Name means "Goddess Durga" in Sanskrit. Virat left the Australia tour to be present for her birth. The couple deliberately keeps her face out of the public eye and social media.</p>
+      <div class="p-tag">Born Jan 2021 · Mumbai</div>
+    </div>
+
+    <!-- Son -->
+    <div class="p-card">
+      <div class="p-top">
+        <div class="avatar av-blue">AK</div>
+        <div class="p-meta">
+          <div class="p-role blue-text">Son</div>
+          <div class="p-name">Akaay Kohli</div>
+        </div>
+      </div>
+      <p class="p-desc">Born 15 February 2024 in London. Name means "formless" or "immortal" in Sanskrit. Second child of Virat and Anushka. Like Vamika, his parents are fiercely protective of his privacy and have not shared his photographs publicly.</p>
+      <div class="p-tag">Born Feb 2024 · London</div>
+    </div>
+
+    <!-- Brother -->
+    <div class="p-card">
+      <div class="p-top">
+        <div class="avatar av-green">VKO</div>
+        <div class="p-meta">
+          <div class="p-role green-text">Elder Brother</div>
+          <div class="p-name">Vikas Kohli</div>
+        </div>
+      </div>
+      <p class="p-desc">Actor and businessman based in Gurgaon. Partners in Virat's business ventures including One8 Commune (restaurant chain) and One8 Select (retail). Married to Chetna Kohli; son Aarav. Known for vocal social media support of Virat, often clapping back at critics.</p>
+      <div class="p-tag">Partner · One8 Ventures</div>
+    </div>
+
+    <!-- Sister -->
+    <div class="p-card">
+      <div class="p-top">
+        <div class="avatar av-gold">BD</div>
+        <div class="p-meta">
+          <div class="p-role gold-text">Elder Sister</div>
+          <div class="p-name">Bhawna Kohli Dhingra</div>
+        </div>
+      </div>
+      <p class="p-desc">Delhi-based homemaker who stays largely out of the spotlight. Graduated from Daulat Ram College, Delhi. Married to Sanjay Dhingra since 2002; children Mehak and Ayush. Active on Instagram (203K followers) and involved in the One8 Select fashion brand.</p>
+      <div class="p-tag">Involved · One8 Select</div>
+    </div>
+
+  </div>
+
+  <div class="spacer"></div>
+
+  <!-- ══ CRICKET MATES SECTION ══ -->
+  <div class="sec-head">
+    <div class="sec-icon mates">🏏</div>
+    <div>
+      <div class="sec-title">Cricket Mates</div>
+      <div class="sec-sub">Teammates, rivals & bonds across formats</div>
+    </div>
+    <div class="sec-rule"></div>
+  </div>
+
+  <div class="mates-grid" id="matesGrid">
+
+    <!-- AB de Villiers — most featured -->
+    <div class="m-card">
+      <div class="m-header teal-h">
+        <div class="m-initials av-teal">ABD</div>
+        <div class="m-name-wrap">
+          <div class="m-name">AB de Villiers</div>
+          <div class="m-country">South Africa · RCB teammate</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Kohli's closest friend in world cricket. Together at Royal Challengers Bangalore since 2011, their partnership terrorised bowlers globally. Families are friends — wives and daughters share holidays. Kohli called AB's retirement from RCB one of the saddest days of his cricket life.
+        <div><span class="m-tag tag-teal">Closest friend · 14 yrs RCB</span></div>
+      </div>
+    </div>
+
+    <!-- MS Dhoni -->
+    <div class="m-card">
+      <div class="m-header gold-h">
+        <div class="m-initials av-gold">MSD</div>
+        <div class="m-name-wrap">
+          <div class="m-name">MS Dhoni</div>
+          <div class="m-country">India · Mentor & captain</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Captain, mentor, and friend. Dhoni guided Kohli's early international career; Kohli once said "MS will always be my captain." In the 2014 T20 WC semi-final, Dhoni famously stepped aside to let Kohli finish — a trust moment fans never forgot.
+        <div><span class="m-tag tag-gold">Captain · 8+ yrs together</span></div>
+      </div>
+    </div>
+
+    <!-- Rohit Sharma -->
+    <div class="m-card">
+      <div class="m-header blue-h">
+        <div class="m-initials av-blue">RO</div>
+        <div class="m-name-wrap">
+          <div class="m-name">Rohit Sharma</div>
+          <div class="m-country">India · Batting partner</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Long-time batting partner and close friend. Formed India's most dominant top-order duo. Rohit succeeded Kohli as Test captain in 2022. Shared three ICC trophies together — 2011 ODI WC, 2013 Champions Trophy, 2024 T20 WC.
+        <div><span class="m-tag tag-blue">Batting partner · 15+ yrs</span></div>
+      </div>
+    </div>
+
+    <!-- KL Rahul -->
+    <div class="m-card">
+      <div class="m-header rose-h">
+        <div class="m-initials av-rose">KLR</div>
+        <div class="m-name-wrap">
+          <div class="m-name">KL Rahul</div>
+          <div class="m-country">India · Close friend</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Widely considered Kohli's best friend in current cricket. Their bond began at RCB where Rahul made his IPL debut. Often spotted together off-field, vacationing and training. Kohli's management agency also handles Rahul's career.
+        <div><span class="m-tag tag-rose">Best friend · on & off field</span></div>
+      </div>
+    </div>
+
+    <!-- Sachin Tendulkar -->
+    <div class="m-card">
+      <div class="m-header saf-h">
+        <div class="m-initials av-saf">ST</div>
+        <div class="m-name-wrap">
+          <div class="m-name">Sachin Tendulkar</div>
+          <div class="m-country">India · Childhood idol</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Kohli's childhood hero and greatest inspiration. Played together in the 2011 ODI World Cup. In 2023, Kohli surpassed Sachin's record of 49 ODI centuries — a moment Tendulkar celebrated joyfully. Remains one of Kohli's most respected figures.
+        <div><span class="m-tag tag-saf">Idol turned teammate</span></div>
+      </div>
+    </div>
+
+    <!-- Ravindra Jadeja -->
+    <div class="m-card">
+      <div class="m-header green-h">
+        <div class="m-initials av-green">RJ</div>
+        <div class="m-name-wrap">
+          <div class="m-name">Ravindra Jadeja</div>
+          <div class="m-country">India · All-rounder</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Vice-captain to Kohli in the 2008 U19 World Cup. Has played alongside Kohli in every major tournament since. Their camaraderie in the dressing room is evident; Kohli publicly praised Jadeja as world cricket's best all-rounder on multiple occasions.
+        <div><span class="m-tag tag-green">U19 vice-captain → senior team</span></div>
+      </div>
+    </div>
+
+    <!-- hidden from here -->
+
+    <!-- Shikhar Dhawan -->
+    <div class="m-card hidden">
+      <div class="m-header blue2-h">
+        <div class="m-initials" style="background:rgba(100,130,200,0.15);color:#8AAAE0;border:1px solid rgba(100,130,200,0.3);">SD</div>
+        <div class="m-name-wrap">
+          <div class="m-name">Shikhar Dhawan</div>
+          <div class="m-country">India · Delhi bond</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Fellow Delhiite and close friend off the field. Their shared roots in Delhi cricket created a natural bond. Famous for mimicking each other and sharing light-hearted moments, Dhawan and Kohli were among the most entertaining dressing-room duos.
+        <div><span class="m-tag tag-blue">Delhi roots · close friends</span></div>
+      </div>
+    </div>
+
+    <!-- Jasprit Bumrah -->
+    <div class="m-card hidden">
+      <div class="m-header purple-h">
+        <div class="m-initials" style="background:rgba(140,80,200,0.15);color:#B47AE0;border:1px solid rgba(140,80,200,0.3);">JB</div>
+        <div class="m-name-wrap">
+          <div class="m-name">Jasprit Bumrah</div>
+          <div class="m-country">India · Pace spearhead</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Kohli and Bumrah formed the batting-bowling backbone of Team India's dominant era. Kohli's aggressive captaincy brought out Bumrah's best in Test cricket. Shared the 2024 T20 World Cup triumph together, with Bumrah named Player of the Tournament.
+        <div><span class="m-tag tag-purple">Batting-bowling axis</span></div>
+      </div>
+    </div>
+
+    <!-- Yuvraj Singh -->
+    <div class="m-card hidden">
+      <div class="m-header amber-h">
+        <div class="m-initials" style="background:rgba(200,150,60,0.15);color:#D4A050;border:1px solid rgba(200,150,60,0.3);">YS</div>
+        <div class="m-name-wrap">
+          <div class="m-name">Yuvraj Singh</div>
+          <div class="m-country">India · 2011 WC hero</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Kohli and Yuvraj shared the dressing room during India's golden 2011 ODI World Cup run. Yuvraj, Player of the Tournament, and Kohli struck a strong friendship. Kohli publicly paid tribute to Yuvi after his retirement, calling him irreplaceable.
+        <div><span class="m-tag tag-amber">2011 WC champions</span></div>
+      </div>
+    </div>
+
+    <!-- Rishabh Pant -->
+    <div class="m-card hidden">
+      <div class="m-header rose-h">
+        <div class="m-initials av-rose">RP</div>
+        <div class="m-name-wrap">
+          <div class="m-name">Rishabh Pant</div>
+          <div class="m-country">India · Young gun</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Kohli has publicly backed Pant on multiple occasions, calling him India's future and one of the most exciting talents in cricket. Kohli's management also handles Pant. After Pant's near-fatal accident in Dec 2022, Kohli was one of the first to send support.
+        <div><span class="m-tag tag-rose">Mentor figure</span></div>
+      </div>
+    </div>
+
+    <!-- Faf du Plessis -->
+    <div class="m-card hidden">
+      <div class="m-header red-h">
+        <div class="m-initials" style="background:rgba(200,60,60,0.15);color:#E07070;border:1px solid rgba(200,60,60,0.3);">FDP</div>
+        <div class="m-name-wrap">
+          <div class="m-name">Faf du Plessis</div>
+          <div class="m-country">South Africa · RCB captain</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Kohli and Faf developed a strong bond through their RCB years and their shared competitive spirit as Test captains. Du Plessis captained RCB alongside Kohli and described their on-field partnership and off-field relationship as deeply respectful.
+        <div><span class="m-tag tag-red">RCB partnership</span></div>
+      </div>
+    </div>
+
+    <!-- Suresh Raina -->
+    <div class="m-card hidden">
+      <div class="m-header green-h">
+        <div class="m-initials av-green">SR</div>
+        <div class="m-name-wrap">
+          <div class="m-name">Suresh Raina</div>
+          <div class="m-country">India · Middle-order mate</div>
+        </div>
+      </div>
+      <div class="m-body">
+        Kohli and Raina were teammates across all formats for India in their golden era together. Both are aggressive, high-energy cricketers who shared many match-winning partnerships. Raina remained a vocal admirer of Kohli well after his own retirement.
+        <div><span class="m-tag tag-green">All-format teammate</span></div>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- Show More Button -->
+  <div class="show-more-wrap">
+    <button class="btn-show-more" id="showMoreBtn" onclick="toggleMates()">
+      <span class="count-badge" id="countBadge">6</span>
+      Show more mates
+      <span class="arrow">▼</span>
+    </button>
+  </div>
+
+</div>
+
+<script>
+  let expanded = false;
+  function toggleMates() {
+    expanded = !expanded;
+    const hidden = document.querySelectorAll('.m-card.hidden, .m-card[data-hidden]');
+    const allCards = document.querySelectorAll('#matesGrid .m-card');
+    const btn = document.getElementById('showMoreBtn');
+    const badge = document.getElementById('countBadge');
+
+    if (expanded) {
+      allCards.forEach(c => {
+        c.classList.remove('hidden');
+        c.style.display = '';
+      });
+      btn.classList.add('open');
+      btn.innerHTML = `<span class="count-badge" style="background:rgba(232,93,44,0.2);color:var(--saffron);">✕</span> Show less <span class="arrow">▼</span>`;
+    } else {
+      let count = 0;
+      allCards.forEach(c => {
+        count++;
+        if (count > 6) {
+          c.classList.add('hidden');
+          c.style.display = 'none';
+        }
+      });
+      btn.classList.remove('open');
+      btn.innerHTML = `<span class="count-badge">6</span> Show more mates <span class="arrow">▼</span>`;
+    }
+  }
+
+  // Init: hide cards beyond first 6
+  document.addEventListener('DOMContentLoaded', () => {
+    const allCards = document.querySelectorAll('#matesGrid .m-card');
+    allCards.forEach((c, i) => {
+      if (i >= 6) {
+        c.classList.add('hidden');
+        c.style.display = 'none';
+      } else {
+        c.classList.remove('hidden');
+        c.style.display = '';
+      }
+    });
+  });
+</script>
+
 
   <!-- GALLERY -->
   <section id="gallery">
