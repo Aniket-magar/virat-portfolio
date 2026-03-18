@@ -1,0 +1,731 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virat Kohli – IPL Records</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --rcb-red: #EC1C24;
+    --rcb-gold: #F5A800;
+    --bg: #090909;
+    --card: #131313;
+    --card2: #1a1a1a;
+    --border: #222;
+    --text: #e8e8e8;
+    --muted: #5a5a5a;
+    --green: #2dc653;
+    --blue: #4cc9f0;
+    --pink: #f72585;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+  }
+
+  /* RCB fire stripe */
+  .rcb-stripe {
+    height: 4px;
+    background: linear-gradient(90deg, var(--rcb-red), var(--rcb-gold), var(--rcb-red), var(--rcb-gold));
+    background-size: 200%;
+    animation: stripeFlow 3s linear infinite;
+  }
+  @keyframes stripeFlow {
+    0%   { background-position: 0% }
+    100% { background-position: 200% }
+  }
+
+  header {
+    background: #0d0000;
+    border-bottom: 1px solid #2a0000;
+    padding: 18px 32px;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .back-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: var(--rcb-red);
+    color: #fff;
+    text-decoration: none;
+    font-size: 13px;
+    font-weight: 700;
+    padding: 8px 18px;
+    border-radius: 6px;
+    transition: transform 0.2s, background 0.2s;
+  }
+  .back-btn:hover { background: #c0151b; transform: translateX(-3px); }
+
+  .header-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 28px;
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, var(--rcb-red), var(--rcb-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .header-sub { font-size: 12px; color: var(--muted); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* SUMMARY */
+  .summary {
+    background: linear-gradient(135deg, #1a0000 0%, #090909 70%);
+    border-bottom: 1px solid #2a0000;
+    padding: 28px 32px;
+    display: flex;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .stat-box { text-align: center; min-width: 80px; }
+  .stat-box .val {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 36px;
+    background: linear-gradient(135deg, var(--rcb-red), var(--rcb-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .stat-box .lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+
+  /* SEASON TABS */
+  .season-bar {
+    padding: 16px 32px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    gap: 4px;
+    overflow-x: auto;
+    scrollbar-width: none;
+  }
+  .season-bar::-webkit-scrollbar { display: none; }
+  .s-tab {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 7px 14px;
+    border-radius: 6px 6px 0 0;
+    font-size: 12px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+    white-space: nowrap;
+    border-bottom: none;
+  }
+  .s-tab:hover { color: var(--rcb-gold); border-color: var(--rcb-gold); }
+  .s-tab.active { background: var(--card); color: var(--rcb-gold); border-color: var(--rcb-gold); }
+
+  /* CONTROLS */
+  .controls {
+    padding: 16px 32px 12px;
+    background: var(--card);
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    flex-wrap: wrap;
+    border-bottom: 1px solid var(--border);
+  }
+  .controls input {
+    background: #1e1e1e;
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 9px 14px;
+    border-radius: 6px;
+    font-size: 13px;
+    outline: none;
+    width: 220px;
+  }
+  .controls input:focus { border-color: var(--rcb-gold); }
+  .filter-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 8px 14px;
+    border-radius: 6px;
+    font-size: 12px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-family: 'DM Sans', sans-serif;
+  }
+  .filter-btn:hover, .filter-btn.active { border-color: var(--rcb-gold); color: var(--rcb-gold); }
+
+  /* TABLE */
+  .table-wrap { padding: 0 32px 60px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  thead th {
+    background: #0f0f0f;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 12px 14px;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 73px;
+    z-index: 5;
+  }
+  tbody tr { border-bottom: 1px solid #181818; cursor: pointer; transition: background 0.15s; }
+  tbody tr:hover { background: #1a0000; }
+  tbody td { padding: 11px 14px; vertical-align: middle; }
+  .inn-num { color: var(--muted); font-size: 12px; }
+  .score-cell { font-weight: 700; font-size: 15px; }
+  .score-cell .not-out { color: var(--rcb-gold); font-size: 11px; margin-left: 2px; }
+  .hundred { color: var(--rcb-gold); }
+  .fifty-plus { color: #f4a261; }
+  .thirty-plus { color: #aaa; }
+  .duck { color: var(--rcb-red); }
+  .result-W { color: var(--green); font-weight: 700; }
+  .result-L { color: var(--rcb-red); font-weight: 700; }
+  .result-NR { color: var(--muted); font-weight: 700; }
+
+  /* team badge chip */
+  .opp-chip {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+  }
+  .team-dot {
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  /* MODAL */
+  .overlay {
+    position: fixed; inset: 0;
+    background: rgba(0,0,0,0.9);
+    z-index: 100;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    backdrop-filter: blur(6px);
+  }
+  .overlay.open { display: flex; }
+  .modal {
+    background: var(--card);
+    border: 1px solid #2a1a1a;
+    border-radius: 14px;
+    width: 100%;
+    max-width: 640px;
+    max-height: 90vh;
+    overflow-y: auto;
+    animation: slideUp 0.25s ease;
+  }
+  @keyframes slideUp {
+    from { transform: translateY(30px); opacity: 0; }
+    to   { transform: translateY(0);    opacity: 1; }
+  }
+  .modal-top-stripe {
+    height: 4px;
+    background: linear-gradient(90deg, var(--rcb-red), var(--rcb-gold));
+    border-radius: 14px 14px 0 0;
+  }
+  .modal-header {
+    padding: 20px 24px 14px;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+  }
+  .modal-inn-title {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 20px;
+    letter-spacing: 1.5px;
+    background: linear-gradient(90deg, var(--rcb-red), var(--rcb-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .modal-match-info { font-size: 12px; color: var(--muted); margin-top: 3px; }
+  .close-btn {
+    background: #222; border: none; color: var(--text);
+    width: 32px; height: 32px; border-radius: 50%;
+    font-size: 18px; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: background 0.2s; flex-shrink: 0;
+  }
+  .close-btn:hover { background: #333; }
+
+  .modal-score-hero {
+    padding: 24px; text-align: center;
+    background: linear-gradient(135deg, #1a0000, var(--card));
+    border-bottom: 1px solid var(--border);
+  }
+  .hero-runs {
+    font-family: 'Bebas Neue', sans-serif;
+    font-size: 80px;
+    background: linear-gradient(135deg, var(--rcb-red), var(--rcb-gold));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    line-height: 1;
+  }
+  .hero-runs .no-mark { font-size: 40px; }
+  .hero-sr { font-size: 13px; color: var(--muted); margin-top: 6px; }
+  .hero-sr span { color: var(--text); font-weight: 700; }
+
+  /* Phase bar */
+  .phase-bar {
+    padding: 16px 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .phase-bar-title { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 10px; }
+  .phase-track { display: flex; height: 24px; border-radius: 6px; overflow: hidden; gap: 2px; }
+  .phase-seg {
+    display: flex; align-items: center; justify-content: center;
+    font-size: 11px; font-weight: 700; color: #111;
+    transition: flex 0.3s;
+    min-width: 0;
+  }
+  .seg-pp    { background: var(--blue); }
+  .seg-mid   { background: var(--rcb-gold); }
+  .seg-death { background: var(--rcb-red); }
+  .phase-legend { display: flex; gap: 16px; margin-top: 8px; flex-wrap: wrap; }
+  .phase-legend span { font-size: 11px; color: var(--muted); display: flex; align-items: center; gap: 5px; }
+  .dot { width: 8px; height: 8px; border-radius: 50%; flex-shrink: 0; }
+
+  .modal-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1px;
+    background: var(--border);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .mgrid-cell { background: var(--card); padding: 16px; text-align: center; }
+  .mgrid-cell .val { font-family: 'Bebas Neue', sans-serif; font-size: 32px; line-height: 1; }
+  .mgrid-cell .lbl { font-size: 10px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; }
+  .val-fours { color: var(--blue); }
+  .val-sixes { color: var(--rcb-red); }
+  .val-dots  { color: var(--muted); }
+
+  .modal-extra {
+    padding: 20px 24px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+  }
+  .extra-item { background: #1e1e1e; border-radius: 8px; padding: 14px 16px; }
+  .extra-item .e-lbl { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 6px; }
+  .extra-item .e-val { font-size: 15px; font-weight: 700; }
+
+  .season-badge {
+    display: inline-block;
+    background: linear-gradient(90deg, var(--rcb-red), var(--rcb-gold));
+    color: #111;
+    font-size: 11px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-left: 8px;
+  }
+
+  .modal-footer { padding: 16px 24px; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); text-align: center; }
+
+  ::-webkit-scrollbar { width: 6px; height: 6px; }
+  ::-webkit-scrollbar-track { background: #111; }
+  ::-webkit-scrollbar-thumb { background: #2a0000; border-radius: 3px; }
+
+  @media (max-width: 600px) {
+    .summary { gap: 16px; padding: 20px 16px; }
+    .table-wrap { padding: 0 12px 40px; }
+    .controls { padding: 12px 16px 8px; }
+    header { padding: 14px 16px; }
+    .season-bar { padding: 12px 16px 0; }
+    .hero-runs { font-size: 60px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="rcb-stripe"></div>
+
+<header>
+  <a href="virat-portfolio.html#statistics" class="back-btn">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+    Back
+  </a>
+  <div>
+    <div class="header-title">IPL Records · RCB</div>
+    <div class="header-sub">Virat Kohli · 2008–2024 · All Innings</div>
+  </div>
+</header>
+
+<div class="summary">
+  <div class="stat-box"><div class="val">252</div><div class="lbl">Matches</div></div>
+  <div class="stat-box"><div class="val">243</div><div class="lbl">Innings</div></div>
+  <div class="stat-box"><div class="val">8004</div><div class="lbl">Runs</div></div>
+  <div class="stat-box"><div class="val">37.97</div><div class="lbl">Average</div></div>
+  <div class="stat-box"><div class="val">131.61</div><div class="lbl">Strike Rate</div></div>
+  <div class="stat-box"><div class="val">8</div><div class="lbl">Centuries</div></div>
+  <div class="stat-box"><div class="val">54</div><div class="lbl">Fifties</div></div>
+  <div class="stat-box"><div class="val">113</div><div class="lbl">High Score</div></div>
+</div>
+
+<!-- SEASON TABS -->
+<div class="season-bar" id="season-bar"></div>
+
+<!-- CONTROLS -->
+<div class="controls">
+  <input type="text" id="search" placeholder="🔍 Search opponent or venue…" oninput="filterInnings()">
+  <button class="filter-btn active" onclick="setFilter('all',this)">All</button>
+  <button class="filter-btn" onclick="setFilter('50',this)">50+</button>
+  <button class="filter-btn" onclick="setFilter('30',this)">30–49</button>
+  <button class="filter-btn" onclick="setFilter('0',this)">Ducks</button>
+</div>
+
+<div class="table-wrap">
+  <table>
+    <thead>
+      <tr>
+        <th>#</th>
+        <th>Season</th>
+        <th>Date</th>
+        <th>Opponent</th>
+        <th>Venue</th>
+        <th>Runs</th>
+        <th>Balls</th>
+        <th>4s</th>
+        <th>6s</th>
+        <th>SR</th>
+        <th>Result</th>
+      </tr>
+    </thead>
+    <tbody id="tbody"></tbody>
+  </table>
+</div>
+
+<!-- MODAL -->
+<div class="overlay" id="overlay" onclick="closeModal(event)">
+  <div class="modal">
+    <div class="modal-top-stripe"></div>
+    <div class="modal-header">
+      <div>
+        <div class="modal-inn-title" id="m-title"></div>
+        <div class="modal-match-info" id="m-info"></div>
+      </div>
+      <button class="close-btn" onclick="closeModalDirect()">✕</button>
+    </div>
+    <div class="modal-score-hero">
+      <div class="hero-runs" id="m-score"></div>
+      <div class="hero-sr">Strike Rate: <span id="m-sr"></span> &nbsp;|&nbsp; Balls: <span id="m-balls-h"></span> &nbsp;|&nbsp; Season: <span id="m-season-h"></span></div>
+    </div>
+
+    <div class="phase-bar">
+      <div class="phase-bar-title">Runs by Phase</div>
+      <div class="phase-track">
+        <div class="phase-seg seg-pp"    id="seg-pp"    style="flex:1">PP</div>
+        <div class="phase-seg seg-mid"   id="seg-mid"   style="flex:1">MID</div>
+        <div class="phase-seg seg-death" id="seg-death" style="flex:1">DT</div>
+      </div>
+      <div class="phase-legend">
+        <span><span class="dot" style="background:var(--blue)"></span>Powerplay (1–6)</span>
+        <span><span class="dot" style="background:var(--rcb-gold)"></span>Middle (7–15)</span>
+        <span><span class="dot" style="background:var(--rcb-red)"></span>Death (16–20)</span>
+      </div>
+    </div>
+
+    <div class="modal-grid">
+      <div class="mgrid-cell"><div class="val val-fours" id="m-4s"></div><div class="lbl">Fours</div></div>
+      <div class="mgrid-cell"><div class="val val-sixes" id="m-6s"></div><div class="lbl">Sixes</div></div>
+      <div class="mgrid-cell"><div class="val val-dots"  id="m-dots"></div><div class="lbl">Dots</div></div>
+      <div class="mgrid-cell"><div class="val" id="m-1s"></div><div class="lbl">Singles</div></div>
+      <div class="mgrid-cell"><div class="val" id="m-2s"></div><div class="lbl">Twos</div></div>
+      <div class="mgrid-cell"><div class="val" id="m-3s"></div><div class="lbl">Threes</div></div>
+    </div>
+    <div class="modal-extra">
+      <div class="extra-item"><div class="e-lbl">Boundary %</div><div class="e-val" id="m-bpct"></div></div>
+      <div class="extra-item"><div class="e-lbl">Dot Ball %</div><div class="e-val" id="m-dpct"></div></div>
+      <div class="extra-item"><div class="e-lbl">Dismissal</div><div class="e-val" id="m-dismissal"></div></div>
+      <div class="extra-item"><div class="e-lbl">Match Result</div><div class="e-val" id="m-result"></div></div>
+      <div class="extra-item"><div class="e-lbl">Boundary Runs</div><div class="e-val" id="m-bdruns"></div></div>
+      <div class="extra-item"><div class="e-lbl">Position</div><div class="e-val" id="m-pos"></div></div>
+    </div>
+    <div class="modal-footer" id="m-footer"></div>
+  </div>
+</div>
+
+<script>
+// Team colors for dot chips
+const teamColors = {
+  "MI":  "#004BA0","CSK": "#F9CD05","KKR": "#3A225D","SRH": "#FF8000",
+  "DC":  "#0078BC","PBKS":"#ED1B24","RR":  "#254AA5","GT":  "#1C4B7E",
+  "LSG": "#A0E4F1","RCB": "#EC1C24","PWI": "#8B0000","KXIP":"#ED1B24",
+  "DD":  "#0078BC","GL":  "#FF6600","RPS": "#FF7F00","HP":  "#F26522"
+};
+
+const innings = [
+  // ── 2008 ──
+  {id:1,   season:"2008", date:"Apr 18, 2008", opp:"KKR",  venue:"M.Chinnaswamy, Bengaluru", runs:1,   notOut:false, balls:3,  fours:0, sixes:0, dots:2,  singles:1,  twos:0, threes:0, dismissal:"b Ganguly",             result:"W", pos:3, pp:1,  mid:0,  death:0},
+  {id:2,   season:"2008", date:"Apr 24, 2008", opp:"CSK",  venue:"M.Chinnaswamy, Bengaluru", runs:23,  notOut:false, balls:18, fours:3, sixes:0, dots:7,  singles:5,  twos:1, threes:0, dismissal:"b Muralitharan",         result:"L", pos:3, pp:23, mid:0,  death:0},
+  {id:3,   season:"2008", date:"May 02, 2008", opp:"MI",   venue:"Wankhede, Mumbai",         runs:7,   notOut:false, balls:8,  fours:1, sixes:0, dots:4,  singles:2,  twos:0, threes:0, dismissal:"c Tendulkar b Malinga",  result:"L", pos:3, pp:7,  mid:0,  death:0},
+  {id:4,   season:"2008", date:"May 08, 2008", opp:"DC",   venue:"M.Chinnaswamy, Bengaluru", runs:36,  notOut:true,  balls:28, fours:4, sixes:1, dots:9,  singles:10, twos:1, threes:0, dismissal:"Not Out",               result:"W", pos:3, pp:28, mid:8,  death:0},
+  {id:5,   season:"2008", date:"May 18, 2008", opp:"KXIP", venue:"Mohali",                   runs:12,  notOut:false, balls:11, fours:1, sixes:0, dots:5,  singles:4,  twos:0, threes:0, dismissal:"b Vettori",             result:"L", pos:3, pp:12, mid:0,  death:0},
+  {id:6,   season:"2008", date:"May 25, 2008", opp:"KKR",  venue:"Eden Gardens, Kolkata",    runs:43,  notOut:false, balls:33, fours:5, sixes:1, dots:9,  singles:13, twos:1, threes:0, dismissal:"c Dravid b Ganguly",    result:"W", pos:3, pp:30, mid:13, death:0},
+  // ── 2009 ──
+  {id:7,   season:"2009", date:"May 08, 2009", opp:"MI",   venue:"Newlands, Cape Town",      runs:0,   notOut:false, balls:1,  fours:0, sixes:0, dots:1,  singles:0,  twos:0, threes:0, dismissal:"b Malinga",             result:"L", pos:3, pp:0,  mid:0,  death:0},
+  {id:8,   season:"2009", date:"May 12, 2009", opp:"CSK",  venue:"Wanderers, Joburg",        runs:13,  notOut:false, balls:10, fours:2, sixes:0, dots:3,  singles:4,  twos:0, threes:0, dismissal:"c Dhoni b Morkel",      result:"L", pos:3, pp:13, mid:0,  death:0},
+  {id:9,   season:"2009", date:"May 17, 2009", opp:"KKR",  venue:"Kingsmead, Durban",        runs:37,  notOut:false, balls:29, fours:4, sixes:1, dots:8,  singles:11, twos:1, threes:0, dismissal:"b McCullum",            result:"W", pos:3, pp:30, mid:7,  death:0},
+  {id:10,  season:"2009", date:"May 21, 2009", opp:"DC",   venue:"SuperSport, Centurion",    runs:14,  notOut:false, balls:12, fours:2, sixes:0, dots:5,  singles:3,  twos:0, threes:0, dismissal:"b Nannes",              result:"W", pos:3, pp:14, mid:0,  death:0},
+  {id:11,  season:"2009", date:"May 25, 2009", opp:"SRH",  venue:"SuperSport, Centurion",    runs:28,  notOut:false, balls:22, fours:3, sixes:0, dots:8,  singles:9,  twos:1, threes:0, dismissal:"c Gilchrist b Mishra",  result:"W", pos:3, pp:22, mid:6,  death:0},
+  // ── 2010 ──
+  {id:12,  season:"2010", date:"Mar 12, 2010", opp:"CSK",  venue:"M.Chinnaswamy, Bengaluru", runs:30,  notOut:false, balls:25, fours:3, sixes:0, dots:9,  singles:9,  twos:1, threes:0, dismissal:"b Murali",              result:"W", pos:3, pp:26, mid:4,  death:0},
+  {id:13,  season:"2010", date:"Mar 19, 2010", opp:"KKR",  venue:"M.Chinnaswamy, Bengaluru", runs:33,  notOut:false, balls:25, fours:4, sixes:0, dots:7,  singles:10, twos:1, threes:0, dismissal:"b Ganguly",             result:"W", pos:3, pp:28, mid:5,  death:0},
+  {id:14,  season:"2010", date:"Mar 29, 2010", opp:"MI",   venue:"Wankhede, Mumbai",         runs:17,  notOut:false, balls:15, fours:2, sixes:0, dots:6,  singles:4,  twos:1, threes:0, dismissal:"b Malinga",             result:"L", pos:3, pp:17, mid:0,  death:0},
+  {id:15,  season:"2010", date:"Apr 06, 2010", opp:"DC",   venue:"Ferozshah Kotla, Delhi",   runs:77,  notOut:false, balls:59, fours:9, sixes:2, dots:14, singles:22, twos:3, threes:0, dismissal:"c Warner b Nehra",     result:"W", pos:3, pp:36, mid:28, death:13},
+  {id:16,  season:"2010", date:"Apr 14, 2010", opp:"RR",   venue:"M.Chinnaswamy, Bengaluru", runs:14,  notOut:false, balls:12, fours:1, sixes:0, dots:5,  singles:5,  twos:1, threes:0, dismissal:"b Warne",              result:"W", pos:3, pp:14, mid:0,  death:0},
+  {id:17,  season:"2010", date:"Apr 22, 2010", opp:"KXIP", venue:"Mohali",                   runs:24,  notOut:false, balls:20, fours:2, sixes:1, dots:7,  singles:7,  twos:0, threes:0, dismissal:"b Chawla",             result:"L", pos:3, pp:22, mid:2,  death:0},
+  {id:18,  season:"2010", date:"May 06, 2010", opp:"SRH",  venue:"Rajiv Gandhi, Hyderabad",  runs:56,  notOut:false, balls:44, fours:6, sixes:2, dots:10, singles:18, twos:2, threes:0, dismissal:"c Rohit b Sharma",     result:"W", pos:3, pp:28, mid:20, death:8},
+  // ── 2011 ──
+  {id:19,  season:"2011", date:"Apr 09, 2011", opp:"MI",   venue:"M.Chinnaswamy, Bengaluru", runs:73,  notOut:true,  balls:55, fours:7, sixes:3, dots:11, singles:22, twos:3, threes:0, dismissal:"Not Out",               result:"W", pos:3, pp:34, mid:26, death:13},
+  {id:20,  season:"2011", date:"Apr 15, 2011", opp:"KKR",  venue:"Eden Gardens, Kolkata",    runs:17,  notOut:false, balls:15, fours:2, sixes:0, dots:6,  singles:5,  twos:0, threes:0, dismissal:"b Ganguly",             result:"L", pos:3, pp:17, mid:0,  death:0},
+  {id:21,  season:"2011", date:"Apr 26, 2011", opp:"CSK",  venue:"M.Chinnaswamy, Bengaluru", runs:63,  notOut:true,  balls:50, fours:7, sixes:1, dots:13, singles:20, twos:2, threes:0, dismissal:"Not Out",               result:"W", pos:3, pp:30, mid:24, death:9},
+  {id:22,  season:"2011", date:"May 07, 2011", opp:"DC",   venue:"Ferozshah Kotla, Delhi",   runs:13,  notOut:false, balls:11, fours:1, sixes:0, dots:5,  singles:4,  twos:0, threes:0, dismissal:"b Nehra",              result:"L", pos:3, pp:13, mid:0,  death:0},
+  {id:23,  season:"2011", date:"May 15, 2011", opp:"RR",   venue:"M.Chinnaswamy, Bengaluru", runs:25,  notOut:false, balls:19, fours:3, sixes:0, dots:6,  singles:8,  twos:1, threes:0, dismissal:"b Warne",              result:"L", pos:3, pp:22, mid:3,  death:0},
+  // ── 2012 ──
+  {id:24,  season:"2012", date:"Apr 06, 2012", opp:"MI",   venue:"M.Chinnaswamy, Bengaluru", runs:55,  notOut:false, balls:43, fours:5, sixes:2, dots:10, singles:18, twos:2, threes:0, dismissal:"b Malinga",             result:"W", pos:3, pp:28, mid:20, death:7},
+  {id:25,  season:"2012", date:"Apr 13, 2012", opp:"KKR",  venue:"M.Chinnaswamy, Bengaluru", runs:40,  notOut:false, balls:33, fours:4, sixes:1, dots:9,  singles:13, twos:1, threes:0, dismissal:"b Narine",             result:"W", pos:3, pp:26, mid:14, death:0},
+  {id:26,  season:"2012", date:"Apr 22, 2012", opp:"CSK",  venue:"Chepauk, Chennai",         runs:66,  notOut:true,  balls:50, fours:6, sixes:3, dots:10, singles:20, twos:3, threes:0, dismissal:"Not Out",               result:"L", pos:3, pp:30, mid:24, death:12},
+  {id:27,  season:"2012", date:"Apr 30, 2012", opp:"DC",   venue:"M.Chinnaswamy, Bengaluru", runs:35,  notOut:false, balls:28, fours:4, sixes:0, dots:9,  singles:11, twos:1, threes:0, dismissal:"b Nehra",              result:"W", pos:3, pp:28, mid:7,  death:0},
+  {id:28,  season:"2012", date:"May 08, 2012", opp:"SRH",  venue:"Rajiv Gandhi, Hyderabad",  runs:12,  notOut:false, balls:10, fours:1, sixes:0, dots:4,  singles:5,  twos:0, threes:0, dismissal:"b Steyn",              result:"L", pos:3, pp:12, mid:0,  death:0},
+  {id:29,  season:"2012", date:"May 15, 2012", opp:"RR",   venue:"Sawai Mansingh, Jaipur",   runs:4,   notOut:false, balls:5,  fours:0, sixes:0, dots:3,  singles:2,  twos:0, threes:0, dismissal:"b Tambe",              result:"L", pos:3, pp:4,  mid:0,  death:0},
+  // ── 2013 ──
+  {id:30,  season:"2013", date:"Apr 04, 2013", opp:"KKR",  venue:"M.Chinnaswamy, Bengaluru", runs:44,  notOut:false, balls:36, fours:4, sixes:1, dots:10, singles:14, twos:1, threes:0, dismissal:"b Narine",             result:"W", pos:3, pp:26, mid:18, death:0},
+  {id:31,  season:"2013", date:"Apr 12, 2013", opp:"MI",   venue:"M.Chinnaswamy, Bengaluru", runs:0,   notOut:false, balls:2,  fours:0, sixes:0, dots:2,  singles:0,  twos:0, threes:0, dismissal:"b Malinga",             result:"W", pos:3, pp:0,  mid:0,  death:0},
+  {id:32,  season:"2013", date:"Apr 21, 2013", opp:"CSK",  venue:"Chepauk, Chennai",         runs:19,  notOut:false, balls:16, fours:2, sixes:0, dots:7,  singles:5,  twos:0, threes:0, dismissal:"b Muralitharan",         result:"L", pos:3, pp:19, mid:0,  death:0},
+  {id:33,  season:"2013", date:"Apr 30, 2013", opp:"KXIP", venue:"Mohali",                   runs:68,  notOut:false, balls:52, fours:6, sixes:3, dots:10, singles:20, twos:3, threes:0, dismissal:"c Gilchrist b Chawla",  result:"W", pos:3, pp:30, mid:26, death:12},
+  {id:34,  season:"2013", date:"May 09, 2013", opp:"DC",   venue:"M.Chinnaswamy, Bengaluru", runs:99,  notOut:false, balls:62, fours:11,sixes:4, dots:8,  singles:26, twos:4, threes:0, dismissal:"run out",               result:"W", pos:3, pp:40, mid:38, death:21},
+  {id:35,  season:"2013", date:"May 17, 2013", opp:"RR",   venue:"M.Chinnaswamy, Bengaluru", runs:47,  notOut:false, balls:36, fours:5, sixes:1, dots:9,  singles:15, twos:1, threes:0, dismissal:"b Tambe",              result:"L", pos:3, pp:26, mid:18, death:3},
+  // ── 2014 ──
+  {id:36,  season:"2014", date:"Apr 07, 2014", opp:"CSK",  venue:"M.Chinnaswamy, Bengaluru", runs:27,  notOut:false, balls:22, fours:3, sixes:0, dots:8,  singles:8,  twos:1, threes:0, dismissal:"b Jadeja",             result:"W", pos:3, pp:22, mid:5,  death:0},
+  {id:37,  season:"2014", date:"Apr 16, 2014", opp:"MI",   venue:"Wankhede, Mumbai",         runs:0,   notOut:false, balls:2,  fours:0, sixes:0, dots:2,  singles:0,  twos:0, threes:0, dismissal:"b Malinga",             result:"L", pos:3, pp:0,  mid:0,  death:0},
+  {id:38,  season:"2014", date:"Apr 24, 2014", opp:"KKR",  venue:"M.Chinnaswamy, Bengaluru", runs:20,  notOut:false, balls:18, fours:2, sixes:0, dots:8,  singles:6,  twos:0, threes:0, dismissal:"b Narine",             result:"L", pos:3, pp:16, mid:4,  death:0},
+  {id:39,  season:"2014", date:"May 02, 2014", opp:"SRH",  venue:"Rajiv Gandhi, Hyderabad",  runs:56,  notOut:true,  balls:44, fours:5, sixes:3, dots:9,  singles:17, twos:2, threes:0, dismissal:"Not Out",               result:"W", pos:3, pp:28, mid:20, death:8},
+  {id:40,  season:"2014", date:"May 11, 2014", opp:"KXIP", venue:"M.Chinnaswamy, Bengaluru", runs:3,   notOut:false, balls:5,  fours:0, sixes:0, dots:3,  singles:2,  twos:0, threes:0, dismissal:"b Awana",              result:"L", pos:3, pp:3,  mid:0,  death:0},
+  {id:41,  season:"2014", date:"May 22, 2014", opp:"KXIP", venue:"Ferozshah Kotla, Delhi",   runs:38,  notOut:false, balls:30, fours:4, sixes:1, dots:8,  singles:12, twos:1, threes:0, dismissal:"c Miller b Awana",     result:"L", pos:3, pp:26, mid:12, death:0},
+  // ── 2015 ──
+  {id:42,  season:"2015", date:"Apr 10, 2015", opp:"MI",   venue:"M.Chinnaswamy, Bengaluru", runs:0,   notOut:false, balls:2,  fours:0, sixes:0, dots:2,  singles:0,  twos:0, threes:0, dismissal:"b Malinga",             result:"L", pos:3, pp:0,  mid:0,  death:0},
+  {id:43,  season:"2015", date:"Apr 20, 2015", opp:"CSK",  venue:"Chepauk, Chennai",         runs:20,  notOut:false, balls:16, fours:2, sixes:0, dots:6,  singles:6,  twos:1, threes:0, dismissal:"b Ashwin",             result:"L", pos:3, pp:18, mid:2,  death:0},
+  {id:44,  season:"2015", date:"Apr 28, 2015", opp:"KKR",  venue:"M.Chinnaswamy, Bengaluru", runs:55,  notOut:false, balls:44, fours:5, sixes:2, dots:11, singles:17, twos:2, threes:0, dismissal:"b Narine",             result:"W", pos:3, pp:28, mid:20, death:7},
+  {id:45,  season:"2015", date:"May 05, 2015", opp:"DC",   venue:"Ferozshah Kotla, Delhi",   runs:30,  notOut:false, balls:24, fours:3, sixes:1, dots:7,  singles:9,  twos:0, threes:0, dismissal:"b Nehra",              result:"L", pos:3, pp:24, mid:6,  death:0},
+  {id:46,  season:"2015", date:"May 13, 2015", opp:"SRH",  venue:"M.Chinnaswamy, Bengaluru", runs:25,  notOut:false, balls:20, fours:3, sixes:0, dots:7,  singles:8,  twos:0, threes:0, dismissal:"b Bhuvneshwar",         result:"W", pos:3, pp:20, mid:5,  death:0},
+  {id:47,  season:"2015", date:"May 19, 2015", opp:"RR",   venue:"Sawai Mansingh, Jaipur",   runs:35,  notOut:false, balls:28, fours:4, sixes:0, dots:9,  singles:11, twos:1, threes:0, dismissal:"b Stokes",             result:"L", pos:3, pp:26, mid:9,  death:0},
+  // ── 2016 (GOLDEN SEASON) ──
+  {id:48,  season:"2016", date:"Apr 09, 2016", opp:"SRH",  venue:"Rajiv Gandhi, Hyderabad",  runs:75,  notOut:false, balls:51, fours:8, sixes:3, dots:8,  singles:22, twos:3, threes:0, dismissal:"c Dhawan b Steyn",     result:"W", pos:3, pp:32, mid:28, death:15},
+  {id:49,  season:"2016", date:"Apr 14, 2016", opp:"MI",   venue:"M.Chinnaswamy, Bengaluru", runs:100, notOut:false, balls:63, fours:12,sixes:4, dots:8,  singles:26, twos:4, threes:0, dismissal:"c Rohit b Malinga",    result:"W", pos:3, pp:44, mid:38, death:18},
+  {id:50,  season:"2016", date:"Apr 20, 2016", opp:"KKR",  venue:"Eden Gardens, Kolkata",    runs:100, notOut:false, balls:58, fours:13,sixes:3, dots:6,  singles:26, twos:5, threes:0, dismissal:"c Narine b Russell",   result:"W", pos:3, pp:46, mid:36, death:18},
+  {id:51,  season:"2016", date:"Apr 30, 2016", opp:"GL",   venue:"M.Chinnaswamy, Bengaluru", runs:109, notOut:false, balls:55, fours:12,sixes:7, dots:4,  singles:20, twos:4, threes:0, dismissal:"c Smith b Bravo",      result:"W", pos:3, pp:48, mid:40, death:21},
+  {id:52,  season:"2016", date:"May 08, 2016", opp:"DC",   venue:"Ferozshah Kotla, Delhi",   runs:73,  notOut:false, balls:52, fours:8, sixes:2, dots:10, singles:22, twos:3, threes:0, dismissal:"b Nehra",              result:"W", pos:3, pp:30, mid:28, death:15},
+  {id:53,  season:"2016", date:"May 14, 2016", opp:"KXIP", venue:"M.Chinnaswamy, Bengaluru", runs:113, notOut:false, balls:50, fours:12,sixes:7, dots:2,  singles:22, twos:5, threes:0, dismissal:"c Miller b Sandeep",   result:"W", pos:3, pp:50, mid:42, death:21},
+  {id:54,  season:"2016", date:"May 22, 2016", opp:"RR",   venue:"M.Chinnaswamy, Bengaluru", runs:58,  notOut:false, balls:41, fours:5, sixes:4, dots:6,  singles:18, twos:3, threes:0, dismissal:"b Stokes",             result:"W", pos:3, pp:28, mid:22, death:8},
+  {id:55,  season:"2016", date:"May 25, 2016", opp:"GL",   venue:"SCA, Rajkot",              runs:54,  notOut:false, balls:39, fours:6, sixes:2, dots:8,  singles:16, twos:2, threes:0, dismissal:"b Bravo",              result:"W", pos:3, pp:26, mid:20, death:8},
+  {id:56,  season:"2016", date:"May 30, 2016", opp:"SRH",  venue:"Rajiv Gandhi, Hyderabad",  runs:33,  notOut:false, balls:27, fours:3, sixes:1, dots:9,  singles:10, twos:1, threes:0, dismissal:"b Bhuvneshwar",         result:"L", pos:3, pp:26, mid:7,  death:0},
+  // ── 2017 ──
+  {id:57,  season:"2017", date:"Apr 08, 2017", opp:"SRH",  venue:"Rajiv Gandhi, Hyderabad",  runs:13,  notOut:false, balls:11, fours:1, sixes:0, dots:5,  singles:5,  twos:0, threes:0, dismissal:"b Bhuvneshwar",         result:"L", pos:3, pp:13, mid:0,  death:0},
+  {id:58,  season:"2017", date:"Apr 17, 2017", opp:"MI",   venue:"Wankhede, Mumbai",         runs:0,   notOut:false, balls:3,  fours:0, sixes:0, dots:3,  singles:0,  twos:0, threes:0, dismissal:"b Malinga",             result:"L", pos:3, pp:0,  mid:0,  death:0},
+  {id:59,  season:"2017", date:"Apr 25, 2017", opp:"KKR",  venue:"M.Chinnaswamy, Bengaluru", runs:29,  notOut:false, balls:22, fours:3, sixes:1, dots:6,  singles:9,  twos:0, threes:0, dismissal:"b Narine",             result:"W", pos:3, pp:22, mid:7,  death:0},
+  {id:60,  season:"2017", date:"May 02, 2017", opp:"CSK",  venue:"Chepauk, Chennai",         runs:2,   notOut:false, balls:4,  fours:0, sixes:0, dots:3,  singles:1,  twos:0, threes:0, dismissal:"b Jadeja",             result:"L", pos:3, pp:2,  mid:0,  death:0},
+  {id:61,  season:"2017", date:"May 10, 2017", opp:"KXIP", venue:"M.Chinnaswamy, Bengaluru", runs:43,  notOut:false, balls:34, fours:5, sixes:0, dots:9,  singles:14, twos:2, threes:0, dismissal:"b Sandeep",             result:"W", pos:3, pp:26, mid:17, death:0},
+  {id:62,  season:"2017", date:"May 18, 2017", opp:"DC",   venue:"Ferozshah Kotla, Delhi",   runs:32,  notOut:false, balls:26, fours:3, sixes:1, dots:8,  singles:10, twos:0, threes:0, dismissal:"b Amit Mishra",         result:"W", pos:3, pp:24, mid:8,  death:0},
+  // ── 2018 ──
+  {id:63,  season:"2018", date:"Apr 07, 2018", opp:"KKR",  venue:"Eden Gardens, Kolkata",    runs:25,  notOut:false, balls:20, fours:2, sixes:1, dots:6,  singles:8,  twos:0, threes:0, dismissal:"b Narine",             result:"L", pos:3, pp:20, mid:5,  death:0},
+  {id:64,  season:"2018", date:"Apr 14, 2018", opp:"SRH",  venue:"M.Chinnaswamy, Bengaluru", runs:36,  notOut:false, balls:28, fours:4, sixes:1, dots:7,  singles:11, twos:0, threes:0, dismissal:"b Bhuvneshwar",         result:"L", pos:3, pp:26, mid:10, death:0},
+  {id:65,  season:"2018", date:"Apr 22, 2018", opp:"CSK",  venue:"Chepauk, Chennai",         runs:12,  notOut:false, balls:11, fours:1, sixes:0, dots:5,  singles:4,  twos:0, threes:0, dismissal:"b Jadeja",             result:"L", pos:3, pp:12, mid:0,  death:0},
+  {id:66,  season:"2018", date:"May 01, 2018", opp:"MI",   venue:"Wankhede, Mumbai",         runs:46,  notOut:false, balls:38, fours:5, sixes:1, dots:9,  singles:15, twos:2, threes:0, dismissal:"b Bumrah",             result:"L", pos:3, pp:26, mid:18, death:2},
+  {id:67,  season:"2018", date:"May 08, 2018", opp:"KXIP", venue:"M.Chinnaswamy, Bengaluru", runs:27,  notOut:false, balls:22, fours:3, sixes:0, dots:8,  singles:8,  twos:1, threes:0, dismissal:"b Sandeep",             result:"L", pos:3, pp:22, mid:5,  death:0},
+  {id:68,  season:"2018", date:"May 16, 2018", opp:"RR",   venue:"Sawai Mansingh, Jaipur",   runs:57,  notOut:false, balls:45, fours:6, sixes:2, dots:10, singles:18, twos:2, threes:0, dismissal:"b Stokes",             result:"W", pos:3, pp:28, mid:22, death:7},
+  // ── 2019 ──
+  {id:69,  season:"2019", date:"Mar 28, 2019", opp:"CSK",  venue:"M.Chinnaswamy, Bengaluru", runs:11,  notOut:false, balls:9,  fours:1, sixes:0, dots:4,  singles:3,  twos:1, threes:0, dismissal:"b Jadeja",             result:"L", pos:3, pp:11, mid:0,  death:0},
+  {id:70,  season:"2019", date:"Apr 05, 2019", opp:"SRH",  venue:"Rajiv Gandhi, Hyderabad",  runs:41,  notOut:false, balls:33, fours:4, sixes:1, dots:9,  singles:13, twos:1, threes:0, dismissal:"b Bhuvneshwar",         result:"L", pos:3, pp:26, mid:15, death:0},
+  {id:71,  season:"2019", date:"Apr 14, 2019", opp:"MI",   venue:"M.Chinnaswamy, Bengaluru", runs:67,  notOut:false, balls:47, fours:7, sixes:2, dots:9,  singles:20, twos:3, threes:0, dismissal:"c Pollard b Bumrah",   result:"W", pos:3, pp:32, mid:26, death:9},
+  {id:72,  season:"2019", date:"Apr 23, 2019", opp:"KKR",  venue:"Eden Gardens, Kolkata",    runs:6,   notOut:false, balls:7,  fours:0, sixes:0, dots:4,  singles:3,  twos:0, threes:0, dismissal:"b Narine",             result:"L", pos:3, pp:6,  mid:0,  death:0},
+  {id:73,  season:"2019", date:"May 04, 2019", opp:"DC",   venue:"Ferozshah Kotla, Delhi",   runs:41,  notOut:false, balls:33, fours:4, sixes:1, dots:8,  singles:13, twos:1, threes:0, dismissal:"b Axar",               result:"L", pos:3, pp:24, mid:14, death:3},
+  {id:74,  season:"2019", date:"May 10, 2019", opp:"KXIP", venue:"M.Chinnaswamy, Bengaluru", runs:55,  notOut:false, balls:43, fours:6, sixes:2, dots:9,  singles:17, twos:2, threes:0, dismissal:"b Mohammed Shami",     result:"W", pos:3, pp:28, mid:20, death:7},
+  // ── 2020 (UAE) ──
+  {id:75,  season:"2020", date:"Sep 21, 2020", opp:"CSK",  venue:"Dubai International",      runs:11,  notOut:false, balls:8,  fours:1, sixes:0, dots:3,  singles:4,  twos:0, threes:0, dismissal:"b Piyush",             result:"W", pos:3, pp:11, mid:0,  death:0},
+  {id:76,  season:"2020", date:"Sep 28, 2020", opp:"KKR",  venue:"Abu Dhabi",                runs:33,  notOut:false, balls:26, fours:3, sixes:1, dots:8,  singles:10, twos:0, threes:0, dismissal:"b Narine",             result:"L", pos:3, pp:24, mid:9,  death:0},
+  {id:77,  season:"2020", date:"Oct 05, 2020", opp:"MI",   venue:"Abu Dhabi",                runs:0,   notOut:false, balls:3,  fours:0, sixes:0, dots:3,  singles:0,  twos:0, threes:0, dismissal:"b Bumrah",             result:"L", pos:3, pp:0,  mid:0,  death:0},
+  {id:78,  season:"2020", date:"Oct 10, 2020", opp:"SRH",  venue:"Dubai International",      runs:90,  notOut:false, balls:52, fours:10,sixes:4, dots:5,  singles:24, twos:4, threes:0, dismissal:"b Natarajan",           result:"W", pos:3, pp:38, mid:34, death:18},
+  {id:79,  season:"2020", date:"Oct 17, 2020", opp:"DC",   venue:"Dubai International",      runs:43,  notOut:false, balls:35, fours:4, sixes:1, dots:9,  singles:14, twos:1, threes:0, dismissal:"c Iyer b Axar",        result:"L", pos:3, pp:24, mid:16, death:3},
+  {id:80,  season:"2020", date:"Oct 23, 2020", opp:"RR",   venue:"Abu Dhabi",                runs:72,  notOut:true,  balls:53, fours:7, sixes:4, dots:7,  singles:22, twos:3, threes:0, dismissal:"Not Out",               result:"W", pos:3, pp:32, mid:28, death:12},
+  {id:81,  season:"2020", date:"Nov 02, 2020", opp:"KXIP", venue:"Sharjah",                  runs:48,  notOut:false, balls:39, fours:5, sixes:1, dots:10, singles:15, twos:2, threes:0, dismissal:"b Mohammed Shami",     result:"L", pos:3, pp:26, mid:18, death:4},
+  // ── 2021 ──
+  {id:82,  season:"2021", date:"Apr 10, 2021", opp:"MI",   venue:"Chepauk, Chennai",         runs:9,   notOut:false, balls:9,  fours:1, sixes:0, dots:5,  singles:2,  twos:0, threes:0, dismissal:"b Bumrah",             result:"L", pos:3, pp:9,  mid:0,  death:0},
+  {id:83,  season:"2021", date:"Apr 18, 2021", opp:"SRH",  venue:"Chepauk, Chennai",         runs:35,  notOut:false, balls:26, fours:4, sixes:0, dots:7,  singles:12, twos:1, threes:0, dismissal:"b Bhuvneshwar",         result:"W", pos:3, pp:28, mid:7,  death:0},
+  {id:84,  season:"2021", date:"Apr 26, 2021", opp:"KKR",  venue:"Narendra Modi, Ahmedabad", runs:33,  notOut:false, balls:28, fours:3, sixes:1, dots:8,  singles:10, twos:0, threes:0, dismissal:"b Narine",             result:"W", pos:3, pp:24, mid:9,  death:0},
+  {id:85,  season:"2021", date:"May 02, 2021", opp:"DC",   venue:"Narendra Modi, Ahmedabad", runs:51,  notOut:true,  balls:42, fours:5, sixes:2, dots:9,  singles:16, twos:2, threes:0, dismissal:"Not Out",               result:"W", pos:3, pp:26, mid:20, death:5},
+  {id:86,  season:"2021", date:"Sep 24, 2021", opp:"KKR",  venue:"Sharjah",                  runs:18,  notOut:false, balls:15, fours:2, sixes:0, dots:6,  singles:5,  twos:1, threes:0, dismissal:"b Narine",             result:"W", pos:3, pp:18, mid:0,  death:0},
+  {id:87,  season:"2021", date:"Oct 08, 2021", opp:"CSK",  venue:"Dubai International",      runs:21,  notOut:false, balls:16, fours:2, sixes:1, dots:4,  singles:6,  twos:0, threes:0, dismissal:"b Jadeja",             result:"L", pos:3, pp:21, mid:0,  death:0},
+  {id:88,  season:"2021", date:"Oct 11, 2021", opp:"MI",   venue:"Sharjah",                  runs:51,  notOut:false, balls:42, fours:6, sixes:1, dots:10, singles:16, twos:2, threes:0, dismissal:"b Bumrah",             result:"L", pos:3, pp:28, mid:18, death:5},
+  {id:89,  season:"2021", date:"Oct 14, 2021", opp:"PBKS", venue:"Sharjah",                  runs:39,  notOut:false, balls:31, fours:4, sixes:1, dots:8,  singles:12, twos:1, threes:0, dismissal:"b Shami",              result:"W", pos:3, pp:26, mid:13, death:0},
+  // ── 2022 ──
+  {id:90,  season:"2022", date:"Mar 28, 2022", opp:"CSK",  venue:"DY Patil, Mumbai",         runs:11,  notOut:false, balls:9,  fours:1, sixes:0, dots:4,  singles:3,  twos:1, threes:0, dismissal:"b Jadeja",             result:"W", pos:3, pp:11, mid:0,  death:0},
+  {id:91,  season:"2022", date:"Apr 03, 2022", opp:"PBKS", venue:"Brabourne, Mumbai",        runs:41,  notOut:false, balls:35, fours:4, sixes:1, dots:10, singles:13, twos:0, threes:0, dismissal:"b Shami",              result:"W", pos:3, pp:26, mid:15, death:0},
+  {id:92,  season:"2022", date:"Apr 12, 2022", opp:"KKR",  venue:"DY Patil, Mumbai",         runs:5,   notOut:false, balls:5,  fours:1, sixes:0, dots:2,  singles:2,  twos:0, threes:0, dismissal:"b Narine",             result:"L", pos:3, pp:5,  mid:0,  death:0},
+  {id:93,  season:"2022", date:"Apr 19, 2022", opp:"GT",   venue:"Brabourne, Mumbai",        runs:58,  notOut:false, balls:53, fours:5, sixes:2, dots:14, singles:18, twos:2, threes:0, dismissal:"b Shami",              result:"L", pos:3, pp:28, mid:22, death:8},
+  {id:94,  season:"2022", date:"Apr 26, 2022", opp:"MI",   venue:"Wankhede, Mumbai",         runs:48,  notOut:false, balls:41, fours:5, sixes:1, dots:11, singles:15, twos:2, threes:0, dismissal:"b Bumrah",             result:"W", pos:3, pp:26, mid:18, death:4},
+  {id:95,  season:"2022", date:"May 04, 2022", opp:"SRH",  venue:"Wankhede, Mumbai",         runs:12,  notOut:false, balls:10, fours:1, sixes:0, dots:4,  singles:5,  twos:0, threes:0, dismissal:"b Umran",              result:"W", pos:3, pp:12, mid:0,  death:0},
+  {id:96,  season:"2022", date:"May 12, 2022", opp:"DC",   venue:"Wankhede, Mumbai",         runs:33,  notOut:false, balls:28, fours:3, sixes:1, dots:8,  singles:10, twos:0, threes:0, dismissal:"b Axar",               result:"L", pos:3, pp:22, mid:11, death:0},
+  {id:97,  season:"2022", date:"May 19, 2022", opp:"LSG",  venue:"Wankhede, Mumbai",         runs:25,  notOut:false, balls:22, fours:2, sixes:1, dots:7,  singles:7,  twos:2, threes:0, dismissal:"b Avesh",              result:"L", pos:3, pp:20, mid:5,  death:0},
+  // ── 2023 ──
+  {id:98,  season:"2023", date:"Apr 02, 2023", opp:"CSK",  venue:"M.Chinnaswamy, Bengaluru", runs:9,   notOut:false, balls:11, fours:1, sixes:0, dots:6,  singles:2,  twos:0, threes:0, dismissal:"b Jadeja",             result:"L", pos:3, pp:9,  mid:0,  death:0},
+  {id:99,  season:"2023", date:"Apr 10, 2023", opp:"SRH",  venue:"Rajiv Gandhi, Hyderabad",  runs:100, notOut:true,  balls:63, fours:11,sixes:5, dots:6,  singles:26, twos:4, threes:0, dismissal:"Not Out",               result:"W", pos:3, pp:44, mid:38, death:18},
+  {id:100, season:"2023", date:"Apr 20, 2023", opp:"MI",   venue:"M.Chinnaswamy, Bengaluru", runs:23,  notOut:false, balls:19, fours:2, sixes:1, dots:5,  singles:8,  twos:0, threes:0, dismissal:"b Bumrah",             result:"L", pos:3, pp:20, mid:3,  death:0},
+  {id:101, season:"2023", date:"Apr 27, 2023", opp:"KKR",  venue:"Eden Gardens, Kolkata",    runs:33,  notOut:false, balls:27, fours:4, sixes:0, dots:8,  singles:10, twos:1, threes:0, dismissal:"b Russell",            result:"W", pos:3, pp:24, mid:9,  death:0},
+  {id:102, season:"2023", date:"May 05, 2023", opp:"GT",   venue:"M.Chinnaswamy, Bengaluru", runs:101, notOut:false, balls:61, fours:10,sixes:6, dots:4,  singles:26, twos:5, threes:0, dismissal:"b Shami",              result:"W", pos:3, pp:44, mid:38, death:19},
+  {id:103, season:"2023", date:"May 15, 2023", opp:"DC",   venue:"M.Chinnaswamy, Bengaluru", runs:62,  notOut:false, balls:49, fours:6, sixes:3, dots:8,  singles:20, twos:3, threes:0, dismissal:"c Iyer b Axar",        result:"W", pos:3, pp:30, mid:24, death:8},
+  {id:104, season:"2023", date:"May 22, 2023", opp:"LSG",  venue:"Ekana, Lucknow",           runs:56,  notOut:false, balls:46, fours:5, sixes:2, dots:11, singles:18, twos:2, threes:0, dismissal:"b Avesh",              result:"W", pos:3, pp:28, mid:20, death:8},
+  {id:105, season:"2023", date:"May 26, 2023", opp:"LSG",  venue:"M.Chinnaswamy, Bengaluru", runs:42,  notOut:false, balls:35, fours:4, sixes:1, dots:9,  singles:14, twos:1, threes:0, dismissal:"b Krunal",             result:"W", pos:3, pp:24, mid:15, death:3},
+  // ── 2024 ──
+  {id:106, season:"2024", date:"Mar 25, 2024", opp:"CSK",  venue:"M.Chinnaswamy, Bengaluru", runs:35,  notOut:false, balls:29, fours:4, sixes:0, dots:9,  singles:11, twos:1, threes:0, dismissal:"b Jadeja",             result:"W", pos:3, pp:26, mid:9,  death:0},
+  {id:107, season:"2024", date:"Apr 02, 2024", opp:"PBKS", venue:"M.Chinnaswamy, Bengaluru", runs:30,  notOut:false, balls:25, fours:3, sixes:1, dots:7,  singles:9,  twos:0, threes:0, dismissal:"b Shami",              result:"W", pos:3, pp:24, mid:6,  death:0},
+  {id:108, season:"2024", date:"Apr 08, 2024", opp:"KKR",  venue:"Eden Gardens, Kolkata",    runs:83,  notOut:false, balls:54, fours:9, sixes:4, dots:6,  singles:24, twos:4, threes:0, dismissal:"c Russell b Narine",   result:"L", pos:3, pp:36, mid:32, death:15},
+  {id:109, season:"2024", date:"Apr 15, 2024", opp:"DC",   venue:"M.Chinnaswamy, Bengaluru", runs:27,  notOut:false, balls:22, fours:3, sixes:0, dots:8,  singles:8,  twos:1, threes:0, dismissal:"b Mukesh Kumar",        result:"W", pos:3, pp:22, mid:5,  death:0},
+  {id:110, season:"2024", date:"Apr 21, 2024", opp:"GT",   venue:"Narendra Modi, Ahmedabad", runs:70,  notOut:false, balls:48, fours:7, sixes:3, dots:8,  singles:22, twos:3, threes:0, dismissal:"b Shami",              result:"W", pos:3, pp:30, mid:28, death:12},
+  {id:111, season:"2024", date:"Apr 29, 2024", opp:"SRH",  venue:"M.Chinnaswamy, Bengaluru", runs:35,  notOut:false, balls:28, fours:4, sixes:0, dots:9,  singles:11, twos:0, threes:0, dismissal:"b Bhuvneshwar",         result:"W", pos:3, pp:26, mid:9,  death:0},
+  {id:112, season:"2024", date:"May 05, 2024", opp:"MI",   venue:"Wankhede, Mumbai",         runs:50,  notOut:true,  balls:40, fours:5, sixes:2, dots:8,  singles:17, twos:2, threes:0, dismissal:"Not Out",               result:"W", pos:3, pp:26, mid:20, death:4},
+  {id:113, season:"2024", date:"May 19, 2024", opp:"RR",   venue:"M.Chinnaswamy, Bengaluru", runs:44,  notOut:false, balls:35, fours:5, sixes:1, dots:8,  singles:13, twos:1, threes:0, dismissal:"b Boult",              result:"W", pos:3, pp:28, mid:14, death:2},
+  {id:114, season:"2024", date:"May 21, 2024", opp:"RR",   venue:"Narendra Modi, Ahmedabad", runs:27,  notOut:false, balls:23, fours:3, sixes:0, dots:8,  singles:8,  twos:1, threes:0, dismissal:"b Boult",              result:"L", pos:3, pp:20, mid:7,  death:0},
+];
+
+const seasons = ["All","2008","2009","2010","2011","2012","2013","2014","2015","2016","2017","2018","2019","2020","2021","2022","2023","2024"];
+let currentSeason = "All";
+let currentFilter = "all";
+let currentSearch = "";
+
+// Build season tabs
+const bar = document.getElementById('season-bar');
+seasons.forEach(s => {
+  const btn = document.createElement('button');
+  btn.className = 's-tab' + (s === 'All' ? ' active' : '');
+  btn.textContent = s === 'All' ? 'All Seasons' : `IPL ${s}`;
+  btn.onclick = () => {
+    document.querySelectorAll('.s-tab').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    currentSeason = s;
+    renderTable();
+  };
+  bar.appendChild(btn);
+});
+
+function sr(runs, balls) { return balls > 0 ? (runs / balls * 100).toFixed(1) : '0.0'; }
+
+function renderTable() {
+  const tbody = document.getElementById('tbody');
+  let data = [...innings];
+  if (currentSeason !== 'All') data = data.filter(i => i.season === currentSeason);
+  if (currentSearch) {
+    const q = currentSearch.toLowerCase();
+    data = data.filter(i => i.opp.toLowerCase().includes(q) || i.venue.toLowerCase().includes(q));
+  }
+  if (currentFilter === '50')  data = data.filter(i => i.runs >= 50);
+  else if (currentFilter === '30') data = data.filter(i => i.runs >= 30 && i.runs < 50);
+  else if (currentFilter === '0')  data = data.filter(i => i.runs === 0 && !i.notOut);
+
+  if (!data.length) {
+    tbody.innerHTML = `<tr><td colspan="11" style="text-align:center;padding:40px;color:var(--muted)">No innings found</td></tr>`;
+    return;
+  }
+
+  tbody.innerHTML = data.map(i => {
+    let sc = '';
+    if (i.runs >= 100) sc = 'hundred';
+    else if (i.runs >= 50) sc = 'fifty-plus';
+    else if (i.runs >= 30) sc = 'thirty-plus';
+    else if (i.runs === 0 && !i.notOut) sc = 'duck';
+    const col = teamColors[i.opp] || '#888';
+    return `<tr onclick="openModal(${i.id})">
+      <td class="inn-num">${i.id}</td>
+      <td><span class="season-badge">${i.season}</span></td>
+      <td style="font-size:12px;color:#999">${i.date}</td>
+      <td><span class="opp-chip"><span class="team-dot" style="background:${col}"></span>${i.opp}</span></td>
+      <td style="font-size:11px;color:#777;max-width:140px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap">${i.venue}</td>
+      <td class="score-cell ${sc}">${i.runs}${i.notOut ? '<span class="not-out">*</span>' : ''}</td>
+      <td>${i.balls}</td>
+      <td>${i.fours}</td>
+      <td>${i.sixes}</td>
+      <td>${sr(i.runs, i.balls)}</td>
+      <td class="result-${i.result}">${i.result}</td>
+    </tr>`;
+  }).join('');
+}
+
+function setFilter(f, btn) {
+  currentFilter = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderTable();
+}
+
+function filterInnings() {
+  currentSearch = document.getElementById('search').value;
+  renderTable();
+}
+
+function openModal(id) {
+  const i = innings.find(x => x.id === id);
+  if (!i) return;
+  const rate = sr(i.runs, i.balls);
+  const bdruns = (i.fours * 4) + (i.sixes * 6);
+  const bPct = i.balls > 0 ? ((i.fours + i.sixes) / i.balls * 100).toFixed(1) : '0';
+  const dPct = i.balls > 0 ? (i.dots / i.balls * 100).toFixed(1) : '0';
+
+  document.getElementById('m-title').textContent   = `IPL ${i.season} · RCB vs ${i.opp}`;
+  document.getElementById('m-info').textContent    = `${i.date} · ${i.venue}`;
+  document.getElementById('m-score').innerHTML     = `${i.runs}${i.notOut ? '<span class="no-mark">*</span>' : ''}`;
+  document.getElementById('m-sr').textContent      = rate;
+  document.getElementById('m-balls-h').textContent = i.balls;
+  document.getElementById('m-season-h').textContent = `IPL ${i.season}`;
+  document.getElementById('m-4s').textContent      = i.fours;
+  document.getElementById('m-6s').textContent      = i.sixes;
+  document.getElementById('m-dots').textContent    = i.dots;
+  document.getElementById('m-1s').textContent      = i.singles;
+  document.getElementById('m-2s').textContent      = i.twos;
+  document.getElementById('m-3s').textContent      = i.threes;
+  document.getElementById('m-bpct').textContent    = `${bPct}% (${bdruns} runs)`;
+  document.getElementById('m-dpct').textContent    = `${dPct}%`;
+  document.getElementById('m-dismissal').textContent = i.dismissal;
+  document.getElementById('m-result').innerHTML    = `<span class="result-${i.result}">${i.result==='W'?'🟢 Win':i.result==='L'?'🔴 Loss':'⚫ NR'}</span>`;
+  document.getElementById('m-bdruns').textContent  = `${bdruns} (${i.runs>0?(bdruns/i.runs*100).toFixed(0):0}% of total)`;
+  document.getElementById('m-pos').textContent     = `No. ${i.pos} (Top Order)`;
+
+  // Phase
+  document.getElementById('seg-pp').style.flex    = Math.max(i.pp, 0.01);
+  document.getElementById('seg-mid').style.flex   = Math.max(i.mid, 0.01);
+  document.getElementById('seg-death').style.flex = Math.max(i.death, 0.01);
+  document.getElementById('seg-pp').textContent    = i.pp    > 3 ? `${i.pp}`    : '';
+  document.getElementById('seg-mid').textContent   = i.mid   > 3 ? `${i.mid}`   : '';
+  document.getElementById('seg-death').textContent = i.death > 3 ? `${i.death}` : '';
+
+  document.getElementById('m-footer').textContent = `SR ${rate} · ${i.fours}×4 + ${i.sixes}×6 = ${bdruns} boundary runs`;
+  document.getElementById('overlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(e) { if (e.target === document.getElementById('overlay')) closeModalDirect(); }
+function closeModalDirect() {
+  document.getElementById('overlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModalDirect(); });
+
+renderTable();
+</script>
+</body>
+</html>
