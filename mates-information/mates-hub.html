@@ -1,0 +1,962 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Virat Kohli — Relationships</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Lora:ital,wght@0,400;0,600;1,400&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg:#0C0C0C; --surface:#141414; --card:#1A1A1A; --border:rgba(255,255,255,0.08);
+    --muted:#666; --white:#F0F0F0; --virat:#D4102C;
+    --gold:#D4A820; --accent:rgba(212,16,44,0.15);
+    --pill:#222;
+  }
+  *{margin:0;padding:0;box-sizing:border-box;}
+  html{scroll-behavior:smooth;}
+  body{background:var(--bg);color:var(--white);font-family:'DM Sans',sans-serif;overflow-x:hidden;min-height:100vh;}
+
+  /* NAV */
+  .topnav{
+    position:sticky;top:0;z-index:200;
+    display:flex;align-items:center;justify-content:space-between;
+    padding:14px 40px;
+    background:rgba(12,12,12,0.95);
+    backdrop-filter:blur(12px);
+    border-bottom:1px solid var(--border);
+  }
+  .topnav-brand{font-family:'Anton',sans-serif;font-size:1rem;letter-spacing:4px;color:var(--white);}
+  .topnav-brand span{color:var(--virat);}
+  .topnav-back{font-size:.65rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-decoration:none;transition:color .2s;}
+  .topnav-back:hover{color:var(--white);}
+
+  /* VIEWS */
+  .view{display:none;}
+  .view.active{display:block;}
+
+  /* ══════════════════════════════ */
+  /* MAIN HUB PAGE */
+  /* ══════════════════════════════ */
+
+  .hub-hero{
+    padding:80px 40px 60px;
+    text-align:center;
+    position:relative;
+    overflow:hidden;
+    background:
+      radial-gradient(ellipse at 50% 120%,rgba(212,16,44,0.14) 0%,transparent 60%),
+      var(--bg);
+  }
+  .hub-hero::before{
+    content:'VIRAT';
+    position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
+    font-family:'Anton',sans-serif;font-size:22vw;
+    color:rgba(255,255,255,0.025);white-space:nowrap;pointer-events:none;
+  }
+  .hub-eyebrow{font-size:.62rem;letter-spacing:6px;text-transform:uppercase;color:var(--gold);margin-bottom:16px;display:block;opacity:0;animation:up .6s ease .1s forwards;}
+  .hub-title{font-family:'Anton',sans-serif;font-size:clamp(2.5rem,8vw,6rem);letter-spacing:2px;line-height:.9;opacity:0;animation:up .7s ease .2s forwards;}
+  .hub-title .vname{color:var(--virat);}
+  .hub-sub{font-family:'Lora',serif;font-style:italic;font-size:1.05rem;color:var(--muted);margin-top:16px;opacity:0;animation:up .7s ease .35s forwards;}
+
+  /* FILTERS */
+  .filters-bar{
+    padding:28px 40px;
+    display:flex;align-items:center;gap:10px;flex-wrap:wrap;
+    border-bottom:1px solid var(--border);
+  }
+  .filter-label{font-size:.6rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);margin-right:4px;}
+  .filter-btn{
+    padding:6px 16px;border-radius:20px;border:1px solid var(--border);
+    background:transparent;color:var(--muted);font-family:'DM Sans',sans-serif;
+    font-size:.68rem;letter-spacing:1.5px;text-transform:uppercase;cursor:pointer;transition:all .2s;
+  }
+  .filter-btn.active{background:var(--virat);border-color:var(--virat);color:#fff;}
+  .filter-btn:hover:not(.active){border-color:rgba(255,255,255,.2);color:var(--white);}
+
+  /* PLAYERS GRID */
+  .players-grid{
+    padding:40px;
+    display:grid;
+    grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+    gap:16px;
+  }
+  .player-card{
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:14px;
+    padding:28px 24px;
+    cursor:pointer;
+    position:relative;
+    overflow:hidden;
+    transition:transform .3s cubic-bezier(.22,1,.36,1),border-color .25s,background .25s;
+    opacity:0;
+    animation:cardIn .5s ease forwards;
+  }
+  .player-card:hover{transform:translateY(-5px);border-color:rgba(255,255,255,.18);background:#1F1F1F;}
+  .player-card::after{
+    content:'';position:absolute;bottom:0;left:0;right:0;height:2px;
+    opacity:0;transition:opacity .25s;
+  }
+  .player-card:hover::after{opacity:1;}
+  .player-card[data-color="dhoni"]::after{background:#FFD700;}
+  .player-card[data-color="rahul"]::after{background:#4A90E2;}
+  .player-card[data-color="jadeja"]::after{background:#2ECC71;}
+  .player-card[data-color="raina"]::after{background:#FF6B35;}
+  .player-card[data-color="bumrah"]::after{background:#9B59B6;}
+  .player-card[data-color="faf"]::after{background:#1ABC9C;}
+  .player-card[data-color="tendulkar"]::after{background:#E74C3C;}
+  .player-card[data-color="pant"]::after{background:#3498DB;}
+  .player-card[data-color="yuvi"]::after{background:#F39C12;}
+  .player-card[data-color="dhawan"]::after{background:#E91E63;}
+  .player-card[data-color="rohit"]::after{background:#3DBE7A;}
+  .player-card[data-color="ab"]::after{background:#D4A820;}
+
+  .pc-tag{
+    font-size:.55rem;letter-spacing:2.5px;text-transform:uppercase;
+    padding:3px 9px;border-radius:3px;margin-bottom:14px;display:inline-block;
+  }
+  .pc-avatar{
+    width:52px;height:52px;border-radius:50%;
+    display:flex;align-items:center;justify-content:center;
+    font-family:'Anton',sans-serif;font-size:1.1rem;letter-spacing:1px;
+    margin-bottom:14px;
+    border:2px solid var(--border);
+  }
+  .pc-name{font-family:'Anton',sans-serif;font-size:1.5rem;letter-spacing:1px;color:var(--white);margin-bottom:4px;}
+  .pc-role{font-size:.72rem;color:var(--muted);letter-spacing:1px;margin-bottom:16px;}
+  .pc-bond{font-family:'Lora',serif;font-style:italic;font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.55;margin-bottom:16px;}
+  .pc-footer{
+    display:flex;align-items:center;justify-content:space-between;
+    border-top:1px solid var(--border);padding-top:14px;
+  }
+  .pc-tags{display:flex;gap:6px;flex-wrap:wrap;}
+  .pc-chip{
+    font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;
+    padding:3px 8px;border-radius:3px;background:rgba(255,255,255,.05);color:var(--muted);
+  }
+  .pc-arrow{
+    width:28px;height:28px;border-radius:50%;border:1px solid var(--border);
+    display:flex;align-items:center;justify-content:center;
+    font-size:.8rem;color:var(--muted);transition:all .2s;flex-shrink:0;
+  }
+  .player-card:hover .pc-arrow{background:var(--virat);border-color:var(--virat);color:#fff;}
+
+  .player-card.hidden{display:none;}
+
+  /* ══════════════════════════════ */
+  /* DETAIL PAGE */
+  /* ══════════════════════════════ */
+  .detail-hero{
+    padding:80px 40px 60px;
+    position:relative;overflow:hidden;
+    border-bottom:1px solid var(--border);
+  }
+  .d-back-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:.65rem;letter-spacing:2px;text-transform:uppercase;
+    color:var(--muted);background:none;border:none;cursor:pointer;
+    font-family:'DM Sans',sans-serif;margin-bottom:40px;
+    transition:color .2s;padding:0;
+  }
+  .d-back-btn:hover{color:var(--white);}
+
+  .d-hero-layout{display:grid;grid-template-columns:1fr auto 1fr;align-items:flex-end;gap:32px;max-width:900px;}
+
+  .d-flag{font-size:1.8rem;margin-bottom:8px;display:block;}
+  .d-name{font-family:'Anton',sans-serif;font-size:clamp(2.8rem,7vw,6rem);letter-spacing:1px;line-height:.88;}
+  .d-nick{font-family:'Lora',serif;font-style:italic;font-size:.9rem;color:var(--muted);margin-top:8px;}
+  .d-vs{text-align:center;padding-bottom:8px;}
+  .d-vs-text{font-family:'Lora',serif;font-style:italic;font-size:.85rem;color:var(--muted);display:block;margin-bottom:4px;}
+  .d-vs-num{font-family:'Anton',sans-serif;font-size:1.2rem;letter-spacing:2px;color:var(--gold);}
+
+  .d-pills{display:flex;gap:8px;flex-wrap:wrap;margin-top:32px;padding-top:28px;border-top:1px solid var(--border);}
+  .d-pill{padding:6px 14px;border-radius:20px;border:1px solid var(--border);font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);}
+
+  /* DETAIL SECTIONS */
+  .dsec{padding:60px 40px;border-top:1px solid var(--border);}
+  .dsl{font-size:.6rem;letter-spacing:5px;text-transform:uppercase;color:var(--gold);display:block;margin-bottom:8px;}
+  .dst{font-family:'Lora',serif;font-size:clamp(1.6rem,3vw,2.4rem);color:var(--white);margin-bottom:36px;}
+  .dst em{font-style:italic;color:var(--muted);}
+
+  /* STATS SIDE BY SIDE */
+  .d-duo{display:grid;grid-template-columns:1fr 1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;margin-bottom:40px;}
+  .ddc{background:var(--card);padding:32px 28px;position:relative;}
+  .ddc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;}
+  .ddc .ddcn{font-family:'Anton',sans-serif;font-size:1.6rem;letter-spacing:1px;margin-bottom:4px;}
+  .ddc .ddck{font-family:'Lora',serif;font-style:italic;color:var(--muted);font-size:.82rem;margin-bottom:20px;}
+  .ddc-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;}
+  .dds{background:rgba(255,255,255,.04);border-radius:7px;padding:12px 8px;text-align:center;}
+  .dds .ddsv{font-family:'Anton',sans-serif;font-size:1.4rem;color:var(--white);display:block;line-height:1;}
+  .dds .ddsl{font-size:.55rem;letter-spacing:1.5px;text-transform:uppercase;color:var(--muted);display:block;margin-top:3px;}
+
+  /* TOGETHER NUMBERS */
+  .d-together{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:40px;}
+  .dtg{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:26px 16px;text-align:center;}
+  .dtg .dn{font-family:'Anton',sans-serif;font-size:2.4rem;color:var(--gold);display:block;line-height:1;}
+  .dtg .dd{font-size:.6rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);margin-top:8px;display:block;}
+
+  /* TROPHIES */
+  .d-trophies{display:flex;flex-direction:column;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:12px;overflow:hidden;}
+  .dtr{display:grid;grid-template-columns:48px 1fr 80px;align-items:center;gap:16px;padding:18px 24px;background:var(--card);transition:background .2s;}
+  .dtr:hover{background:#1F1F1F;}
+  .dtr-ico{font-size:1.4rem;text-align:center;}
+  .dtr-title{font-size:.88rem;font-weight:600;color:var(--white);margin-bottom:3px;}
+  .dtr-det{font-size:.75rem;color:var(--muted);line-height:1.5;}
+  .dtr-yr{font-family:'Anton',sans-serif;font-size:1.3rem;color:var(--muted);text-align:right;font-weight:300;}
+  .dtr-badge{display:inline-block;margin-top:5px;padding:2px 8px;border-radius:3px;font-size:.52rem;letter-spacing:1.5px;text-transform:uppercase;background:rgba(212,168,32,.1);border:1px solid rgba(212,168,32,.2);color:var(--gold);}
+
+  /* GALLERY */
+  .d-gallery-bg{background:#111;}
+  .g-tabs{display:flex;gap:6px;margin-bottom:28px;}
+  .gbt{padding:6px 18px;border-radius:6px;font-size:.65rem;letter-spacing:2px;text-transform:uppercase;border:1px solid var(--border);background:transparent;color:var(--muted);cursor:pointer;font-family:'DM Sans',sans-serif;transition:all .22s;}
+  .gbt.active{background:var(--virat);border-color:var(--virat);color:#fff;}
+  .gbt:hover:not(.active){border-color:rgba(255,255,255,.2);color:var(--white);}
+  .gpanel{display:none;}
+  .gpanel.active{display:block;}
+
+  .photo-grid{display:grid;grid-template-columns:repeat(4,1fr);grid-auto-rows:170px;gap:10px;}
+  .pslot{border-radius:8px;background:var(--card);border:1.5px dashed rgba(255,255,255,.1);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer;transition:border-color .22s;}
+  .pslot:hover{border-color:var(--gold);}
+  .pslot.tall{grid-row:span 2;}
+  .pslot.wide{grid-column:span 2;}
+  .pslot input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:3;width:100%;height:100%;}
+  .pslot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;border-radius:7px;transition:transform .4s;}
+  .pslot:hover img{transform:scale(1.04);}
+  .pov{position:absolute;inset:0;background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.65) 100%);z-index:2;opacity:0;transition:opacity .3s;border-radius:7px;}
+  .pslot:hover .pov{opacity:1;}
+  .sph{display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none;}
+  .sph .ico{font-size:1.3rem;opacity:.3;}
+  .sph .lbl{font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center;}
+  .ptag{position:absolute;top:8px;left:8px;background:rgba(212,16,44,.85);border-radius:3px;padding:2px 7px;font-size:.52rem;letter-spacing:1.5px;text-transform:uppercase;color:#fff;z-index:4;pointer-events:none;}
+  .pcap{position:absolute;bottom:9px;left:9px;right:9px;font-size:.65rem;color:#fff;z-index:3;opacity:0;transition:opacity .22s;pointer-events:none;}
+  .pslot:hover .pcap{opacity:1;}
+
+  .video-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;}
+  .vslot{border-radius:8px;background:var(--card);border:1.5px dashed rgba(255,255,255,.1);aspect-ratio:16/9;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;cursor:pointer;transition:border-color .22s;}
+  .vslot:hover{border-color:var(--gold);}
+  .vslot input[type="file"]{position:absolute;inset:0;opacity:0;cursor:pointer;z-index:3;width:100%;height:100%;}
+  .vslot video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:1;}
+  .vph{display:flex;flex-direction:column;align-items:center;gap:7px;pointer-events:none;}
+  .vplay{width:44px;height:44px;border-radius:50%;border:1.5px solid rgba(255,255,255,.18);display:flex;align-items:center;justify-content:center;font-size:.95rem;color:var(--muted);}
+  .vlbl{font-size:.56rem;letter-spacing:2px;text-transform:uppercase;color:var(--muted);text-align:center;}
+  .vtag{position:absolute;top:8px;left:8px;background:rgba(212,16,44,.85);border-radius:3px;padding:2px 7px;font-size:.52rem;letter-spacing:1.5px;text-transform:uppercase;color:#fff;z-index:4;pointer-events:none;}
+  .vmeta{position:absolute;bottom:0;left:0;right:0;padding:10px 12px;background:linear-gradient(0deg,rgba(0,0,0,.8),transparent);z-index:4;display:none;pointer-events:none;}
+  .vslot.loaded .vmeta{display:block;}
+  .vmeta .vt{font-size:.7rem;font-weight:600;color:#fff;}
+  .vmeta .vd{font-size:.56rem;color:rgba(255,255,255,.5);margin-top:2px;}
+
+  /* MOMENTS */
+  .d-moments{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;}
+  .dmcard{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:26px 22px;transition:border-color .22s,transform .3s;}
+  .dmcard:hover{border-color:rgba(212,168,32,.25);transform:translateY(-3px);}
+  .dmcard .myr{font-family:'Anton',sans-serif;font-size:2.2rem;color:rgba(255,255,255,.05);line-height:1;margin-bottom:8px;}
+  .dmcard .mt{font-size:.86rem;font-weight:600;color:var(--white);margin-bottom:6px;}
+  .dmcard .mb{font-size:.78rem;color:var(--muted);line-height:1.6;}
+  .dmcard .mtag{display:inline-block;margin-top:10px;padding:3px 9px;border-radius:3px;font-size:.52rem;letter-spacing:1.5px;text-transform:uppercase;background:rgba(212,168,32,.1);border:1px solid rgba(212,168,32,.2);color:var(--gold);}
+
+  /* QUOTE */
+  .d-quote{background:var(--surface);border-radius:12px;border:1px solid var(--border);padding:50px 40px;text-align:center;position:relative;overflow:hidden;}
+  .d-quote::before{content:'"';font-family:'Lora',serif;font-size:10rem;color:rgba(212,16,44,.06);position:absolute;top:-10px;left:16px;line-height:1;pointer-events:none;}
+  .dqt{font-family:'Lora',serif;font-style:italic;font-size:clamp(1.1rem,2.2vw,1.6rem);color:var(--white);line-height:1.7;max-width:640px;margin:0 auto 20px;position:relative;z-index:1;}
+  .dqa{font-size:.62rem;letter-spacing:3px;text-transform:uppercase;color:var(--muted);}
+  .dqa strong{color:var(--gold);}
+
+  /* LIGHTBOX */
+  .lb{position:fixed;inset:0;background:rgba(0,0,0,.94);z-index:1000;display:none;align-items:center;justify-content:center;}
+  .lb.open{display:flex;}
+  .lb img{max-width:88vw;max-height:86vh;border-radius:8px;object-fit:contain;}
+  .lbx{position:absolute;top:20px;right:24px;font-size:1.8rem;color:rgba(255,255,255,.4);cursor:pointer;background:none;border:none;transition:color .2s;}
+  .lbx:hover{color:#fff;}
+
+  /* ANIMATIONS */
+  @keyframes up{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+  @keyframes cardIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .reveal{opacity:0;transform:translateY(16px);transition:opacity .55s ease,transform .55s ease;}
+  .reveal.visible{opacity:1;transform:none;}
+
+  @media(max-width:800px){
+    .topnav,.filters-bar,.players-grid,.hub-hero,.dsec{padding-left:20px;padding-right:20px;}
+    .players-grid{grid-template-columns:1fr;}
+    .d-hero-layout{grid-template-columns:1fr;gap:20px;}
+    .d-vs{display:none;}
+    .d-duo,.d-together{grid-template-columns:repeat(2,1fr);}
+    .d-moments{grid-template-columns:1fr;}
+    .photo-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:140px;}
+    .video-grid{grid-template-columns:repeat(2,1fr);}
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <a class="topnav-back" href="#">← Virat Kohli</a>
+  <div class="topnav-brand">VIRAT <span>KOHLI</span> · RELATIONSHIPS</div>
+  <div style="width:100px"></div>
+</nav>
+
+<!-- ══════════ HUB VIEW ══════════ -->
+<div class="view active" id="view-hub">
+
+  <section class="hub-hero">
+    <span class="hub-eyebrow">Virat Kohli · Cricket's Greatest Bonds</span>
+    <h1 class="hub-title">THE <span class="vname">KING'S</span><br>BROTHERHOOD</h1>
+    <p class="hub-sub">Click any player to explore their relationship with Virat</p>
+  </section>
+
+  <div class="filters-bar">
+    <span class="filter-label">Filter by</span>
+    <button class="filter-btn active" onclick="filterCards('all',this)">All</button>
+    <button class="filter-btn" onclick="filterCards('india',this)">🇮🇳 India Team</button>
+    <button class="filter-btn" onclick="filterCards('rcb',this)">RCB</button>
+    <button class="filter-btn" onclick="filterCards('legend',this)">Legends</button>
+    <button class="filter-btn" onclick="filterCards('current',this)">Current Era</button>
+  </div>
+
+  <div class="players-grid" id="players-grid">
+
+    <!-- DHONI -->
+    <div class="player-card" data-color="dhoni" data-player="dhoni" data-tags="india legend" onclick="openDetail('dhoni')" style="animation-delay:.05s">
+      <span class="pc-tag" style="background:rgba(255,215,0,.12);color:#c8a800;border:1px solid rgba(255,215,0,.25);">Captain's Bond</span>
+      <div class="pc-avatar" style="background:rgba(255,215,0,.1);color:#c8a800;">MSD</div>
+      <div class="pc-name">MS DHONI</div>
+      <div class="pc-role">Wicketkeeper-Batsman · CSK · India Captain</div>
+      <div class="pc-bond">The captain who believed in Virat before the world did. Under Dhoni, Virat grew from a talented youngster into India's batting spine. Mentor, captain, brother.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">World Cups</span><span class="pc-chip">Mentor</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- KL RAHUL -->
+    <div class="player-card" data-color="rahul" data-player="rahul" data-tags="india current" onclick="openDetail('rahul')" style="animation-delay:.1s">
+      <span class="pc-tag" style="background:rgba(74,144,226,.12);color:#3a80c8;border:1px solid rgba(74,144,226,.25);">Road Trip Partners</span>
+      <div class="pc-avatar" style="background:rgba(74,144,226,.1);color:#3a80c8;">KLR</div>
+      <div class="pc-name">KL RAHUL</div>
+      <div class="pc-role">Opener · Wicketkeeper · LSG Captain</div>
+      <div class="pc-bond">Close friends off the field — Virat was among the first to celebrate KL's big moments. A modern-era friendship built on shared dressing-room dreams and mutual admiration.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">Close Friends</span><span class="pc-chip">T20</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- JADEJA -->
+    <div class="player-card" data-color="jadeja" data-player="jadeja" data-tags="india current" onclick="openDetail('jadeja')" style="animation-delay:.15s">
+      <span class="pc-tag" style="background:rgba(46,204,113,.12);color:#1a9e5e;border:1px solid rgba(46,204,113,.25);">Trusted Allrounder</span>
+      <div class="pc-avatar" style="background:rgba(46,204,113,.1);color:#1a9e5e;">RJ</div>
+      <div class="pc-name">RAVINDRA JADEJA</div>
+      <div class="pc-role">All-Rounder · Fielder · CSK</div>
+      <div class="pc-bond">Virat has consistently championed Jadeja as the world's best allrounder. Their shared intensity — Jadeja in the field, Virat with the bat — made India unbeatable at home.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">Tests</span><span class="pc-chip">Teammates</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- RAINA -->
+    <div class="player-card" data-color="raina" data-player="raina" data-tags="india legend" onclick="openDetail('raina')" style="animation-delay:.2s">
+      <span class="pc-tag" style="background:rgba(255,107,53,.12);color:#cc4e14;border:1px solid rgba(255,107,53,.25);">Mr. IPL & King</span>
+      <div class="pc-avatar" style="background:rgba(255,107,53,.1);color:#cc4e14;">SR</div>
+      <div class="pc-name">SURESH RAINA</div>
+      <div class="pc-role">Left-Hand Bat · Retired · CSK Legend</div>
+      <div class="pc-bond">Virat's closest friend in the Indian dressing room for years. They retired from T20Is the same year. Brothers beyond cricket — from nets to life.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">Best Friends</span><span class="pc-chip">IPL</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- BUMRAH -->
+    <div class="player-card" data-color="bumrah" data-player="bumrah" data-tags="india current" onclick="openDetail('bumrah')" style="animation-delay:.25s">
+      <span class="pc-tag" style="background:rgba(155,89,182,.12);color:#8e44ad;border:1px solid rgba(155,89,182,.25);">Bat & Ball Leaders</span>
+      <div class="pc-avatar" style="background:rgba(155,89,182,.1);color:#8e44ad;">JB</div>
+      <div class="pc-name">JASPRIT BUMRAH</div>
+      <div class="pc-role">Fast Bowler · MI · India Vice-Captain</div>
+      <div class="pc-bond">Two generational talents who led India's attack on both sides of the ball. Virat has called Bumrah India's most valuable player. A quiet but deep mutual respect.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">Tests</span><span class="pc-chip">WC 2024</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- FAF -->
+    <div class="player-card" data-color="faf" data-player="faf" data-tags="rcb" onclick="openDetail('faf')" style="animation-delay:.3s">
+      <span class="pc-tag" style="background:rgba(26,188,156,.12);color:#0f8c72;border:1px solid rgba(26,188,156,.25);">RCB Partners</span>
+      <div class="pc-avatar" style="background:rgba(26,188,156,.1);color:#0f8c72;">FAF</div>
+      <div class="pc-name">FAF DU PLESSIS</div>
+      <div class="pc-role">Opener · RCB Captain · South Africa</div>
+      <div class="pc-bond">Faf took the RCB captaincy when Virat stepped down, and the two formed one of IPL's most reliable opening partnerships. Trust handed between gentlemen of the game.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">RCB</span><span class="pc-chip">Opening Pair</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- TENDULKAR -->
+    <div class="player-card" data-color="tendulkar" data-player="tendulkar" data-tags="india legend" onclick="openDetail('tendulkar')" style="animation-delay:.35s">
+      <span class="pc-tag" style="background:rgba(231,76,60,.12);color:#a93226;border:1px solid rgba(231,76,60,.25);">God & His Successor</span>
+      <div class="pc-avatar" style="background:rgba(231,76,60,.1);color:#a93226;">ST</div>
+      <div class="pc-name">SACHIN TENDULKAR</div>
+      <div class="pc-role">The God of Cricket · Legend · Mumbai</div>
+      <div class="pc-bond">The idol who became a colleague. Virat grew up worshipping Sachin, then shared a dressing room with him, eventually breaking Sachin's ODI century record. Torch passed.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">Idol & Successor</span><span class="pc-chip">Records</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- RISHABH PANT -->
+    <div class="player-card" data-color="pant" data-player="pant" data-tags="india current" onclick="openDetail('pant')" style="animation-delay:.4s">
+      <span class="pc-tag" style="background:rgba(52,152,219,.12);color:#1a6fa8;border:1px solid rgba(52,152,219,.25);">Mentor & Protégé</span>
+      <div class="pc-avatar" style="background:rgba(52,152,219,.1);color:#1a6fa8;">RP</div>
+      <div class="pc-name">RISHABH PANT</div>
+      <div class="pc-role">Wicketkeeper-Batsman · DC Captain</div>
+      <div class="pc-bond">Virat has been one of Pant's biggest champions — vocal in his support during the lean patches, overjoyed at his comeback from a life-threatening accident. A big-brother bond.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">Big Brother</span><span class="pc-chip">Tests</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- YUVRAJ -->
+    <div class="player-card" data-color="yuvi" data-player="yuvi" data-tags="india legend" onclick="openDetail('yuvi')" style="animation-delay:.45s">
+      <span class="pc-tag" style="background:rgba(243,156,18,.12);color:#b7770d;border:1px solid rgba(243,156,18,.25);">Champions Together</span>
+      <div class="pc-avatar" style="background:rgba(243,156,18,.1);color:#b7770d;">YS</div>
+      <div class="pc-name">YUVRAJ SINGH</div>
+      <div class="pc-role">Left-Hand Bat · Legend · India</div>
+      <div class="pc-bond">Yuvraj inspired a young Virat. They shared the 2011 World Cup-winning dressing room. Virat's emotional tribute after Yuvi's retirement showed the depth of their brotherhood.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">WC 2011</span><span class="pc-chip">Legend</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- DHAWAN -->
+    <div class="player-card" data-color="dhawan" data-player="dhawan" data-tags="india legend" onclick="openDetail('dhawan')" style="animation-delay:.5s">
+      <span class="pc-tag" style="background:rgba(233,30,99,.12);color:#a81048;border:1px solid rgba(233,30,99,.25);">Gabbar & The King</span>
+      <div class="pc-avatar" style="background:rgba(233,30,99,.1);color:#a81048;">SD</div>
+      <div class="pc-name">SHIKHAR DHAWAN</div>
+      <div class="pc-role">Left-Hand Opener · Retired · India</div>
+      <div class="pc-bond">Virat and Dhawan formed one of India's most celebrated top-order partnerships for nearly a decade. "Gabbar" and The King — contrasting styles, shared trophies, lifelong friends.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">ODI Pair</span><span class="pc-chip">Champions Trophy</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- ROHIT -->
+    <div class="player-card" data-color="rohit" data-player="rohit" data-tags="india current legend" onclick="openDetail('rohit')" style="animation-delay:.55s">
+      <span class="pc-tag" style="background:rgba(61,190,122,.12);color:#1a9e5e;border:1px solid rgba(61,190,122,.25);">The Brotherhood</span>
+      <div class="pc-avatar" style="background:rgba(61,190,122,.1);color:#1a9e5e;">RS</div>
+      <div class="pc-name">ROHIT SHARMA</div>
+      <div class="pc-role">Opener · India Captain · MI Captain</div>
+      <div class="pc-bond">17 years. 250+ matches. 4 ICC trophies. Rohit and Virat carried India on their shoulders for nearly two decades, retiring from T20Is the same night after winning the 2024 World Cup.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">17 Years</span><span class="pc-chip">T20 WC 2024</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+    <!-- AB -->
+    <div class="player-card" data-color="ab" data-player="ab" data-tags="rcb legend" onclick="openDetail('ab')" style="animation-delay:.6s">
+      <span class="pc-tag" style="background:rgba(212,168,32,.12);color:#9e7a0f;border:1px solid rgba(212,168,32,.25);">RCB Brotherhood</span>
+      <div class="pc-avatar" style="background:rgba(212,168,32,.1);color:#9e7a0f;">AB</div>
+      <div class="pc-name">AB DE VILLIERS</div>
+      <div class="pc-role">Mr. 360 · RCB Legend · South Africa</div>
+      <div class="pc-bond">AB stayed in IPL after international retirement — specifically because of Virat and RCB. Their 2016 season is the greatest IPL batting partnership ever. Brothers for life.</div>
+      <div class="pc-footer">
+        <div class="pc-tags"><span class="pc-chip">RCB</span><span class="pc-chip">IPL Records</span></div>
+        <div class="pc-arrow">→</div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- ══════════ DETAIL VIEW ══════════ -->
+<div class="view" id="view-detail">
+  <div id="detail-content"></div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb" onclick="closeLb()">
+  <button class="lbx">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+// ── DATA ──
+const PLAYERS = {
+  dhoni:{
+    name:'MS DHONI',nick:'"Captain Cool" · The Finisher',flag:'🇮🇳',color:'#FFD700',colorLight:'rgba(255,215,0,0.12)',
+    role:'Wicketkeeper-Batsman · CSK Captain',
+    pills:['India Teammates','Mentor & Student','World Cups','IPL','Test Cricket'],
+    vsLabel:'Mentor to Captain',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['30','Test 100s'],['93.17','ODI SR']]},
+    otherStats:{label:'MS DHONI',nick:'Captain Cool · #7',num:'7',bg:'rgba(255,215,0,0.12)',col:'#c8a800',
+      stats:[['10,773','ODI Runs'],['10','ODI 50s'],['50.57','ODI Avg'],['16','Test 50s'],['4','ICC Titles'],['1','WC Wins']]},
+    together:[{n:'200+',d:'Matches Together'},{n:'13',d:'Years as Teammates'},{n:'4',d:'ICC Trophies Together'},{n:'2011',d:'World Cup Year'}],
+    trophies:[
+      {ico:'🏆',yr:'2011',title:'ODI World Cup',det:'India won the World Cup at home. Dhoni finished it with a six — Virat\'s emotional scenes in the dressing room showed how much it meant.',badge:'Champions'},
+      {ico:'🏆',yr:'2013',title:'ICC Champions Trophy',det:'India retained the Champions Trophy in England under Dhoni\'s captaincy with Virat as a key run-scorer throughout.',badge:'Back-to-Back'},
+      {ico:'🏆',yr:'2007',title:'T20 World Cup',det:'Dhoni led India to the inaugural T20 WC triumph — a young Virat was part of the squad, learning from his future captain.',badge:'First T20 WC'},
+      {ico:'🥈',yr:'2023',title:'ODI WC Final',det:'As senior players under Rohit\'s captaincy, both contributed to India reaching the final. The heartbreak united them.',badge:'Runner-Up'},
+    ],
+    moments:[
+      {yr:'2008',title:'Dhoni Bets on Young Virat',body:'Dhoni as captain consistently backed Virat even when critics doubted him. His trust shaped one of cricket\'s greatest careers.',tag:'Mentorship'},
+      {yr:'2011',title:'World Cup Victory',body:'India won at home. Dhoni\'s unbeaten 91 finished it — Virat was among the first to rush to him. Teammates turned brothers.',tag:'Historic'},
+      {yr:'2016',title:'Captain to Captain',body:'Dhoni passed the Test captaincy to Kohli in 2014. The student became the captain. Dhoni supported him from behind the stumps.',tag:'Leadership Transfer'},
+    ],
+    quote:{text:'Virat has that X-factor. He is the kind of player who makes things happen. I always backed him because I knew he would always give his 100 per cent.',attr:'MS Dhoni on Virat Kohli'},
+    gallery:['India Debut','2011 World Cup','ICC Final','Dressing Room','Training Together','Trophy Lift']
+  },
+  rahul:{
+    name:'KL RAHUL',nick:'"KL" · The Stylish Opener',flag:'🇮🇳',color:'#4A90E2',colorLight:'rgba(74,144,226,0.12)',
+    role:'Opener · Wicketkeeper · LSG Captain',
+    pills:['Close Friends','India Teammates','T20I','ODI','IPL'],
+    vsLabel:'Off-field Brothers',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['4,188','T20I Runs'],['93.17','ODI SR']]},
+    otherStats:{label:'KL RAHUL',nick:'The Stylist · #1',num:'1',bg:'rgba(74,144,226,0.12)',col:'#3a80c8',
+      stats:[['6,000+','Intl. Runs'],['5','ODI 100s'],['45.97','ODI Avg'],['2,265','T20I Runs'],['7','IPL 100s'],['136.0','T20I SR']]},
+    together:[{n:'100+',d:'Matches Together'},{n:'8',d:'Years as Teammates'},{n:'2',d:'WC Campaigns'},{n:'∞',d:'Off-field bond'}],
+    trophies:[
+      {ico:'🏆',yr:'2024',title:'T20 World Cup',det:'Both part of India\'s T20 WC winning squad in the West Indies. Rahul played crucial innings in the tournament.',badge:'Champions'},
+      {ico:'🥈',yr:'2023',title:'ODI WC Final',det:'Both played key roles in India\'s WC campaign. India were unbeaten in the group stage but fell in the final to Australia.',badge:'Runner-Up'},
+    ],
+    moments:[
+      {yr:'2016',title:'Rohit & Virat Back KL',body:'During KL\'s lean patches, Virat was vocal in backing him. His public support helped KL regain confidence and form.',tag:'Friendship'},
+      {yr:'2021',title:'KL\'s IPL Captaincy',body:'Virat congratulated KL warmly when he took LSG\'s captaincy. The mutual respect between the two was evident.',tag:'Mutual Respect'},
+      {yr:'2024',title:'T20 WC Together',body:'Both celebrated India\'s T20 WC triumph. Virat\'s emotional night ended with his closest friends celebrating around him.',tag:'World Cup'},
+    ],
+    quote:{text:'Virat bhai has always been someone who I look up to, on and off the field. His passion and dedication is something I\'ve tried to take into my own game.',attr:'KL Rahul on Virat Kohli'},
+    gallery:['India Debut','Training Together','IPL Match','WC 2024','Dressing Room','Off-field']
+  },
+  jadeja:{
+    name:'RAVINDRA JADEJA',nick:'"Sir Jadeja" · The Allrounder',flag:'🇮🇳',color:'#2ECC71',colorLight:'rgba(46,204,113,0.12)',
+    role:'All-Rounder · Left-Arm Spin · CSK',
+    pills:['India Teammates','Test Cricket','ODI','T20 WC 2024','Fielding Legends'],
+    vsLabel:'Bat, Ball & Field',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['30','Test 100s'],['93.17','ODI SR']]},
+    otherStats:{label:'RAVINDRA JADEJA',nick:'Sir Jadeja',num:'8',bg:'rgba(46,204,113,0.12)',col:'#1a9e5e',
+      stats:[['2,600+','Test Runs'],['254','Test Wkts'],['36.11','Test Avg'],['51.5','Bowl Avg'],['5','/36 Best'],['Lvl4','ICC Ranking']]},
+    together:[{n:'100+',d:'Tests Together'},{n:'10+',d:'Years as Teammates'},{n:'2',d:'WC Wins Together'},{n:'#1',d:'India\'s Fielding Pair'}],
+    trophies:[
+      {ico:'🏆',yr:'2024',title:'T20 World Cup',det:'Jadeja played a key role with both bat and ball. Virat celebrated Jadeja\'s wickets like his own hundreds.',badge:'Champions'},
+      {ico:'🥈',yr:'2023',title:'ODI WC Final',det:'Both gave their all in India\'s unbeaten WC campaign. The final loss was heartbreaking for teammates who shared everything.',badge:'Runner-Up'},
+    ],
+    moments:[
+      {yr:'2013',title:'Virat Calls Jadeja World\'s Best',body:'Kohli publicly declared Jadeja the best allrounder in the world across all formats — long before the wider world agreed.',tag:'Public Backing'},
+      {yr:'2021',title:'The Headingley Rescue',body:'Jadeja and Virat\'s epic partnership in the 2021 Test at Lord\'s — 222 runs — is one of the greatest Test partnerships India has produced.',tag:'Test Masterclass'},
+      {yr:'2024',title:'WC Triumph Together',body:'Jadeja\'s crucial spell and Virat\'s batting were both central to India\'s T20 WC win. Teammates at their peak, together.',tag:'World Cup'},
+    ],
+    quote:{text:'Jadeja is the best allrounder in the world. He makes the team balance perfect and he delivers every single time. I am lucky to have played with him.',attr:'Virat Kohli on Ravindra Jadeja'},
+    gallery:['Lord\'s Test 2021','India Training','Field Together','T20 WC 2024','Test Match','CSK vs RCB']
+  },
+  raina:{
+    name:'SURESH RAINA',nick:'"Chinna Thala" · Mr. IPL',flag:'🇮🇳',color:'#FF6B35',colorLight:'rgba(255,107,53,0.12)',
+    role:'Left-Hand Bat · Retired · CSK Legend',
+    pills:['Best Friends','India Teammates','IPL','WC 2011','Retired Together'],
+    vsLabel:'Brothers for Life',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['30','Test 100s'],['4,188','T20I Runs']]},
+    otherStats:{label:'SURESH RAINA',nick:'Mr. IPL · #3',num:'3',bg:'rgba(255,107,53,0.12)',col:'#cc4e14',
+      stats:[['5,615','ODI Runs'],['7,000+','IPL Runs'],['5','IPL 100s'],['39.87','ODI Avg'],['51','IPL 50s'],['5','IPL Titles']]},
+    together:[{n:'200+',d:'India Matches Together'},{n:'12+',d:'Years as Teammates'},{n:'1',d:'WC Together'},{n:'∞',d:'Friendship Beyond Cricket'}],
+    trophies:[
+      {ico:'🏆',yr:'2011',title:'ODI World Cup',det:'Both celebrated India\'s historic World Cup win at Wankhede. They were inseparable in the changing room that night.',badge:'Champions'},
+      {ico:'🏆',yr:'2013',title:'Champions Trophy',det:'India won the CT in England. Raina and Virat were both key contributors in India\'s batting lineup throughout.',badge:'Champions'},
+    ],
+    moments:[
+      {yr:'2011',title:'World Cup Brotherhood',body:'Raina and Virat celebrated the 2011 WC win together — one of the most emotional nights in both their lives.',tag:'Historic'},
+      {yr:'2020',title:'Retired the Same Night',body:'On August 15, 2020, both Dhoni AND Raina retired from international cricket. Virat\'s tribute to Raina moved the cricket world.',tag:'Emotional Farewell'},
+      {yr:'2021',title:'Virat\'s Emotional Post',body:'When Raina officially announced retirement, Virat posted: "One of my closest friends in cricket. You changed the game for us." The friendship was real.',tag:'Lifelong Bond'},
+    ],
+    quote:{text:'Virat is not just a teammate — he is one of my closest friends. We have shared so many dressing rooms, so many wins and losses. He is like a brother.',attr:'Suresh Raina on Virat Kohli'},
+    gallery:['WC 2011 Party','India Training','CT 2013','IPL Match','Post-match','Retirement Day']
+  },
+  bumrah:{
+    name:'JASPRIT BUMRAH',nick:'"Boom Boom" · The Weapon',flag:'🇮🇳',color:'#9B59B6',colorLight:'rgba(155,89,182,0.12)',
+    role:'Fast Bowler · MI · India Vice-Captain',
+    pills:['India Teammates','Tests','T20 WC 2024','Bat & Ball Leaders','Modern Era'],
+    vsLabel:'Attack & Defence',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['30','Test 100s'],['93.17','ODI SR']]},
+    otherStats:{label:'JASPRIT BUMRAH',nick:'The Weapon · #93',num:'93',bg:'rgba(155,89,182,0.12)',col:'#8e44ad',
+      stats:[['150+','Intl. Wickets'],['24.54','Test Avg'],['20.66','Bowl Avg'],['6/27','Best ODI'],['5/10','Best T20I'],['#1','ICC Ranking']]},
+    together:[{n:'100+',d:'Matches Together'},{n:'7+',d:'Years as Teammates'},{n:'2024',d:'T20 WC Champions'},{n:'#1',d:'India\'s Best Duo'}],
+    trophies:[
+      {ico:'🏆',yr:'2024',title:'T20 World Cup',det:'Bumrah was player of the tournament. Virat scored 76 in the final. Together, India ended an 11-year ICC drought.',badge:'Champions'},
+      {ico:'🥈',yr:'2023',title:'ODI WC Final',det:'Bumrah took key wickets throughout the tournament as Virat smashed the record books. The final hurt, but set up 2024.',badge:'Runner-Up'},
+    ],
+    moments:[
+      {yr:'2018',title:'Virat Champions Bumrah',body:'Kohli has publicly called Bumrah India\'s most valuable player and irreplaceable. His backing elevated Bumrah\'s status early in his career.',tag:'Public Support'},
+      {yr:'2021',title:'World Test Championship',body:'In the WTC cycle, Bumrah and Virat were India\'s twin pillars. Their leadership on the pitch drove India\'s red-ball dominance.',tag:'Test Cricket'},
+      {yr:'2024',title:'Champions Together',body:'Bumrah won Player of the Tournament, Virat scored 76 in the final. They embraced on the pitch — India had finally won again.',tag:'T20 WC Final'},
+    ],
+    quote:{text:'Bumrah is simply the best bowler in the world. He makes the game look different with his skill and his mindset. India is lucky to have him.',attr:'Virat Kohli on Jasprit Bumrah'},
+    gallery:['Training Together','WC 2024','Test Match','IPL Battle','Pre-match Huddle','Victory Celebration']
+  },
+  faf:{
+    name:'FAF DU PLESSIS',nick:'"Faf" · The Opener',flag:'🇿🇦',color:'#1ABC9C',colorLight:'rgba(26,188,156,0.12)',
+    role:'Opener · RCB Captain · Former SA Captain',
+    pills:['RCB Teammates','IPL','Opening Partnership','South Africa'],
+    vsLabel:'The RCB Open',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['7,000+','IPL Runs'],['7','IPL 100s'],['37.25','IPL Avg'],['130.0','IPL SR'],['50+','IPL 50s'],['RCB','Team']]},
+    otherStats:{label:'FAF DU PLESSIS',nick:'The Opener · Captain',num:'17',bg:'rgba(26,188,156,0.12)',col:'#0f8c72',
+      stats:[['4,000+','IPL Runs'],['5','IPL 100s'],['35.85','IPL Avg'],['134.4','IPL SR'],['28','IPL 50s'],['RCB','Captain']]},
+    together:[{n:'3+',d:'IPL Seasons at RCB'},{n:'50+',d:'Matches Together'},{n:'1,000+',d:'Partnership Runs'},{n:'RCB',d:'Shared Home'}],
+    trophies:[
+      {ico:'🤝',yr:'2022',title:'RCB Playoffs',det:'Faf took the captaincy and with Virat opened the batting. RCB reached the playoffs with their partnership a key weapon.',badge:'Partners'},
+      {ico:'🤝',yr:'2023',title:'RCB Campaign',det:'Faf and Virat continued their partnership at the top. Their opening stands were often the foundation for RCB victories.',badge:'RCB'},
+    ],
+    moments:[
+      {yr:'2022',title:'Virat Hands Over Captaincy',body:'After stepping down as RCB captain, Virat embraced Faf\'s leadership — opening the batting for him rather than captaining. A graceful handover.',tag:'Leadership'},
+      {yr:'2022',title:'Opening Partnership Begins',body:'Faf and Virat as an opening pair was an immediate hit. Their contrasting styles — Faf powerful, Virat precise — made RCB\'s top-order formidable.',tag:'Partnership'},
+      {yr:'2023',title:'Mutual Respect',body:'Faf has spoken glowingly about Virat\'s presence in the team. Two leaders who respect each other deeply, sharing one dressing room.',tag:'Respect'},
+    ],
+    quote:{text:'Batting with Virat at RCB has been one of the great privileges of my career. He sets such high standards — it makes everyone around him better.',attr:'Faf du Plessis on Virat Kohli'},
+    gallery:['Opening Together','RCB Dressing Room','Partnership Runs','Pre-match','Faf\'s Captaincy','RCB Training']
+  },
+  tendulkar:{
+    name:'SACHIN TENDULKAR',nick:'"The God of Cricket" · Master Blaster',flag:'🇮🇳',color:'#E74C3C',colorLight:'rgba(231,76,60,0.12)',
+    role:'The God of Cricket · Legend · Mumbai',
+    pills:['Idol & Successor','Record Breaker','World Cup 2011','Legends of India'],
+    vsLabel:'God & The King',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['Broke','Sachin\'s Record'],['2023','Record Year']]},
+    otherStats:{label:'SACHIN TENDULKAR',nick:'The God · #10',num:'10',bg:'rgba(231,76,60,0.12)',col:'#a93226',
+      stats:[['18,426','ODI Runs'],['100','Intl. 100s'],['44.83','ODI Avg'],['15,921','Test Runs'],['51','Test 100s'],['24','WC Yrs']]},
+    together:[{n:'2',d:'Years as Teammates'},{n:'2011',d:'WC Won Together'},{n:'50',d:'ODI 100s — Virat broke Sachin\'s record'},{n:'∞',d:'Idol to Colleague'}],
+    trophies:[
+      {ico:'🏆',yr:'2011',title:'ODI World Cup',det:'Both part of the squad that won the WC at home. Sachin\'s last WC — Virat carried him on his shoulders during celebrations.',badge:'Historic'},
+      {ico:'📜',yr:'2023',title:'ODI Century Record Broken',det:'Virat broke Sachin\'s ODI century record during the 2023 WC in India. Sachin tweeted warmly — passing the crown to his successor.',badge:'Record Broken'},
+    ],
+    moments:[
+      {yr:'2011',title:'Carrying Sachin on His Shoulders',body:'After the World Cup win, Virat carried Sachin around the ground on his shoulders. "We all carried Sachin\'s dream for 21 years," Virat said.',tag:'The Moment'},
+      {yr:'2013',title:'Sachin\'s Farewell Test',body:'When Sachin retired after his 200th Test, Virat delivered one of cricket\'s most emotional tributes. The torch was already being passed.',tag:'Farewell'},
+      {yr:'2023',title:'Record Broken — With Respect',body:'Virat broke Sachin\'s ODI century record and immediately paid tribute: "This is for Sachin paaji. Without him, there is no me."',tag:'Record Moment'},
+    ],
+    quote:{text:'Virat has taken Indian cricket to a completely different level. He is destined to break every record and I am delighted watching him do it.',attr:'Sachin Tendulkar on Virat Kohli'},
+    gallery:['2011 WC Celebration','Carrying Sachin','Sachin\'s Farewell','Record Broken 2023','IPL Together','Virat\'s Tribute']
+  },
+  pant:{
+    name:'RISHABH PANT',nick:'"Titu" · The Game Changer',flag:'🇮🇳',color:'#3498DB',colorLight:'rgba(52,152,219,0.12)',
+    role:'Wicketkeeper-Batsman · DC Captain',
+    pills:['Big Brother Bond','Test Cricket','T20 WC 2024','Comeback Story','India Teammates'],
+    vsLabel:'Brother & Mentor',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['30','Test 100s'],['93.17','ODI SR']]},
+    otherStats:{label:'RISHABH PANT',nick:'Titu · #17',num:'17',bg:'rgba(52,152,219,0.12)',col:'#1a6fa8',
+      stats:[['2,870','Test Runs'],['5','Test 100s'],['43.08','Test Avg'],['146.2','T20I SR'],['2022','Car Accident'],['2024','Comeback']],
+    },
+    together:[{n:'60+',d:'Matches Together'},{n:'5+',d:'Years as Teammates'},{n:'2024',d:'WC Win Together'},{n:'#1',d:'Virat\'s Public Backing'}],
+    trophies:[
+      {ico:'🏆',yr:'2024',title:'T20 World Cup',det:'Pant\'s remarkable comeback included a spot in the WC squad. Virat\'s vocal support throughout his recovery helped him return.',badge:'Comeback Champions'},
+      {ico:'🥈',yr:'2023',title:'ODI WC Final',det:'Both in India\'s WC squad. Pant\'s glovework and Virat\'s batting were central to India\'s unbeaten group-stage run.',badge:'Runner-Up'},
+    ],
+    moments:[
+      {yr:'2022',title:'Virat\'s Car Accident Support',body:'When Pant suffered a life-threatening car accident on Dec 30, 2022, Virat was among the first to reach out. His public support was immediate and emotional.',tag:'Brotherhood'},
+      {yr:'2023',title:'Virat Champions Pant\'s Comeback',body:'Throughout Pant\'s recovery, Virat repeatedly said India needed him back. His backing helped keep cricket\'s doors open for Pant.',tag:'Mentor'},
+      {yr:'2024',title:'WC Comeback Together',body:'Pant\'s fairytale return culminated in a T20 WC win. Virat was visibly overjoyed for his friend. The two embraced on the field.',tag:'Fairytale'},
+    ],
+    quote:{text:'Virat bhai\'s support means everything to me. When I was recovering, knowing he believed in me gave me a reason to fight harder every day.',attr:'Rishabh Pant on Virat Kohli'},
+    gallery:['India Debut','Hospital Recovery','Comeback Match','WC 2024','Test Together','Virat\'s Support']
+  },
+  yuvi:{
+    name:'YUVRAJ SINGH',nick:'"Yuvi" · The Champion Fighter',flag:'🇮🇳',color:'#F39C12',colorLight:'rgba(243,156,18,0.12)',
+    role:'Left-Hand Bat · Legend · India',
+    pills:['WC 2011','Champions Together','Legends','Big Brother Bond','T20 Pioneer'],
+    vsLabel:'Champions Together',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['30','Test 100s'],['4,188','T20I Runs']]},
+    otherStats:{label:'YUVRAJ SINGH',nick:'Yuvi · #12',num:'12',bg:'rgba(243,156,18,0.12)',col:'#b7770d',
+      stats:[['8,701','ODI Runs'],['14','ODI 100s'],['36.55','ODI Avg'],['1,177','T20I Runs'],['58','WC 2011 Runs'],['4','WC Wkts 2011']]},
+    together:[{n:'150+',d:'Matches Together'},{n:'8',d:'Years as Teammates'},{n:'2011',d:'World Cup Champions'},{n:'2019',d:'Yuvi Retired — Virat\'s Tribute'}],
+    trophies:[
+      {ico:'🏆',yr:'2011',title:'ODI World Cup',det:'Yuvraj was Player of the Tournament. Virat was part of the squad that celebrated India\'s greatest WC triumph. Yuvi was Virat\'s hero.',badge:'Yuvraj\'s Tournament'},
+      {ico:'🏆',yr:'2013',title:'Champions Trophy',det:'Both contributed to India\'s Champions Trophy win in England. Their partnership in the middle order was key.',badge:'Champions'},
+    ],
+    moments:[
+      {yr:'2011',title:'World Cup — Yuvi Inspires Young Virat',body:'Yuvraj\'s Player of the Tournament performance in the 2011 WC was the pinnacle. A young Virat was inspired watching him. Brothers in victory.',tag:'Inspiration'},
+      {yr:'2012',title:'Yuvi\'s Cancer Battle',body:'When Yuvraj fought cancer, the dressing room rallied around him. Virat\'s support during this time deepened their bond beyond cricket.',tag:'Brotherhood'},
+      {yr:'2019',title:'Virat\'s Emotional Tribute',body:'When Yuvraj retired, Virat posted: "You were the biggest match-winner I played with. You inspired a billion people." Tears from cricket fans worldwide.',tag:'Farewell'},
+    ],
+    quote:{text:'Virat is the most passionate cricketer I have ever seen. He gives everything, every single time. I am proud to call him my brother.',attr:'Yuvraj Singh on Virat Kohli'},
+    gallery:['WC 2011 Party','Training Together','CT 2013','Yuvi\'s Comeback','Post-match','Retirement Tribute']
+  },
+  dhawan:{
+    name:'SHIKHAR DHAWAN',nick:'"Gabbar" · The Swashbuckler',flag:'🇮🇳',color:'#E91E63',colorLight:'rgba(233,30,99,0.12)',
+    role:'Left-Hand Opener · Retired · India',
+    pills:['Opening Pair','Champions Trophy','ODI Partners','Friends Off-field','Gabbar & King'],
+    vsLabel:'Gabbar & The King',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['30','Test 100s'],['93.17','ODI SR']]},
+    otherStats:{label:'SHIKHAR DHAWAN',nick:'Gabbar · #42',num:'42',bg:'rgba(233,30,99,0.12)',col:'#a81048',
+      stats:[['6,793','ODI Runs'],['17','ODI 100s'],['44.11','ODI Avg'],['91.34','ODI SR'],['2','CT 100s'],['2013','CT Best']]},
+    together:[{n:'150+',d:'ODI Matches Together'},{n:'10+',d:'Years as Teammates'},{n:'2013',d:'Champions Trophy'},{n:'5,000+',d:'Partnership Runs'}],
+    trophies:[
+      {ico:'🏆',yr:'2013',title:'ICC Champions Trophy',det:'India won the CT under Dhoni in England. Dhawan won Player of the Tournament. Virat was key in the middle order.',badge:'Champions'},
+      {ico:'🏆',yr:'2011',title:'ODI World Cup',det:'Both part of India\'s WC-winning squad at home. The foundation of one of India\'s best top-order partnerships began here.',badge:'World Cup'},
+    ],
+    moments:[
+      {yr:'2013',title:'Dhawan & Virat: India\'s Top Order',body:'For nearly a decade, Dhawan at the top and Virat at No.3 were India\'s most reliable batting combination in ODIs.',tag:'Partnership'},
+      {yr:'2013',title:'Champions Trophy Triumph',body:'Dhawan\'s record-breaking tournament and Virat\'s runs in the middle powered India to the CT title. Post-match celebrations were legendary.',tag:'Champions'},
+      {yr:'2021',title:'Gabbar & The King — IPL',body:'Despite playing for different IPL teams, the friendship between Dhawan and Virat remained warm. Rivals on the field, brothers off it.',tag:'Friendship'},
+    ],
+    quote:{text:'Virat is extraordinary. We shared so many great partnerships and I always felt safe when he was at the other end. A great cricketer and an even better friend.',attr:'Shikhar Dhawan on Virat Kohli'},
+    gallery:['Opening Stand','CT 2013','World Cup 2011','IPL Rivals','Dressing Room','Post-match Fun']
+  },
+  rohit:{
+    name:'ROHIT SHARMA',nick:'"Hitman" · India\'s Captain',flag:'🇮🇳',color:'#3DBE7A',colorLight:'rgba(61,190,122,0.12)',
+    role:'Opener · India Captain · MI Captain',
+    pills:['17 Years Together','T20 WC 2024','Tests & ODIs','India\'s Greatest Duo','Retired T20I Same Night'],
+    vsLabel:'The Brotherhood',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['27K+','Intl. Runs'],['80','Intl. 100s'],['57.32','ODI Avg'],['50','ODI 100s'],['30','Test 100s'],['4,188','T20I Runs']]},
+    otherStats:{label:'ROHIT SHARMA',nick:'Hitman · #45',num:'45',bg:'rgba(61,190,122,0.12)',col:'#1a9e5e',
+      stats:[['16,000+','Intl. Runs'],['33','ODI 100s'],['48.96','ODI Avg'],['264','Highest ODI'],['5x','IPL Winner'],['3','ODI Double 100s']]},
+    together:[{n:'250+',d:'Matches Together'},{n:'17',d:'Years Side by Side'},{n:'4',d:'ICC Trophies'},{n:'40+',d:'Century Partnerships'}],
+    trophies:[
+      {ico:'🏆',yr:'2024',title:'T20 World Cup',det:'Rohit led, Virat scored 76 in the final. India\'s first ICC title in 11 years. Both retired from T20Is the same night.',badge:'Greatest Moment'},
+      {ico:'🏆',yr:'2013',title:'Champions Trophy',det:'Both key contributors as India won the CT in England under Dhoni.',badge:'Champions'},
+      {ico:'🏆',yr:'2011',title:'ODI World Cup',det:'Both part of the iconic World Cup-winning squad at home. The start of 17 years together.',badge:'Beginning'},
+      {ico:'🥈',yr:'2023',title:'ODI WC Final',det:'India unbeaten in groups — both at their peak. The heartbreak of the final fuelled 2024.',badge:'Runner-Up'},
+    ],
+    moments:[
+      {yr:'2011',title:'Beginning of 17 Years',body:'Young Rohit and Virat were both part of the 2011 WC squad. Neither knew they would carry India for the next 17 years.',tag:'The Start'},
+      {yr:'2016',title:'The Greatest ODI Duo',body:'With a combined 25,000+ ODI runs and 80+ centuries between them — Rohit and Virat became the greatest ODI batting pair of all time.',tag:'Records'},
+      {yr:'2024',title:'Same Night, Same Farewell',body:'June 29, 2024. India win the T20 WC. Both announce T20I retirement the same evening. The greatest ending to a shared era.',tag:'Historic Farewell'},
+    ],
+    quote:{text:'Rohit and I have shared so much. The losses, the wins, the pressure. He is my partner — in cricket and beyond. I am proud of everything we built together.',attr:'Virat Kohli on Rohit Sharma'},
+    gallery:['2024 T20 WC Final','17 Year Partnership','WC 2011','Together at Crease','Retirement Night','Trophy Lift']
+  },
+  ab:{
+    name:'AB DE VILLIERS',nick:'"Mr. 360" · The Impossible Man',flag:'🇿🇦',color:'#D4A820',colorLight:'rgba(212,168,32,0.12)',
+    role:'RCB Legend · Retired · South Africa',
+    pills:['RCB Brotherhood','IPL Records','2016 Season','Stayed for Virat','Best IPL Pair'],
+    vsLabel:'RCB Legends',
+    viratStats:{label:'VIRAT KOHLI',nick:'The King · #18',num:'18',bg:'rgba(212,16,44,0.12)',col:'#D4102C',
+      stats:[['7,000+','IPL Runs'],['7','IPL 100s'],['37.25','IPL Avg'],['130.0','IPL SR'],['973','Best Season'],['RCB','Home']]},
+    otherStats:{label:'AB DE VILLIERS',nick:'Mr.360 · #17',num:'17',bg:'rgba(212,168,32,0.12)',col:'#9e7a0f',
+      stats:[['5,162','IPL Runs'],['3','IPL 100s'],['34.73','IPL Avg'],['156.3','IPL SR'],['687','Best Season'],['RCB','Home']]},
+    together:[{n:'14',d:'Seasons at RCB Together'},{n:'229*',d:'Best Partnership (Unbroken)'},{n:'2016',d:'The Greatest Season'},{n:'∞',d:'Brotherhood for Life'}],
+    trophies:[
+      {ico:'⭐',yr:'2016',title:'Greatest IPL Season Ever',det:'Virat\'s 973 runs (world record) and AB\'s 687. RCB reached the final. The most dominant batting pair in IPL history.',badge:'World Record Season'},
+      {ico:'🤝',yr:'2018-21',title:'AB Stays for Virat',det:'After retiring from international cricket, AB stayed at RCB specifically because of Virat. Loyalty that cricket has rarely seen.',badge:'Brotherhood'},
+    ],
+    moments:[
+      {yr:'2015',title:'AB\'s 133* — Virat Watches in Awe',body:'AB hit 133* off 59 vs MI. Virat said it was the greatest innings he had ever seen in person. The crowd never sat down.',tag:'Greatest Innings'},
+      {yr:'2016',title:'229* Unbroken — The Peak',body:'Virat 109*, AB 129*. An unbroken partnership vs Gujarat Lions. Together they reached a peak no RCB duo has touched since.',tag:'Partnership Record'},
+      {yr:'2021',title:'AB\'s Final Season',body:'AB retired from all cricket in Nov 2021. Virat\'s tribute was deeply emotional: "Cricket will never be the same without you." They remain brothers.',tag:'End of an Era'},
+    ],
+    quote:{text:'Playing with Virat at RCB was one of the greatest joys of my career. Some partnerships feel like home — ours was exactly that. I stayed because of him.',attr:'AB de Villiers on Virat Kohli'},
+    gallery:['2016 RCB Season','229* Partnership','AB\'s 133*','RCB Dressing Room','AB\'s Farewell','IPL Final']
+  }
+};
+
+// ── FILTER ──
+function filterCards(tag,btn){
+  document.querySelectorAll('.filter-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.querySelectorAll('.player-card').forEach(card=>{
+    const tags = card.dataset.tags||'';
+    if(tag==='all'||tags.includes(tag)) card.classList.remove('hidden');
+    else card.classList.add('hidden');
+  });
+}
+
+// ── OPEN DETAIL ──
+function openDetail(key){
+  const p = PLAYERS[key];
+  if(!p) return;
+  const col = p.color;
+  const colL = p.colorLight;
+
+  // Build gallery slots
+  const gSlots = (p.gallery||[]).map((lbl,i)=>`
+    <div class="pslot${i===0?' tall':i===4?' wide':''}" >
+      <span class="ptag">${lbl}</span>
+      <input type="file" accept="image/*" onchange="loadImg(this)">
+      <div class="sph"><div class="ico">📸</div><div class="lbl">${lbl}<br>Upload Photo</div></div>
+      <div class="pov"></div>
+      <div class="pcap">📸 ${lbl}</div>
+    </div>`).join('');
+
+  const vSlots = (p.gallery||[]).map((lbl,i)=>`
+    <div class="vslot">
+      <span class="vtag">${lbl}</span>
+      <input type="file" accept="video/*" onchange="loadVid(this)">
+      <div class="vph"><div class="vplay">▶</div><div class="vlbl">${lbl}<br>Upload Video</div></div>
+      <div class="vmeta"><div class="vt">${lbl}</div><div class="vd">Uploaded</div></div>
+    </div>`).join('');
+
+  const trophyRows = (p.trophies||[]).map(t=>`
+    <div class="dtr">
+      <div class="dtr-ico">${t.ico}</div>
+      <div><div class="dtr-title">${t.title}</div><div class="dtr-det">${t.det} <span class="dtr-badge">${t.badge}</span></div></div>
+      <div class="dtr-yr">${t.yr}</div>
+    </div>`).join('');
+
+  const momentCards = (p.moments||[]).map(m=>`
+    <div class="dmcard">
+      <div class="myr">${m.yr}</div>
+      <div class="mt">${m.title}</div>
+      <div class="mb">${m.body}</div>
+      <span class="mtag">${m.tag}</span>
+    </div>`).join('');
+
+  const togetherCards = (p.together||[]).map(t=>`
+    <div class="dtg"><span class="dn">${t.n}</span><span class="dd">${t.d}</span></div>`).join('');
+
+  const viratStatBoxes = (p.viratStats.stats||[]).map(s=>`
+    <div class="dds"><span class="ddsv">${s[0]}</span><span class="ddsl">${s[1]}</span></div>`).join('');
+  const otherStatBoxes = (p.otherStats.stats||[]).map(s=>`
+    <div class="dds"><span class="ddsv">${s[0]}</span><span class="ddsl">${s[1]}</span></div>`).join('');
+
+  const pillsHtml = (p.pills||[]).map(pill=>`<span class="d-pill">${pill}</span>`).join('');
+
+  document.getElementById('detail-content').innerHTML = `
+    <section class="detail-hero">
+      <button class="d-back-btn" onclick="goHub()">← All Players</button>
+      <div class="d-hero-layout">
+        <div class="d-name-block">
+          <span class="d-flag">${p.flag}</span>
+          <div class="d-name" style="color:${col}">${p.name}</div>
+          <div class="d-nick">${p.nick}</div>
+        </div>
+        <div class="d-vs">
+          <span class="d-vs-text">vs</span>
+          <div class="d-vs-num">VIRAT<br>KOHLI</div>
+        </div>
+        <div class="d-name-block">
+          <span class="d-flag">🇮🇳</span>
+          <div class="d-name" style="color:var(--virat)">VIRAT KOHLI</div>
+          <div class="d-nick">"King Kohli" · The Chase Master</div>
+        </div>
+      </div>
+      <div class="d-pills">${pillsHtml}</div>
+    </section>
+
+    <section class="dsec">
+      <span class="dsl">The Players</span>
+      <h2 class="dst">Side by <em>Side</em></h2>
+      <div class="d-duo">
+        <div class="ddc" style="background:${colL}10;">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:${col}"></div>
+          <div class="dc-bg" style="color:${col};opacity:.06;">${p.otherStats.num}</div>
+          <div class="ddcn" style="color:${col}">${p.otherStats.label}</div>
+          <div class="ddck">${p.otherStats.nick}</div>
+          <div class="ddc-stats">${otherStatBoxes}</div>
+        </div>
+        <div class="ddc">
+          <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--virat)"></div>
+          <div class="dc-bg" style="color:var(--virat);opacity:.06;">18</div>
+          <div class="ddcn" style="color:var(--virat)">${p.viratStats.label}</div>
+          <div class="ddck">${p.viratStats.nick}</div>
+          <div class="ddc-stats">${viratStatBoxes}</div>
+        </div>
+      </div>
+
+      <span class="dsl">Together</span>
+      <h3 class="dst" style="font-size:1.4rem;margin-bottom:24px;">What They Built <em>Together</em></h3>
+      <div class="d-together">${togetherCards}</div>
+    </section>
+
+    <section class="dsec" style="background:#111;">
+      <span class="dsl">Achievements</span>
+      <h2 class="dst">Trophies & <em>Milestones</em></h2>
+      <div class="d-trophies">${trophyRows}</div>
+    </section>
+
+    <section class="dsec d-gallery-bg">
+      <span class="dsl">Gallery</span>
+      <h2 class="dst">Moments <em>Together</em></h2>
+      <p style="font-size:.72rem;letter-spacing:1.5px;color:var(--muted);margin-top:-32px;margin-bottom:24px;">Click any slot to upload a photo or video</p>
+      <div class="g-tabs">
+        <button class="gbt active" onclick="switchGallery('ph',this)">📸 Photos</button>
+        <button class="gbt" onclick="switchGallery('vi',this)">🎬 Videos</button>
+      </div>
+      <div class="gpanel active" id="gp-ph"><div class="photo-grid">${gSlots}</div></div>
+      <div class="gpanel" id="gp-vi"><div class="video-grid">${vSlots}</div></div>
+    </section>
+
+    <section class="dsec">
+      <span class="dsl">Defining Moments</span>
+      <h2 class="dst">Moments That <em>Define Their Bond</em></h2>
+      <div class="d-moments">${momentCards}</div>
+    </section>
+
+    <section class="dsec" style="background:#111;">
+      <div class="d-quote">
+        <div class="dqt">${p.quote.text}</div>
+        <div class="dqa"><strong>${p.quote.attr.split(' on ')[0]}</strong> on ${p.quote.attr.split(' on ')[1]||''}</div>
+      </div>
+    </section>
+  `;
+
+  document.getElementById('view-hub').classList.remove('active');
+  document.getElementById('view-detail').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+
+  setTimeout(()=>{
+    const obs = new IntersectionObserver(es=>{
+      es.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*50); obs.unobserve(e.target); } });
+    },{threshold:.07});
+    document.querySelectorAll('#view-detail .reveal').forEach(el=>obs.observe(el));
+  },100);
+}
+
+function goHub(){
+  document.getElementById('view-detail').classList.remove('active');
+  document.getElementById('view-hub').classList.add('active');
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+// ── GALLERY TABS ──
+function switchGallery(t,btn){
+  document.querySelectorAll('.gbt').forEach(b=>b.classList.remove('active'));
+  document.querySelectorAll('.gpanel').forEach(p=>p.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('gp-'+t).classList.add('active');
+}
+
+// ── UPLOADS ──
+function loadImg(input){
+  const slot=input.parentElement, file=input.files[0]; if(!file) return;
+  const url=URL.createObjectURL(file);
+  let img=slot.querySelector('img');
+  if(!img){ img=document.createElement('img'); slot.appendChild(img); }
+  img.src=url;
+  slot.querySelector('.sph').style.display='none';
+  slot.style.borderStyle='solid'; slot.style.borderColor='var(--gold)';
+  img.onclick=e=>{ e.stopPropagation(); openLb(url); };
+}
+function loadVid(input){
+  const slot=input.parentElement, file=input.files[0]; if(!file) return;
+  const url=URL.createObjectURL(file);
+  let vid=slot.querySelector('video');
+  if(!vid){ vid=document.createElement('video'); vid.controls=true; vid.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;'; slot.appendChild(vid); }
+  vid.src=url;
+  slot.querySelector('.vph').style.display='none';
+  slot.classList.add('loaded');
+  slot.style.borderStyle='solid'; slot.style.borderColor='var(--gold)';
+  const m=slot.querySelector('.vmeta');
+  if(m){ m.querySelector('.vt').textContent=file.name.replace(/\.[^.]+$/,''); m.querySelector('.vd').textContent=(file.size/1024/1024).toFixed(1)+' MB'; }
+}
+
+function openLb(src){ document.getElementById('lb-img').src=src; document.getElementById('lb').classList.add('open'); document.body.style.overflow='hidden'; }
+function closeLb(){ document.getElementById('lb').classList.remove('open'); document.body.style.overflow=''; }
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLb(); });
+
+// ── HUB SCROLL REVEAL ──
+const hubObs = new IntersectionObserver(es=>{
+  es.forEach((e,i)=>{ if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*50); hubObs.unobserve(e.target); } });
+},{threshold:.06});
+document.querySelectorAll('#view-hub .reveal').forEach(el=>hubObs.observe(el));
+</script>
+</body>
+</html>

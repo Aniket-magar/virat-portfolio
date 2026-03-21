@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Bond — Rohit & Virat</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400&family=Rajdhani:wght@300;400;600;700&family=Bebas+Neue&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --saffron: #FF6700;
+    --gold: #D4A017;
+    --cream: #F5EDD6;
+    --deep: #07070F;
+    --white: #FAFAFA;
+    --rohit: #3DBE7A;
+    --virat: #FF6B3D;
+    --card-bg: rgba(255,255,255,0.03);
+    --border: rgba(255,255,255,0.07);
+  }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html { scroll-behavior:smooth; }
+  body { background:var(--deep); color:var(--white); font-family:'Rajdhani',sans-serif; overflow-x:hidden; }
+
+  /* NAV */
+  nav {
+    position:fixed; top:0; left:0; right:0; z-index:200;
+    display:flex; align-items:center; justify-content:space-between;
+    padding:16px 36px;
+    background:rgba(7,7,15,0.88);
+    backdrop-filter:blur(16px);
+    border-bottom:1px solid rgba(255,255,255,0.05);
+  }
+  .nav-back {
+    display:inline-flex; align-items:center; gap:8px;
+    font-size:0.72rem; letter-spacing:3px; text-transform:uppercase;
+    color:rgba(255,255,255,0.45); text-decoration:none; transition:color .3s;
+  }
+  .nav-back:hover { color:var(--saffron); }
+  .nav-links { display:flex; gap:24px; list-style:none; }
+  .nav-links a { font-size:0.68rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,0.38); text-decoration:none; transition:color .3s; }
+  .nav-links a:hover { color:var(--gold); }
+
+  /* HERO */
+  .hero {
+    min-height:100vh; display:flex; flex-direction:column;
+    align-items:center; justify-content:center; padding-top:80px;
+    position:relative; overflow:hidden;
+    background:
+      radial-gradient(ellipse at 20% 60%, rgba(61,190,122,0.08) 0%, transparent 55%),
+      radial-gradient(ellipse at 80% 40%, rgba(255,107,61,0.08) 0%, transparent 55%),
+      linear-gradient(180deg,#07070F 0%,#0C0C1C 60%,#07070F 100%);
+  }
+  .hero-grid {
+    position:absolute; inset:0;
+    background-image: linear-gradient(rgba(255,255,255,0.016) 1px,transparent 1px), linear-gradient(90deg,rgba(255,255,255,0.016) 1px,transparent 1px);
+    background-size:80px 80px; pointer-events:none;
+  }
+  .hero-eyebrow { font-size:.68rem; letter-spacing:8px; text-transform:uppercase; color:var(--gold); opacity:0; animation:fadeUp .7s ease .2s forwards; margin-bottom:16px; }
+  .hero-title { font-family:'Bebas Neue',sans-serif; font-size:clamp(5rem,14vw,12rem); line-height:.88; text-align:center; letter-spacing:4px; opacity:0; animation:fadeUp .8s ease .4s forwards; position:relative; z-index:1; }
+  .hero-title .r { color:var(--rohit); }
+  .hero-title .connector { display:block; font-size:.3em; letter-spacing:24px; text-indent:24px; color:var(--gold); margin:4px 0; }
+  .hero-title .v { color:var(--virat); }
+  .hero-sub { font-family:'Playfair Display',serif; font-style:italic; font-size:clamp(.9rem,2vw,1.3rem); color:rgba(255,255,255,.5); margin-top:24px; opacity:0; animation:fadeUp .9s ease .6s forwards; text-align:center; }
+  .hero-stats { display:flex; gap:40px; margin-top:50px; opacity:0; animation:fadeUp 1s ease .8s forwards; }
+  .hs-item { text-align:center; }
+  .hs-item .n { font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:var(--white); display:block; line-height:1; }
+  .hs-item .l { font-size:.6rem; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,.32); display:block; margin-top:4px; }
+  .hs-div { width:1px; height:60px; background:linear-gradient(180deg,transparent,var(--gold),transparent); align-self:center; }
+
+  /* SECTION */
+  .section { padding:100px 40px; position:relative; }
+  .s-label { font-size:.65rem; letter-spacing:6px; text-transform:uppercase; color:var(--gold); text-align:center; margin-bottom:12px; display:block; }
+  .s-title { font-family:'Playfair Display',serif; font-size:clamp(2rem,4.5vw,3.2rem); text-align:center; font-weight:700; color:var(--white); margin-bottom:60px; }
+  .s-title em { font-style:italic; color:var(--gold); }
+
+  /* PLAYER SPLIT */
+  .player-split { display:grid; grid-template-columns:1fr 1fr; border-top:1px solid var(--border); }
+  .pc { padding:60px 48px; position:relative; overflow:hidden; }
+  .pc.rohit { background:linear-gradient(150deg,rgba(61,190,122,.06) 0%,transparent 60%); border-right:1px solid var(--border); }
+  .pc.virat { background:linear-gradient(210deg,rgba(255,107,61,.06) 0%,transparent 60%); }
+  .pc::after { content:''; position:absolute; top:0; left:0; right:0; height:2px; }
+  .pc.rohit::after { background:linear-gradient(90deg,var(--rohit),transparent); }
+  .pc.virat::after { background:linear-gradient(90deg,transparent,var(--virat)); }
+  .pc-bg-num { position:absolute; top:10px; right:20px; font-family:'Bebas Neue',sans-serif; font-size:9rem; opacity:.05; color:var(--white); line-height:1; pointer-events:none; }
+  .pc-role { font-size:.65rem; letter-spacing:4px; text-transform:uppercase; margin-bottom:8px; }
+  .pc.rohit .pc-role { color:var(--rohit); }
+  .pc.virat .pc-role { color:var(--virat); }
+  .pc-name { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,4.5vw,3.8rem); letter-spacing:3px; line-height:1; color:var(--white); }
+  .pc-aka { font-family:'Playfair Display',serif; font-style:italic; color:rgba(255,255,255,.35); font-size:.9rem; margin:6px 0 28px; }
+  .pc-stats { display:grid; grid-template-columns:repeat(3,1fr); gap:12px; }
+  .ps { background:rgba(255,255,255,.04); border:1px solid var(--border); border-radius:8px; padding:14px 10px; text-align:center; transition:border-color .3s,background .3s; }
+  .ps:hover { background:rgba(255,255,255,.07); border-color:rgba(255,255,255,.18); }
+  .ps .v { font-family:'Bebas Neue',sans-serif; font-size:1.9rem; display:block; line-height:1; color:var(--white); }
+  .ps .l { font-size:.6rem; letter-spacing:1px; text-transform:uppercase; color:rgba(255,255,255,.35); display:block; margin-top:3px; }
+
+  /* TOGETHER BIG */
+  .together-bg { background:radial-gradient(ellipse at 50% 0%,rgba(212,160,23,.07) 0%,transparent 60%),#07070F; }
+  .together-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1000px; margin:0 auto 60px; }
+  .tg { background:var(--card-bg); border:1px solid rgba(212,160,23,.14); border-radius:14px; padding:40px 24px 32px; text-align:center; position:relative; overflow:hidden; transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s; }
+  .tg:hover { transform:translateY(-6px); border-color:rgba(212,160,23,.4); }
+  .tg::before { content:''; position:absolute; bottom:0; left:0; right:0; height:2px; background:linear-gradient(90deg,var(--rohit),var(--gold),var(--virat)); opacity:.6; }
+  .tg-num { font-family:'Bebas Neue',sans-serif; font-size:3.8rem; color:var(--gold); line-height:1; display:block; }
+  .tg-desc { font-size:.68rem; letter-spacing:2.5px; text-transform:uppercase; color:rgba(255,255,255,.45); margin-top:8px; display:block; }
+  .tg-note { font-family:'Playfair Display',serif; font-style:italic; font-size:.8rem; color:rgba(255,255,255,.25); margin-top:6px; display:block; }
+
+  /* STATS COMPARISON */
+  .stats-bg { background:#050510; }
+  .format-tabs { display:flex; justify-content:center; gap:8px; margin-bottom:36px; }
+  .ftab { padding:9px 24px; border-radius:30px; font-size:.7rem; letter-spacing:2px; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:rgba(255,255,255,.4); cursor:pointer; transition:all .3s; font-family:'Rajdhani',sans-serif; }
+  .ftab.active { background:var(--gold); color:#000; border-color:var(--gold); font-weight:700; }
+  .ftab:hover:not(.active) { border-color:var(--gold); color:var(--gold); }
+  .stat-panel { display:none; max-width:860px; margin:0 auto; }
+  .stat-panel.active { display:block; }
+  .cmp-header { display:grid; grid-template-columns:1fr 180px 1fr; gap:16px; align-items:center; margin-bottom:14px; padding:0 12px; }
+  .cmp-header .ch { font-size:.65rem; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.3); }
+  .cmp-header .rh { color:var(--rohit); text-align:right; }
+  .cmp-header .vh { color:var(--virat); }
+  .cmp-header .mh { text-align:center; }
+  .cmp-row { display:grid; grid-template-columns:1fr 180px 1fr; gap:16px; align-items:center; padding:14px 12px; border-radius:8px; transition:background .2s; margin-bottom:6px; }
+  .cmp-row:hover { background:rgba(255,255,255,.03); }
+  .cmp-val { font-family:'Bebas Neue',sans-serif; font-size:1.8rem; line-height:1; }
+  .rv { color:var(--rohit); text-align:right; }
+  .vv { color:var(--virat); }
+  .cmp-mid { text-align:center; }
+  .cmp-sn { font-size:.62rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.4); display:block; }
+  .bar-wrap { display:flex; height:4px; border-radius:2px; overflow:hidden; margin-top:6px; }
+  .bar-r { background:var(--rohit); }
+  .bar-v { background:var(--virat); }
+
+  /* GALLERY */
+  .gallery-bg { background:#08080F; }
+  .gallery-tabs { display:flex; justify-content:center; gap:8px; margin-bottom:40px; }
+  .gtab { padding:9px 28px; border-radius:30px; font-size:.68rem; letter-spacing:2.5px; text-transform:uppercase; border:1px solid var(--border); background:transparent; color:rgba(255,255,255,.4); cursor:pointer; font-family:'Rajdhani',sans-serif; transition:all .3s; }
+  .gtab.active { background:rgba(255,255,255,.08); border-color:rgba(255,255,255,.2); color:var(--white); }
+  .gtab:hover:not(.active) { border-color:rgba(255,255,255,.15); color:rgba(255,255,255,.7); }
+  .gallery-panel { display:none; }
+  .gallery-panel.active { display:block; }
+
+  /* PHOTO GRID */
+  .photo-grid { display:grid; grid-template-columns:repeat(4,1fr); grid-auto-rows:200px; gap:12px; max-width:1100px; margin:0 auto; }
+  .pslot { border-radius:10px; overflow:hidden; position:relative; cursor:pointer; background:rgba(255,255,255,.04); border:1.5px dashed rgba(255,255,255,.1); display:flex; align-items:center; justify-content:center; transition:border-color .3s,background .3s; }
+  .pslot:hover { border-color:rgba(212,160,23,.45); background:rgba(212,160,23,.04); }
+  .pslot.tall { grid-row:span 2; }
+  .pslot.wide { grid-column:span 2; }
+  .pslot input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; z-index:3; }
+  .pslot img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; border-radius:10px; z-index:1; transition:transform .4s ease; }
+  .pslot:hover img { transform:scale(1.04); }
+  .pslot-overlay { position:absolute; inset:0; background:linear-gradient(180deg,transparent 50%,rgba(0,0,0,.7) 100%); border-radius:10px; z-index:2; opacity:0; transition:opacity .3s; }
+  .pslot:hover .pslot-overlay { opacity:1; }
+  .pslot-ph { display:flex; flex-direction:column; align-items:center; gap:10px; pointer-events:none; }
+  .pslot-ph .ico { width:44px; height:44px; border-radius:50%; background:rgba(255,255,255,.06); display:flex; align-items:center; justify-content:center; font-size:1.2rem; }
+  .pslot-ph .txt { font-size:.62rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.25); text-align:center; }
+  .p-tag { position:absolute; top:10px; left:10px; background:rgba(0,0,0,.65); border:1px solid rgba(255,255,255,.12); border-radius:4px; padding:3px 8px; font-size:.58rem; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,.55); z-index:4; pointer-events:none; }
+  .p-cap { position:absolute; bottom:12px; left:12px; right:12px; font-size:.72rem; letter-spacing:1px; color:var(--white); z-index:3; opacity:0; transition:opacity .3s; pointer-events:none; }
+  .pslot:hover .p-cap { opacity:1; }
+
+  /* VIDEO GRID */
+  .video-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; max-width:1000px; margin:0 auto; }
+  .vslot { border-radius:12px; overflow:hidden; position:relative; background:rgba(255,255,255,.03); border:1.5px dashed rgba(255,255,255,.1); aspect-ratio:16/9; display:flex; flex-direction:column; align-items:center; justify-content:center; cursor:pointer; transition:border-color .3s; }
+  .vslot:hover { border-color:rgba(255,107,61,.4); }
+  .vslot input[type="file"] { position:absolute; inset:0; opacity:0; cursor:pointer; width:100%; height:100%; z-index:3; }
+  .vslot video { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; z-index:1; }
+  .vslot-ph { display:flex; flex-direction:column; align-items:center; gap:10px; pointer-events:none; }
+  .v-play { width:52px; height:52px; border-radius:50%; border:1.5px solid rgba(255,255,255,.22); display:flex; align-items:center; justify-content:center; font-size:1.2rem; color:rgba(255,255,255,.5); }
+  .v-lbl { font-size:.62rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.25); text-align:center; }
+  .v-tag { position:absolute; top:10px; left:10px; background:rgba(0,0,0,.7); border:1px solid rgba(212,160,23,.3); border-radius:4px; padding:3px 8px; font-size:.58rem; letter-spacing:1.5px; text-transform:uppercase; color:var(--gold); z-index:4; pointer-events:none; }
+  .v-meta { position:absolute; bottom:0; left:0; right:0; padding:12px 14px; background:linear-gradient(0deg,rgba(0,0,0,.8) 0%,transparent 100%); z-index:4; pointer-events:none; display:none; }
+  .vslot.loaded .v-meta { display:block; }
+  .v-meta .vt { font-size:.78rem; font-weight:600; letter-spacing:1px; color:var(--white); }
+  .v-meta .vd { font-size:.6rem; color:rgba(255,255,255,.5); margin-top:2px; }
+
+  /* TROPHIES */
+  .trophies-bg { background:linear-gradient(180deg,#050510 0%,#070714 100%); }
+  .trophy-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:18px; max-width:960px; margin:0 auto; }
+  .tc { border-radius:12px; padding:32px 22px; border:1px solid var(--border); position:relative; overflow:hidden; transition:transform .35s cubic-bezier(.22,1,.36,1),border-color .3s; background:var(--card-bg); }
+  .tc:hover { transform:translateY(-5px); border-color:rgba(212,160,23,.3); }
+  .tc-yr { position:absolute; top:12px; right:14px; font-family:'Bebas Neue',sans-serif; font-size:3.5rem; opacity:.07; color:var(--gold); line-height:1; }
+  .tc-ico { font-size:1.8rem; margin-bottom:12px; display:block; }
+  .tc-ttl { font-family:'Bebas Neue',sans-serif; font-size:1.4rem; letter-spacing:2px; color:var(--gold); margin-bottom:4px; }
+  .tc-sub { font-size:.62rem; letter-spacing:2px; text-transform:uppercase; color:rgba(255,255,255,.35); margin-bottom:14px; }
+  .tc-det { font-size:.83rem; color:rgba(255,255,255,.55); line-height:1.65; }
+  .tc-chip { display:inline-block; margin-top:14px; padding:4px 10px; border-radius:20px; font-size:.58rem; letter-spacing:1.5px; text-transform:uppercase; background:rgba(212,160,23,.08); border:1px solid rgba(212,160,23,.2); color:var(--gold); }
+
+  /* SHOULDERS */
+  .sh-bg { background:#040410; }
+  .sh-inner { max-width:960px; margin:0 auto; display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+  .sh-text h2 { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,5vw,4rem); letter-spacing:3px; line-height:1.1; margin-bottom:20px; color:var(--white); }
+  .sh-text h2 em { font-style:normal; color:var(--saffron); }
+  .sh-text p { font-size:.95rem; color:rgba(255,255,255,.5); line-height:1.8; margin-bottom:14px; }
+  .sh-grid { display:grid; grid-template-columns:1fr 1fr; gap:14px; }
+  .sh-item { background:var(--card-bg); border:1px solid var(--border); border-radius:10px; padding:24px 18px; text-align:center; transition:border-color .3s; }
+  .sh-item:hover { border-color:rgba(255,103,0,.3); }
+  .sh-item .big { font-family:'Bebas Neue',sans-serif; font-size:2.8rem; color:var(--saffron); display:block; line-height:1; }
+  .sh-item .sm { font-size:.6rem; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,.35); margin-top:4px; display:block; }
+
+  /* RETIRE */
+  .retire-bg { background:linear-gradient(180deg,#040410 0%,#070720 50%,#040410 100%); text-align:center; }
+  .retire-quote { font-family:'Playfair Display',serif; font-size:clamp(1.2rem,2.5vw,1.9rem); font-style:italic; color:var(--cream); opacity:.8; max-width:680px; margin:0 auto 56px; line-height:1.7; }
+  .retire-cards { display:flex; gap:20px; justify-content:center; flex-wrap:wrap; max-width:760px; margin:0 auto; }
+  .rc { flex:1; min-width:280px; background:var(--card-bg); border:1px solid var(--border); border-radius:12px; padding:32px 24px; text-align:left; transition:border-color .3s; }
+  .rc:hover { border-color:rgba(212,160,23,.25); }
+  .rc .yr { font-family:'Bebas Neue',sans-serif; font-size:3rem; color:var(--gold); line-height:1; display:block; }
+  .rc .fmt { font-size:.62rem; letter-spacing:3px; text-transform:uppercase; color:rgba(255,255,255,.35); display:block; margin-bottom:14px; }
+  .rc .det { font-size:.85rem; color:rgba(255,255,255,.55); line-height:1.65; }
+  .retire-badge { margin-top:48px; display:inline-block; padding:10px 28px; border:1px solid rgba(212,160,23,.3); border-radius:30px; font-size:.68rem; letter-spacing:3px; text-transform:uppercase; color:var(--gold); }
+
+  /* FLAG */
+  .flag-sec { padding:100px 40px; background:#030308; text-align:center; }
+  .flag-strip { display:flex; height:6px; width:240px; margin:0 auto 48px; border-radius:3px; overflow:hidden; }
+  .fs1 { flex:1; background:#FF9933; } .fs2 { flex:1; background:var(--white); } .fs3 { flex:1; background:#138808; }
+  .flag-ttl { font-family:'Bebas Neue',sans-serif; font-size:clamp(2.5rem,7vw,6rem); letter-spacing:8px; line-height:1.05; color:var(--white); }
+  .flag-ttl .ac { color:var(--saffron); display:block; }
+  .flag-sub { font-family:'Playfair Display',serif; font-style:italic; color:rgba(255,255,255,.35); font-size:1.05rem; margin-top:18px; letter-spacing:1px; }
+
+  footer { padding:36px 40px; text-align:center; border-top:1px solid var(--border); font-size:.65rem; letter-spacing:3px; color:rgba(255,255,255,.2); text-transform:uppercase; }
+
+  /* LIGHTBOX */
+  .lightbox { position:fixed; inset:0; background:rgba(0,0,0,.93); z-index:1000; display:none; align-items:center; justify-content:center; backdrop-filter:blur(8px); }
+  .lightbox.open { display:flex; }
+  .lightbox img { max-width:90vw; max-height:88vh; border-radius:10px; object-fit:contain; }
+  .lb-close { position:absolute; top:24px; right:28px; font-size:2rem; color:rgba(255,255,255,.5); cursor:pointer; transition:color .2s; background:none; border:none; line-height:1; }
+  .lb-close:hover { color:var(--white); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp { from{opacity:0;transform:translateY(28px)} to{opacity:1;transform:translateY(0)} }
+  .reveal { opacity:0; transform:translateY(22px); transition:opacity .7s ease,transform .7s ease; }
+  .reveal.visible { opacity:1; transform:none; }
+
+  /* RESPONSIVE */
+  @media(max-width:900px){
+    .player-split,.sh-inner{grid-template-columns:1fr}
+    .together-grid,.trophy-grid{grid-template-columns:repeat(2,1fr)}
+    .photo-grid{grid-template-columns:repeat(2,1fr)}
+    .video-grid{grid-template-columns:repeat(2,1fr)}
+  }
+  @media(max-width:600px){
+    .section{padding:70px 20px}
+    nav{padding:14px 20px}
+    .nav-links{display:none}
+    .together-grid{grid-template-columns:1fr 1fr}
+    .trophy-grid,.video-grid{grid-template-columns:1fr}
+    .photo-grid{grid-template-columns:1fr 1fr; grid-auto-rows:140px}
+    .hero-stats{gap:16px}
+    .pc{padding:40px 24px}
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a class="nav-back" href="#">← Virat Kohli</a>
+  <ul class="nav-links">
+    <li><a href="#together">Stats</a></li>
+    <li><a href="#gallery">Gallery</a></li>
+    <li><a href="#trophies">Trophies</a></li>
+    <li><a href="#legacy">Legacy</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-eyebrow">India Cricket · Brotherhood · 2007 – 2025</div>
+  <h1 class="hero-title">
+    <span class="r">ROHIT</span>
+    <span class="connector">&amp;</span>
+    <span class="v">VIRAT</span>
+  </h1>
+  <p class="hero-sub">Two legends. One nation. An era that will never return.</p>
+  <div class="hero-stats">
+    <div class="hs-item"><span class="n">250+</span><span class="l">Matches Together</span></div>
+    <div class="hs-div"></div>
+    <div class="hs-item"><span class="n">17</span><span class="l">Years Side by Side</span></div>
+    <div class="hs-div"></div>
+    <div class="hs-item"><span class="n">4</span><span class="l">ICC Titles</span></div>
+    <div class="hs-div"></div>
+    <div class="hs-item"><span class="n">∞</span><span class="l">Bond Beyond Cricket</span></div>
+  </div>
+</section>
+
+<!-- PLAYER CARDS -->
+<section class="player-split">
+  <div class="pc rohit reveal">
+    <div class="pc-bg-num">45</div>
+    <div class="pc-role">Captain · Opener · The Hitman</div>
+    <div class="pc-name">ROHIT SHARMA</div>
+    <div class="pc-aka">"The Hitman" · #45 · Mumbai Indians Captain</div>
+    <div class="pc-stats">
+      <div class="ps"><span class="v">264</span><span class="l">Highest ODI</span></div>
+      <div class="ps"><span class="v">33</span><span class="l">ODI 100s</span></div>
+      <div class="ps"><span class="v">3</span><span class="l">Double 100s</span></div>
+      <div class="ps"><span class="v">16K+</span><span class="l">Intl. Runs</span></div>
+      <div class="ps"><span class="v">5x</span><span class="l">IPL Winner</span></div>
+      <div class="ps"><span class="v">560+</span><span class="l">T20I Sixes</span></div>
+    </div>
+  </div>
+  <div class="pc virat reveal">
+    <div class="pc-bg-num">18</div>
+    <div class="pc-role">Batter · Former Captain · The King</div>
+    <div class="pc-name">VIRAT KOHLI</div>
+    <div class="pc-aka">"King Kohli" · #18 · Chase Master</div>
+    <div class="pc-stats">
+      <div class="ps"><span class="v">183</span><span class="l">Highest ODI</span></div>
+      <div class="ps"><span class="v">50</span><span class="l">ODI 100s</span></div>
+      <div class="ps"><span class="v">30</span><span class="l">Test 100s</span></div>
+      <div class="ps"><span class="v">27K+</span><span class="l">Intl. Runs</span></div>
+      <div class="ps"><span class="v">3x</span><span class="l">ICC Awards</span></div>
+      <div class="ps"><span class="v">254</span><span class="l">ODI Matches</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- TOGETHER -->
+<section class="section together-bg" id="together">
+  <span class="s-label reveal">Side by Side</span>
+  <h2 class="s-title reveal">What They Built <em>Together</em></h2>
+  <div class="together-grid">
+    <div class="tg reveal"><span class="tg-num">250+</span><span class="tg-desc">Matches Together</span><span class="tg-note">Across all formats</span></div>
+    <div class="tg reveal"><span class="tg-num">15K+</span><span class="tg-desc">Partnership Runs</span><span class="tg-note">Combined in all formats</span></div>
+    <div class="tg reveal"><span class="tg-num">40+</span><span class="tg-desc">Century Partnerships</span><span class="tg-note">In ODIs alone</span></div>
+    <div class="tg reveal"><span class="tg-num">4</span><span class="tg-desc">ICC Trophies Together</span><span class="tg-note">WC 2011, CT 2013, T20 WC 2024</span></div>
+    <div class="tg reveal"><span class="tg-num">17+</span><span class="tg-desc">Years Playing Together</span><span class="tg-note">2007 debut to 2025 farewell</span></div>
+    <div class="tg reveal"><span class="tg-num">80%</span><span class="tg-desc">Win Rate When Both Score 50+</span><span class="tg-note">India's most lethal combo</span></div>
+  </div>
+
+  <!-- FORMAT COMPARISON -->
+  <div class="stats-bg" style="background:transparent;">
+    <div class="format-tabs reveal">
+      <button class="ftab active" onclick="switchFmt('odi',this)">ODI</button>
+      <button class="ftab" onclick="switchFmt('test',this)">Test</button>
+      <button class="ftab" onclick="switchFmt('t20',this)">T20I</button>
+    </div>
+    <!-- ODI -->
+    <div class="stat-panel active" id="p-odi">
+      <div class="cmp-header"><span class="ch rh">Rohit Sharma</span><span class="ch mh">Stat</span><span class="ch vh">Virat Kohli</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">10,709</span><div class="cmp-mid"><span class="cmp-sn">Runs</span><div class="bar-wrap"><div class="bar-r" style="width:43%"></div><div class="bar-v" style="width:57%"></div></div></div><span class="cmp-val vv">13,906</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">33</span><div class="cmp-mid"><span class="cmp-sn">Centuries</span><div class="bar-wrap"><div class="bar-r" style="width:40%"></div><div class="bar-v" style="width:60%"></div></div></div><span class="cmp-val vv">50</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">48.96</span><div class="cmp-mid"><span class="cmp-sn">Average</span><div class="bar-wrap"><div class="bar-r" style="width:46%"></div><div class="bar-v" style="width:54%"></div></div></div><span class="cmp-val vv">57.32</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">89.61</span><div class="cmp-mid"><span class="cmp-sn">Strike Rate</span><div class="bar-wrap"><div class="bar-r" style="width:49%"></div><div class="bar-v" style="width:51%"></div></div></div><span class="cmp-val vv">93.17</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">264</span><div class="cmp-mid"><span class="cmp-sn">Highest Score</span><div class="bar-wrap"><div class="bar-r" style="width:59%"></div><div class="bar-v" style="width:41%"></div></div></div><span class="cmp-val vv">183</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">59</span><div class="cmp-mid"><span class="cmp-sn">Half-Centuries</span><div class="bar-wrap"><div class="bar-r" style="width:45%"></div><div class="bar-v" style="width:55%"></div></div></div><span class="cmp-val vv">72</span></div>
+    </div>
+    <!-- TEST -->
+    <div class="stat-panel" id="p-test">
+      <div class="cmp-header"><span class="ch rh">Rohit Sharma</span><span class="ch mh">Stat</span><span class="ch vh">Virat Kohli</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">4,301</span><div class="cmp-mid"><span class="cmp-sn">Runs</span><div class="bar-wrap"><div class="bar-r" style="width:32%"></div><div class="bar-v" style="width:68%"></div></div></div><span class="cmp-val vv">9,230</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">12</span><div class="cmp-mid"><span class="cmp-sn">Centuries</span><div class="bar-wrap"><div class="bar-r" style="width:29%"></div><div class="bar-v" style="width:71%"></div></div></div><span class="cmp-val vv">30</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">40.57</span><div class="cmp-mid"><span class="cmp-sn">Average</span><div class="bar-wrap"><div class="bar-r" style="width:45%"></div><div class="bar-v" style="width:55%"></div></div></div><span class="cmp-val vv">49.11</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">212</span><div class="cmp-mid"><span class="cmp-sn">Highest Score</span><div class="bar-wrap"><div class="bar-r" style="width:45%"></div><div class="bar-v" style="width:55%"></div></div></div><span class="cmp-val vv">254*</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">27</span><div class="cmp-mid"><span class="cmp-sn">Half-Centuries</span><div class="bar-wrap"><div class="bar-r" style="width:47%"></div><div class="bar-v" style="width:53%"></div></div></div><span class="cmp-val vv">31</span></div>
+    </div>
+    <!-- T20I -->
+    <div class="stat-panel" id="p-t20">
+      <div class="cmp-header"><span class="ch rh">Rohit Sharma</span><span class="ch mh">Stat</span><span class="ch vh">Virat Kohli</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">4,231</span><div class="cmp-mid"><span class="cmp-sn">Runs</span><div class="bar-wrap"><div class="bar-r" style="width:50%"></div><div class="bar-v" style="width:50%"></div></div></div><span class="cmp-val vv">4,188</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">5</span><div class="cmp-mid"><span class="cmp-sn">Centuries</span><div class="bar-wrap"><div class="bar-r" style="width:83%"></div><div class="bar-v" style="width:17%"></div></div></div><span class="cmp-val vv">1</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">32.05</span><div class="cmp-mid"><span class="cmp-sn">Average</span><div class="bar-wrap"><div class="bar-r" style="width:38%"></div><div class="bar-v" style="width:62%"></div></div></div><span class="cmp-val vv">52.73</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">139.05</span><div class="cmp-mid"><span class="cmp-sn">Strike Rate</span><div class="bar-wrap"><div class="bar-r" style="width:50%"></div><div class="bar-v" style="width:50%"></div></div></div><span class="cmp-val vv">137.96</span></div>
+      <div class="cmp-row reveal"><span class="cmp-val rv">118</span><div class="cmp-mid"><span class="cmp-sn">Matches</span><div class="bar-wrap"><div class="bar-r" style="width:50%"></div><div class="bar-v" style="width:50%"></div></div></div><span class="cmp-val vv">117</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- GALLERY -->
+<section class="section gallery-bg" id="gallery">
+  <span class="s-label reveal">Memories</span>
+  <h2 class="s-title reveal">Photo &amp; Video <em>Gallery</em></h2>
+  <p class="reveal" style="text-align:center;font-size:.76rem;letter-spacing:1.5px;color:rgba(255,255,255,.3);margin-top:-42px;margin-bottom:36px;">Click any slot to upload your own photo or video</p>
+
+  <div class="gallery-tabs reveal">
+    <button class="gtab active" onclick="switchGallery('photos',this)">📸 Photos</button>
+    <button class="gtab" onclick="switchGallery('videos',this)">🎬 Videos</button>
+  </div>
+
+  <!-- PHOTOS -->
+  <div class="gallery-panel active" id="g-photos">
+    <div class="photo-grid">
+      <div class="pslot tall reveal"><span class="p-tag">2024 T20 WC</span><input type="file" accept="image/*" onchange="loadImg(this)"><div class="pslot-ph"><div class="ico">📸</div><div class="txt">Victory Moment<br>Upload Photo</div></div><div class="pslot-overlay"></div><div class="p-cap">🏆 T20 World Cup 2024 Victory</div></div>
+      <div class="pslot reveal"><span class="p-tag">2011 WC</span><input type="file" accept="image/*" onchange="loadImg(this)"><div class="pslot-ph"><div class="ico">🏏</div><div class="txt">World Cup 2011<br>Upload Photo</div></div><div class="pslot-overlay"></div><div class="p-cap">🏆 Iconic 2011 World Cup</div></div>
+      <div class="pslot reveal"><span class="p-tag">At the Crease</span><input type="file" accept="image/*" onchange="loadImg(this)"><div class="pslot-ph"><div class="ico">🤝</div><div class="txt">Partnership<br>Upload Photo</div></div><div class="pslot-overlay"></div><div class="p-cap">💪 Side by side at the crease</div></div>
+      <div class="pslot reveal"><span class="p-tag">Off Field</span><input type="file" accept="image/*" onchange="loadImg(this)"><div class="pslot-ph"><div class="ico">😄</div><div class="txt">Brothers Off Field<br>Upload Photo</div></div><div class="pslot-overlay"></div><div class="p-cap">😄 The friendship beyond cricket</div></div>
+      <div class="pslot wide reveal"><span class="p-tag">Trophy Lift</span><input type="file" accept="image/*" onchange="loadImg(this)"><div class="pslot-ph"><div class="ico">🏆</div><div class="txt">Trophy Celebration<br>Upload Wide Photo</div></div><div class="pslot-overlay"></div><div class="p-cap">🎉 Champions — lifting the cup</div></div>
+      <div class="pslot reveal"><span class="p-tag">Classic Shot</span><input type="file" accept="image/*" onchange="loadImg(this)"><div class="pslot-ph"><div class="ico">📸</div><div class="txt">Batting Photo<br>Upload Photo</div></div><div class="pslot-overlay"></div><div class="p-cap">🏏 The pull shot / cover drive</div></div>
+      <div class="pslot reveal"><span class="p-tag">2013 CT</span><input type="file" accept="image/*" onchange="loadImg(this)"><div class="pslot-ph"><div class="ico">🏆</div><div class="txt">Champions Trophy<br>Upload Photo</div></div><div class="pslot-overlay"></div><div class="p-cap">🏆 Champions Trophy 2013</div></div>
+      <div class="pslot tall reveal"><span class="p-tag">Portrait</span><input type="file" accept="image/*" onchange="loadImg(this)"><div class="pslot-ph"><div class="ico">🌟</div><div class="txt">Legends Portrait<br>Upload Photo</div></div><div class="pslot-overlay"></div><div class="p-cap">📸 The two legends — portrait</div></div>
+    </div>
+  </div>
+
+  <!-- VIDEOS -->
+  <div class="gallery-panel" id="g-videos">
+    <div class="video-grid">
+      <div class="vslot reveal"><span class="v-tag">Best Partnership</span><input type="file" accept="video/*" onchange="loadVid(this)"><div class="vslot-ph"><div class="v-play">▶</div><div class="v-lbl">Best Partnership<br>Upload Video</div></div><div class="v-meta"><div class="vt">Partnership Highlights</div><div class="vd">Uploaded</div></div></div>
+      <div class="vslot reveal"><span class="v-tag">WC 2024 Final</span><input type="file" accept="video/*" onchange="loadVid(this)"><div class="vslot-ph"><div class="v-play">▶</div><div class="v-lbl">T20 WC Final 2024<br>Upload Video</div></div><div class="v-meta"><div class="vt">T20 World Cup Final</div><div class="vd">Uploaded</div></div></div>
+      <div class="vslot reveal"><span class="v-tag">Retirement</span><input type="file" accept="video/*" onchange="loadVid(this)"><div class="vslot-ph"><div class="v-play">▶</div><div class="v-lbl">T20I Farewell<br>Upload Video</div></div><div class="v-meta"><div class="vt">Farewell to T20Is</div><div class="vd">Uploaded</div></div></div>
+      <div class="vslot reveal"><span class="v-tag">Greatest Innings</span><input type="file" accept="video/*" onchange="loadVid(this)"><div class="vslot-ph"><div class="v-play">▶</div><div class="v-lbl">Greatest Innings<br>Upload Video</div></div><div class="v-meta"><div class="vt">Best Innings Together</div><div class="vd">Uploaded</div></div></div>
+      <div class="vslot reveal"><span class="v-tag">Off the Field</span><input type="file" accept="video/*" onchange="loadVid(this)"><div class="vslot-ph"><div class="v-play">▶</div><div class="v-lbl">Brothers Off-Field<br>Upload Video</div></div><div class="v-meta"><div class="vt">The Bond Off the Pitch</div><div class="vd">Uploaded</div></div></div>
+      <div class="vslot reveal"><span class="v-tag">Celebration</span><input type="file" accept="video/*" onchange="loadVid(this)"><div class="vslot-ph"><div class="v-play">▶</div><div class="v-lbl">Century Celebrations<br>Upload Video</div></div><div class="v-meta"><div class="vt">Celebrating Together</div><div class="vd">Uploaded</div></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- TROPHIES -->
+<section class="section trophies-bg" id="trophies">
+  <span class="s-label reveal">The Cabinet</span>
+  <h2 class="s-title reveal">Trophies They Lifted <em>Together</em></h2>
+  <div class="trophy-grid">
+    <div class="tc reveal"><span class="tc-yr">2024</span><span class="tc-ico">🏆</span><div class="tc-ttl">T20 World Cup</div><div class="tc-sub">West Indies &amp; USA · June 2024</div><div class="tc-det">India's first ICC title in 11 years. Rohit led as captain, Virat delivered a masterclass in the final. Their crowning moment — and both retired from T20Is the same night.</div><span class="tc-chip">Rohit's Final T20I as Captain</span></div>
+    <div class="tc reveal"><span class="tc-yr">2013</span><span class="tc-ico">🏆</span><div class="tc-ttl">Champions Trophy</div><div class="tc-sub">England · June 2013</div><div class="tc-det">India won the Champions Trophy under MS Dhoni, with both Rohit and Virat as the engine of the batting lineup throughout the dominant English campaign.</div><span class="tc-chip">Both Key Contributors</span></div>
+    <div class="tc reveal"><span class="tc-yr">2011</span><span class="tc-ico">🏆</span><div class="tc-ttl">ODI World Cup</div><div class="tc-sub">India · April 2011</div><div class="tc-det">The iconic home World Cup win. A young Rohit and a passionate young Virat were both part of the squad that fulfilled a billion dreams at Wankhede. The beginning of their legend.</div><span class="tc-chip">Beginning of an Era</span></div>
+    <div class="tc reveal"><span class="tc-yr">2023</span><span class="tc-ico">🥈</span><div class="tc-ttl">ODI WC Runners-Up</div><div class="tc-sub">India · November 2023</div><div class="tc-det">The heartbreak that fuelled 2024. Rohit's tournament hundreds, Virat breaking Sachin's ODI record — they gave everything. The pain of losing the final made 2024's triumph sweeter.</div><span class="tc-chip">The Pain That Built 2024</span></div>
+    <div class="tc reveal"><span class="tc-yr">2016</span><span class="tc-ico">🏆</span><div class="tc-ttl">Asia Cup &amp; More</div><div class="tc-sub">Multiple Editions</div><div class="tc-det">One of several Asia Cup victories in which both Rohit and Virat were central to India's batting dominance. Their names are on every major India trophy of this era.</div><span class="tc-chip">Regional Dominance</span></div>
+    <div class="tc reveal"><span class="tc-yr">2007-25</span><span class="tc-ico">🇮🇳</span><div class="tc-ttl">Bilateral Series Wins</div><div class="tc-sub">Across the Globe</div><div class="tc-det">Dozens of series wins against England, Australia, South Africa, New Zealand and more — from home soil to overseas. Their names define an era of Indian cricket supremacy.</div><span class="tc-chip">The Full Era</span></div>
+  </div>
+</section>
+
+<!-- SHOULDERS -->
+<section class="section sh-bg" id="legacy">
+  <div class="sh-inner">
+    <div class="sh-text reveal">
+      <h2>They Carried <em>India</em><br>On Their Shoulders</h2>
+      <p>For nearly two decades, when India needed runs the world looked at these two. No excuses. No off days. Just show up and deliver for 1.4 billion people.</p>
+      <p>From Edgbaston to Adelaide, from Eden Gardens to Wankhede — whenever the pressure was at maximum, Rohit and Virat were at the crease. Together, they were India's answer to every crisis.</p>
+      <p>They didn't just play cricket — they carried the hopes, prayers, and dreams of a nation for nearly two decades. And they did it with grace, fire, and unflinching love for the blue jersey.</p>
+    </div>
+    <div class="sh-grid reveal">
+      <div class="sh-item"><span class="big">80%</span><span class="sm">Win rate when both score 50+</span></div>
+      <div class="sh-item"><span class="big">40+</span><span class="sm">Century partnerships together</span></div>
+      <div class="sh-item"><span class="big">#1</span><span class="sm">India's greatest batting duo</span></div>
+      <div class="sh-item"><span class="big">1B+</span><span class="sm">Fans who watched them together</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- RETIRE -->
+<section class="section retire-bg">
+  <span class="s-label reveal">End of an Era</span>
+  <h2 class="s-title reveal">They Walked Away <em>Together</em></h2>
+  <div class="retire-quote reveal">Not every story has a final chapter — some become the whole book. These two wrote India's greatest cricket era together, and chose to close it the same way they lived it: side by side.</div>
+  <div class="retire-cards">
+    <div class="rc reveal"><span class="yr">2024</span><span class="fmt">T20 International Retirement</span><div class="det">After lifting the T20 World Cup in the West Indies, both Rohit Sharma and Virat Kohli announced their retirement from T20Is on the same night — June 29, 2024. Together they bowed out of the format that made them global icons.</div></div>
+    <div class="rc reveal"><span class="yr">2025</span><span class="fmt">Test Cricket Farewell</span><div class="det">Virat Kohli announced his Test retirement in May 2025. Rohit Sharma stepped back from Tests around the same period. The two pillars of Indian red-ball cricket closed a chapter forever — within weeks of each other.</div></div>
+  </div>
+  <div class="retire-badge reveal">Their jerseys. Their era. Our memories. Forever.</div>
+</section>
+
+<!-- FLAG -->
+<section class="flag-sec">
+  <div class="flag-strip reveal"><div class="fs1"></div><div class="fs2"></div><div class="fs3"></div></div>
+  <div class="flag-ttl reveal">NOT JUST PLAYERS<span class="ac">THEY WERE INDIA</span></div>
+  <div class="flag-sub reveal">2007 — 2025 · An era that will live forever in blue</div>
+</section>
+
+<footer>Rohit Sharma &amp; Virat Kohli · India Cricket · A Brotherhood Beyond the Boundary</footer>
+
+<!-- LIGHTBOX -->
+<div class="lightbox" id="lb" onclick="closeLb()">
+  <button class="lb-close">✕</button>
+  <img id="lb-img" src="" alt="">
+</div>
+
+<script>
+  // Scroll Reveal
+  const obs = new IntersectionObserver((es) => {
+    es.forEach((e,i) => { if(e.isIntersecting){ setTimeout(()=>e.target.classList.add('visible'),i*55); obs.unobserve(e.target); } });
+  },{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>obs.observe(el));
+
+  // Format tabs
+  function switchFmt(f,btn){
+    document.querySelectorAll('.ftab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.stat-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('p-'+f).classList.add('active');
+  }
+
+  // Gallery tabs
+  function switchGallery(t,btn){
+    document.querySelectorAll('.gtab').forEach(b=>b.classList.remove('active'));
+    document.querySelectorAll('.gallery-panel').forEach(p=>p.classList.remove('active'));
+    btn.classList.add('active');
+    document.getElementById('g-'+t).classList.add('active');
+  }
+
+  // Photo upload
+  function loadImg(input){
+    const slot = input.parentElement;
+    const file = input.files[0]; if(!file) return;
+    const url = URL.createObjectURL(file);
+    let img = slot.querySelector('img');
+    if(!img){ img=document.createElement('img'); slot.appendChild(img); }
+    img.src = url;
+    slot.querySelector('.pslot-ph').style.display='none';
+    slot.style.borderStyle='solid'; slot.style.borderColor='rgba(212,160,23,.4)';
+    img.onclick = (e) => { e.stopPropagation(); openLb(url); };
+  }
+
+  // Video upload
+  function loadVid(input){
+    const slot = input.parentElement;
+    const file = input.files[0]; if(!file) return;
+    const url = URL.createObjectURL(file);
+    let vid = slot.querySelector('video');
+    if(!vid){
+      vid=document.createElement('video');
+      vid.controls=true; vid.style.cssText='position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:2;';
+      slot.appendChild(vid);
+    }
+    vid.src=url;
+    slot.querySelector('.vslot-ph').style.display='none';
+    slot.classList.add('loaded');
+    slot.style.borderStyle='solid'; slot.style.borderColor='rgba(255,107,61,.4)';
+    const meta=slot.querySelector('.v-meta');
+    if(meta){ meta.querySelector('.vt').textContent=file.name.replace(/\.[^.]+$/,''); meta.querySelector('.vd').textContent=(file.size/1024/1024).toFixed(1)+' MB'; }
+  }
+
+  // Lightbox
+  function openLb(src){ document.getElementById('lb-img').src=src; document.getElementById('lb').classList.add('open'); document.body.style.overflow='hidden'; }
+  function closeLb(){ document.getElementById('lb').classList.remove('open'); document.body.style.overflow=''; }
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeLb(); });
+</script>
+</body>
+</html>
